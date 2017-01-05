@@ -1,2 +1,3 @@
 1.4：配置已经开启了默认模块名，默认模块为Home，进入Home模块里的控制器时，不需要在URL里输入home（例如：http://localhost/test/GZ23_PJ_BBS/Login/index.html  可以访问Home模块的Login控制器的index方法）；
 ThinkPHP文件请放在根目录的上一级；
+1.5:需要经常用于搜索的字段需要加上idex索引；
