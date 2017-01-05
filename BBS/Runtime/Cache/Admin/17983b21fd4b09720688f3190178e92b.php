@@ -3,11 +3,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Bootstrap后台模板</title>
 
-<link rel="stylesheet" href="/BBS/GZ23_PJ_BBS/Public/css/index.css" type="text/css" media="screen">
+<link rel="stylesheet" href="/GZ23_PJ_BBS/Public/css/index.css" type="text/css" media="screen">
 
-<script type="text/javascript" src="/BBS/GZ23_PJ_BBS/Public/js/jquery.js"></script>
-<script type="text/javascript" src="/BBS/GZ23_PJ_BBS/Public/js/tendina.js"></script>
-<script type="text/javascript" src="/BBS/GZ23_PJ_BBS/Public/js/common.js"></script>
+<script type="text/javascript" src="/GZ23_PJ_BBS/Public/js/jquery.js"></script>
+<script type="text/javascript" src="/GZ23_PJ_BBS/Public/js/tendina.js"></script>
+<script type="text/javascript" src="/GZ23_PJ_BBS/Public/js/common.js"></script>
 
 </head>
 <body>
