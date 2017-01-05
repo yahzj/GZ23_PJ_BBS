@@ -3,17 +3,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Bootstrap后台模板</title>
 
-<link rel="stylesheet" href="/BBS/GZ23_PJ_BBS/Public/css/index.css" type="text/css" media="screen">
+<link rel="stylesheet" href="/GZ23_PJ_BBS/Public/css/index.css" type="text/css" media="screen">
 
-<script type="text/javascript" src="/BBS/GZ23_PJ_BBS/Public/js/jquery.js"></script>
-<script type="text/javascript" src="/BBS/GZ23_PJ_BBS/Public/js/tendina.js"></script>
-<script type="text/javascript" src="/BBS/GZ23_PJ_BBS/Public/js/common.js"></script>
+<script type="text/javascript" src="/GZ23_PJ_BBS/Public/js/jquery.js"></script>
+<script type="text/javascript" src="/GZ23_PJ_BBS/Public/js/tendina.js"></script>
+<script type="text/javascript" src="/GZ23_PJ_BBS/Public/js/common.js"></script>
 
 </head>
 <body>
     <!--顶部-->
     <div class="layout_top_header">
-            <div style="float: left"><span style="font-size: 16px;line-height: 45px;padding-left: 20px;color: #8d8d8d">G23管理后台</span></div>
+            <div style="float: left"><span style="font-size: 16px;line-height: 45px;padding-left: 20px;color: #8d8d8d">PJ48管理后台</span></div>
             <div id="ad_setting" class="ad_setting">
                 <a class="ad_setting_a" href="javascript:;">
                     <i class="icon-user glyph-icon" style="font-size: 20px"></i>
@@ -57,7 +57,7 @@
                 </ul>
             </li>
             <li class="childUlLi">
-                <a href="#"> <i class="glyph-icon  icon-location-arrow"></i>菜单管理</a>
+                <a href="#"> <i class="glyph-icon  icon-location-arrow"></i>用户管理</a>
                 <ul style="display: none;">
                     <li><a href="#" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>平台菜单</a></li>
                     <li><a href="#" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>运行商菜单</a></li>
@@ -71,7 +71,7 @@
     <div id="layout_right_content" class="layout_right_content">
         <div class="route_bg">
             <a href="#">主页</a><i class="glyph-icon icon-chevron-right"></i>
-            <a href="#">菜单管理</a>
+            <a href="#">用户管理</a>
         </div>
         <div class="mian_content">
             <div id="page_content">
