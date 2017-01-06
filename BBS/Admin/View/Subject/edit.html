@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台模板</title>
+
+<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/css/add.css" type="text/css" media="screen">
+<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css" type="text/css" media="screen">
+
+</head>
+<body>
+<h1>{$title}</h1>
+<div class="div_from_aoto" style="width: 500px;">
+    <!-- <form action="{:U('Home/User/doedit')}"  method="post"> -->
+    <form action="{:U('subject/edit')}"  method="post">
+        <input type="hidden" name="id" value="{$info['id']}"/>
+
+        <div class="control-group">
+            <label class="laber_from">主题名称</label>
+            <div class="controls"><input disabled name="name" class="input_from" value="{$info['name']}" placeholder=" 请输入用户名" type="text"><p class="help-block"></p></div>
+        </div>
+
+        <div class="control-group">
+            <label class="laber_from">发帖用户</label>
+            <div class="controls"><input disabled name="uid" class="input_from" value="{$info['uid']}" placeholder=" 请输入密码" type="text"><p class="help-block"></p></div>
+        </div>
+        <div class="control-group">
+            <label class="laber_from">所属板块</label>
+            <div class="controls"><select name="section_id">
+                <foreach name='list' item="val">
+                    <if condition="$info['section_id'] eq $val['id']"><option value="{$val['id']}" selected>{$val['name']}</option>
+                    <else /><option value="{$val['id']}">{$val['name']}</option>
+                    </if>
+                </foreach>
+            </select>
+            <p class="help-block"></p></div>
+        </div>
+
+<!--         <div class="control-group">
+            <label class="laber_from">性别</label>
+            <div class="controls">
+                <select name="sex" class="input_select">
+                    <option value="1" {$info['sex'] == 1 ? 'selected' : ''}>男</option>
+                    <option value="0" {$info['sex'] == 0 ? 'selected' : ''}>女</option>
+                    <option value="2" {$info['sex'] == 2 ? 'selected' : ''}>妖</option>
+                </select>
+            </div>
+        </div> -->
+
+        <div class="control-group">
+            <label class="laber_from">主体内容</label>
+            <div class="controls">
+                <textarea name="content" cols="30" rows="10">{$info['content']}</textarea>
+            </div>
+        </div>
+
+
+        
+        <div class="control-group">
+            <label class="laber_from"></label>
+            <div class="controls">
+                <button class="btn btn-success" style="width:120px;">确认</button>
+                <input type="reset" value="清空" class="btn btn-info" />
+            </div>
+        </div>
+    </form>
+</div>
+
+</body></html>

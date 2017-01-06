@@ -1,13 +1,48 @@
- <!doctype html>
- <html lang="en">
- <head>
- 	<meta charset="UTF-8">
- 	<title>Document</title>
- </head>
- <body>
- 	<foreach name="list" item='val'>
- 		{$val['id']} <br>
- 	</foreach>	
- 	<div>{$show}</div>
- </body>
- </html>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<load href="__PUBLIC__/css/bootstrap.min.css"/>
+	<load href="__PUBLIC__/js/jquery.js"/>
+	<load href="__PUBLIC__/js/bootstrap.min.js"/>
+</head>
+<body>
+	<h1>{$title}</h1>
+
+	<table class="table table-hover">
+		<tr>
+			<th>id</th>
+			<th>name</th>
+			<th>uid</th>
+			<th>section_id</th>
+			<th>content</th>
+			<th>操作</th>
+		</tr>
+
+		<foreach name="list" key="key" item="val">
+			<tr>
+				<td>{$val['id']}</td>
+				<td>{$val['name']}</td>
+				<td>{$val['uid']}</td>
+				<td>{$val['section_id']}</td>
+				<td>{$val['content']}</td>
+				<td>
+					<a class="btn btn-danger" href="{:U('Subject/delete' , ['id' => $val['id'] ] )}">删除</a>
+					<a class="btn btn-info" href="{:U('Subject/edit' , ['id' => $val['id'] ] )}">修改</a>
+				</td>
+			</tr>
+		</foreach>
+	</table>
+	<div id="btnBox">{$show}</div>
+
+</body>
+<script>
+
+	// 将数字按钮进行包裹
+	$('#btnBox').children().children().unwrap().wrap('<li></li>').parent().wrapAll('<ul class="pagination"></ul>');
+	// 给当前页码高亮显示
+	$('#btnBox span').parent().addClass('active');
+	
+</script>
+</html>

@@ -8,10 +8,10 @@ class SubjectModel extends Model{
 	protected $_validate = [
 		// [验证字段1,验证规则,错误提示,[验证条件,附加规则,验证时间]]
 
-		['email','email','你的邮箱格式不正确！！！'],
-		['address','require','邮箱地址必填！！'],
-		['pwd','3,6','你太短了，老娘不要！！' , 1, 'length' , 3],
-		['repwd', 'pwd' , '你跟老子不是一块的！' , 1  , 'confirm',3],
+		// ['email','email','你的邮箱格式不正确！！！'],
+		// ['address','require','邮箱地址必填！！'],
+		// ['pwd','3,6','你太短了，老娘不要！！' , 1, 'length' , 3],
+		// ['repwd', 'pwd' , '你跟老子不是一块的！' , 1  , 'confirm',3],
 	];
 
 	// 自动完成
@@ -27,7 +27,7 @@ class SubjectModel extends Model{
 		// 计算总行数
 		$totalRow = $this->count();
 		// 定义每页显示行数
-		$rows = 1;
+		$rows = 10;
 		// 实例化分页类
 		$page = new \Think\Page( $totalRow,$rows );
 		// 执行查询
@@ -53,12 +53,10 @@ class SubjectModel extends Model{
 		// 自动验证并判断
 		if($this->create($post)){    
 				// 写入数据到数据库并判断
-				if($this->add()){        
-					return $this->success('新增成功',U('subject/index'),5);   
-				}else{
-	    		// 如果验证失败，则显示错误提示
-		    	return $this->getError();
-		    	}
+			$res=$this->add();
+			return $res;
+    	}else{
+    		return false;
     	}
 	}
 
@@ -66,7 +64,9 @@ class SubjectModel extends Model{
 	// 删除数据
 	public function pro_delete(){
 		$get=I('get.id');
-		$this->delete($get);
+		// 删除数据并判断
+		$res=$this->delete($get);
+		return $res;
 	}
 
 
@@ -76,21 +76,14 @@ class SubjectModel extends Model{
 		
 		// 在model层接收用户提交的数据
 		$post = I('post.');
-    	dump($post);
-    	// 正则验证？
-
     	// 创建数据创建对象，会触发自动验证
     	if($this->create($post)){
     		// 进行写入，并判断
-    		dump($this->save());
-			return $this->success('修改成功',U('subject/index'),5);   
-    	}else{
-    		// 如果验证失败，则显示错误提示
-	    	return $this->getError();
-    	}
-
-
-
+    		$res=$this->save();
+			return $res;
+		}else{
+			return false;
+		}
 	}
 }
 
