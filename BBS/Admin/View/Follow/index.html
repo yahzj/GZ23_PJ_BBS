@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<table border=1>
+		<tr>
+			<th>id</th>
+			<th>跟帖人uid</th>
+			<th>发帖人authorid</th>
+			<th>发帖板块</th>
+			<th>跟帖内容</th>
+			<th>楼层</th>
+			<th>最后修改时间</th>
+			<th>状态</th>
+			<th>操作</th>
+		</tr>
+		<foreach name="list" key="key" item="val">
+			<tr>
+				<td>{$val['id']}</td>
+				<td>{$val['uid']}</td>
+				<td>{$val['authorid']}</td>
+				<td>{$val['cardid']}</td>
+				<td>{$val['content']}</td>
+				<td>{$val['floor']}</td>
+				<td>{$val['edittime']}</td>
+				<td>{$val['status']}</td>
+				<td></td>
+			</tr>
+		</foreach>
+	</table>
+		<h1>{$show}</h1>
+	</table>
+</body>
+</html>
