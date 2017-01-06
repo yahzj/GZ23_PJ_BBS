@@ -1,27 +1,56 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台模板</title>
+
+<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/css/add.css" type="text/css" media="screen">
+<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css" type="text/css" media="screen">
+
 </head>
 <body>
-             <h1>{$title}</h1>
-             <table border="1">
-                      
-                     <form action="{:U('Admin/Sections/doedit')}" method="post">
-                           <input type="hidden" name="id" value="{$info['id']}"/>
-                          父级板块id: <input type="text" name="parent_id" value="{$info['parent_id']}"><br>
-                           
-                         板块名称: <input type="text" name="name" value="{$info['name']}"><br>
-                
-                         板块状态: <input type="text" name="status" value="{$info['status']}"><br>
+<h1>{$title} ID: {$info['id']}</h1>
+<div class="div_from_aoto" style="width: 500px;">
+    <!-- <form action="{:U('Home/User/doedit')}"  method="post"> -->
+    <form action="{:U('Sections/doedit')}"  method="post">
+        <input type="hidden" name="id" value="{$info['id']}"/>
 
-                         板块管理员: <input type="text" name="administrators" value="{$info['administrators']}"><br>
-  
-                         板块路径: <input type="text" name="path" value="{$info['path']}"><br>
+        <div class="control-group">
+            <label class="laber_from">父级板块id</label>
+            <div class="controls"><input  class="input_from" name="parent_id" value="{$info['parent_id']}" placeholder=" 请输入用户名" type="text"><p class="help-block"></p></div>
+        </div>
 
-                           <input type="submit" value="提交">
-                           <input type="reset" value="重置">
-                     </form>
-              </table>
-</body>
-</html>
+        
+        <div class="control-group">
+            <label class="laber_from">板块名称</label>
+            <div class="controls"><input  class="input_from" name="name" value="{$info['name']}" placeholder=" 请输入用户名" type="text"><p class="help-block"></p></div>
+        </div>
+
+          <div class="control-group">
+            <label class="laber_from">板块状态</label>
+            <div class="controls"><input  class="input_from" name="status" value="{$info['status']}" placeholder=" 请输入用户名" type="text"><p class="help-block"></p></div>
+           </div>
+
+
+          <div class="control-group">
+            <label class="laber_from">板块管理员</label>
+            <div class="controls"><input  class="input_from" name="administrators" value="{$info['administrators']}" placeholder=" 请输入用户名" type="text"><p class="help-block"></p></div>
+           </div>
+
+           <div class="control-group">
+            <label class="laber_from">板块路径</label>
+            <div class="controls"><input  class="input_from" name="path" value="{$info['path']}" placeholder=" 请输入用户名" type="text"><p class="help-block"></p></div>
+           </div>
+        
+        <div class="control-group">
+            <label class="laber_from"></label>
+            <div class="controls">
+                <button class="btn btn-success" style="width:120px;">确认</button>
+                <input type="reset" value="清空" class="btn btn-info" />
+            </div>
+        </div>
+    </form>
+</div>
+
+</body></html>

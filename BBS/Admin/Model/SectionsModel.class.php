@@ -55,7 +55,7 @@ class SectionsModel extends Model{
 		dump($res);
 	    	if($res){
 	    		$res = $this->save();
-	    		dump($res);
+	    		// dump($res);
 	    		return '修改成功！';
 	    	}else{
 	    		// 如果验证失败，则显示错误提示
