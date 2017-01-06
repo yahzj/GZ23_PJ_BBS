@@ -6,17 +6,21 @@
 <body>
              <h1>{$title}</h1>
              <table border="1">
-                      <tr>
-                            <th>id</th>
-                            <th>父级板块id</th>
-                             <th>板块名称</th>
-                             <th>板块状态</th>
-                             <th>板块管理员</th>
-                             <th>板块路径</th>
-                             <th>操作</th>
-                      </tr>
-                     <form action="" method="post">
+                      
+                     <form action="{:U('Admin/Sections/doedit')}" method="post">
                            <input type="hidden" name="id" value="{$info['id']}"/>
+                          父级板块id: <input type="text" name="parent_id" value="{$info['parent_id']}"><br>
+                           
+                         板块名称: <input type="text" name="name" value="{$info['name']}"><br>
+                
+                         板块状态: <input type="text" name="status" value="{$info['status']}"><br>
+
+                         板块管理员: <input type="text" name="administrators" value="{$info['administrators']}"><br>
+  
+                         板块路径: <input type="text" name="path" value="{$info['path']}"><br>
+
+                           <input type="submit" value="提交">
+                           <input type="reset" value="重置">
                      </form>
               </table>
 </body>
