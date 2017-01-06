@@ -26,7 +26,7 @@ define( 'THINK_PATH' , str_replace( '\\','/' , realpath( '../ThinkPHP' ) . '/' )
 define('APP_PATH','./BBS/');
 
 // 定义缓存目录
-define('RUNTIME_PATH','../../Runtime/');
+define('RUNTIME_PATH','../Runtime/');
 
 // 引入ThinkPHP入口文件
 require '../ThinkPHP/ThinkPHP.php';
