@@ -37,21 +37,34 @@ class SectionsController extends EmptyController{
     	}
 
          }
-
+                 // 加载编辑模板
 	       public function edit(){
 	    	// 接收用户ID
 	    	$id = I('get.id') + 0;
+	    	//dump($id);
 	    	// 实例化
-	    	$user = D('sections');
+	    	$sections = D('sections');
 	    	// find : 只找一条信息
 	    	// 查询用户信息
-	    	$info = $user->find($id);
-	    	// dump($info);
+	    	$info = $sections->find($id);
+	    	 //dump($info);
 	    	$data['info'] = $info;
 	    	$data['title'] = '板块表单修改';
 
 	    	$this->assign($data);
 	    	$this->display();
 	    }
+   
+ public function doedit(){
+           // 1.使用自动验证，必须走Model层
+    	$sections = D('sections');
+    	// 2.调用model层的数据处理方法
+    	$msg = $sections->pro_edit();
+    	// 3.跳转
+    	$this->success($msg,"",50);
+     
+    }
+
+     
 
 }
