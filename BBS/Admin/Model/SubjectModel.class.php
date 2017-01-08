@@ -7,7 +7,6 @@ class SubjectModel extends Model{
 	// $_validate 属性定义验证规则。
 	protected $_validate = [
 		// [验证字段1,验证规则,错误提示,[验证条件,附加规则,验证时间]]
-
 		// ['email','email','你的邮箱格式不正确！！！'],
 		// ['address','require','邮箱地址必填！！'],
 		// ['pwd','3,6','你太短了，老娘不要！！' , 1, 'length' , 3],
