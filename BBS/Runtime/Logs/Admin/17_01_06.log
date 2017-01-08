@@ -1,0 +1,97 @@
+[ 2017-01-06T10:07:07+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: syntax error, unexpected ')'
+
+[ 2017-01-06T10:37:52+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: syntax error, unexpected '，' (T_STRING), expecting ']'
+
+[ 2017-01-06T10:53:05+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: Call to a member function getError() on null
+
+[ 2017-01-06T10:53:24+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: Call to a member function getError() on null
+
+[ 2017-01-06T10:57:13+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: Call to a member function getError() on null
+
+[ 2017-01-06T11:45:15+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: syntax error, unexpected ':', expecting ';'
+
+[ 2017-01-06T11:45:33+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: syntax error, unexpected ':', expecting ';'
+
+[ 2017-01-06T11:45:38+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: syntax error, unexpected ':', expecting ';'
+
+[ 2017-01-06T11:49:30+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: syntax error, unexpected '，' (T_STRING), expecting ']'
+
+[ 2017-01-06T11:49:44+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: 1062:Duplicate entry 'edfasd' for key 'usercode'
+ [ SQL语句 ] : INSERT INTO `mybbs_users` (`username`,`userpass`,`nickname`,`email`,`sign`,`sex`,`address`) VALUES ('edfasd','','aasdasd','as','asdasd','0','asdasda')
+
+[ 2017-01-06T11:51:12+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: syntax error, unexpected '，' (T_STRING), expecting ']'
+
+[ 2017-01-06T19:02:37+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: syntax error, unexpected ';', expecting ']'
+
+[ 2017-01-06T20:03:52+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: Think\Model:error方法不存在！
+
+[ 2017-01-06T20:12:09+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: Think\Model:error方法不存在！
+
+[ 2017-01-06T20:12:37+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: syntax error, unexpected '}', expecting ';'
+
+[ 2017-01-06T20:13:22+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: 1062:Duplicate entry 'dsefsdf' for key 'usercode'
+ [ SQL语句 ] : INSERT INTO `mybbs_users` (`username`,`userpass`,`nickname`,`email`,`sign`,`sex`,`address`) VALUES ('dsefsdf','$2y$10$FF9r00LdC.xDJKpoOTElAe23RIiDi0qRqX6U8qrbcrtV5X8NhPLm.','sdfsdf','675940471@qq.comxsd','我的换版面写','0','我的卡计划是空间啊是')
+
+[ 2017-01-06T20:14:16+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: 1062:Duplicate entry 'dsefsdf' for key 'usercode'
+ [ SQL语句 ] : INSERT INTO `mybbs_users` (`username`,`userpass`,`nickname`,`email`,`sign`,`sex`,`address`) VALUES ('dsefsdf','$2y$10$iWm8oHKzlIidlyh0zmTnXezvwGLNyW.ofYViIJQavFNT1yfZkzhJe','sdfsdf','675940471@qq.comxsd','我的换版面写','0','我的卡计划是空间啊是')
+
+[ 2017-01-06T20:14:42+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: 1062:Duplicate entry 'dsefsdf' for key 'usercode'
+ [ SQL语句 ] : INSERT INTO `mybbs_users` (`username`,`userpass`,`nickname`,`email`,`sign`,`sex`,`address`) VALUES ('dsefsdf','$2y$10$/nVZtvz2sNKqhcJkmf1Dsexe5MzdctiUpePt7kTm8vo9j9g4oPNc2','sdfsdf','675940471@qq.comxsd','我的换版面写','0','我的卡计划是空间啊是')
+
+[ 2017-01-06T20:20:23+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: 1062:Duplicate entry 'dsefsdf' for key 'usercode'
+ [ SQL语句 ] : INSERT INTO `mybbs_users` (`username`,`userpass`,`nickname`,`email`,`sign`,`sex`,`address`) VALUES ('dsefsdf','$2y$10$agrvG7HjGmy37MNLFAr1WOe3awchg0Q7/XHnbKDBhFv6uonDutTnG','sdfsdf','675940471@qq.comxsd','我的换版面写','0','我的卡计划是空间啊是')
+
+[ 2017-01-06T20:22:25+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: 1062:Duplicate entry '23453643' for key 'usercode'
+ [ SQL语句 ] : INSERT INTO `mybbs_users` (`username`,`userpass`,`nickname`,`email`,`sign`,`sex`,`address`) VALUES ('23453643','$2y$10$8VqzDa7oE03njrDTtfK6p.GN6fKEWlkXULnhZwxbMSQiRz8DFMhpu','sadad','asda','asd','0','asd')
+
+[ 2017-01-06T20:22:33+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: 1062:Duplicate entry '23453643' for key 'usercode'
+ [ SQL语句 ] : INSERT INTO `mybbs_users` (`username`,`userpass`,`nickname`,`email`,`sign`,`sex`,`address`) VALUES ('23453643','$2y$10$EB0OscIM.fl.EQimMu5y1.sARF0mdi9k6x7Jtk8/Mym7a0qzVop1a','sadad','asda','asd','0','asd')
+
+[ 2017-01-06T20:33:55+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: Call to a member function getError() on null
+
+[ 2017-01-06T20:35:32+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: Call to a member function getError() on null
+
+[ 2017-01-06T20:35:37+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: Call to a member function getError() on null
+
+[ 2017-01-06T20:48:52+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: Think\Model:error方法不存在！
+
+[ 2017-01-06T20:53:15+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: Think\Model:error方法不存在！
+
+[ 2017-01-06T21:18:53+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: Think\Model:error方法不存在！
+
+[ 2017-01-06T21:18:56+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: Think\Model:error方法不存在！
+
+[ 2017-01-06T21:19:28+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: Think\Model:error方法不存在！
+
+[ 2017-01-06T21:20:14+08:00 ] 127.0.0.1 /GZ23_PJ_BBS/index.php/Admin/Users/doadd.html
+ERR: Think\Model:error方法不存在！
+
