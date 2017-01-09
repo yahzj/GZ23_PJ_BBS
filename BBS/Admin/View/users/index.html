@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<load href="__PUBLIC__/css/bootstrap.min.css"/>
+	<load href="__PUBLIC__/js/jquery.js"/>
+	<load href="__PUBLIC__/js/bootstrap.min.js"/>
+</head>
+<style>
+	table{
+		width:50%;
+	}
+</style>
+<body>
+	<h1>{$title}</h1>
+
+	<table class="table table-hover">
+		<tr>
+			<th>id</th>
+			<th>账号</th>
+			<th>密码</th>
+			<th>昵称</th>
+			<th>性别</th>
+			<th>图像</th>
+			<th>地址</th>
+			<th>邮箱</th>
+			<th>积分</th>
+			<th>个性签名</th>
+			<th>帖子数</th>
+			<th>审核状态</th>
+			<th>用户类型</th>
+			<th>注册时间</th>
+			<th>操作</th>
+		</tr>
+
+		<foreach name="data" key="key" item="val">
+			<tr>
+				<td>{$val['id']}</td>
+				<td>{$val['username']}</td>
+				<td>{$val['userpass']}</td>
+				<td>{$val['nickname']}</td>
+				<td>{$val['sex']}</td>
+				<td>{$val['image']}</td>
+				<td>{$val['address']}</td>
+				<td>{$val['email']}</td>
+				<td>{$val['integral']}</td>
+				<td>{$val['sign']}</td>
+				<td>{$val['total']}</td>
+				<td>{$val['auditingstatus']}</td>
+				<td>{$val['status']}</td>
+				<td>{$val['addtime']}</td>		
+				<td>
+					<a class="btn btn-danger" href="{:U('Subject/delete' , ['id' => $val['id'] ] )}">删除</a>
+					<a class="btn btn-info" href="{:U('Subject/edit' , ['id' => $val['id'] ] )}">修改</a>
+				</td>
+			</tr>
+		</foreach>
+	</table>
+	<div id="btnBox">{$show}</div>
+
+</body>
+<script>
+
+	// 将数字按钮进行包裹
+	$('#btnBox').children().children().unwrap().wrap('<li></li>').parent().wrapAll('<ul class="pagination"></ul>');
+	// 给当前页码高亮显示
+	$('#btnBox span').parent().addClass('active');
+	
+</script>
+</html>
