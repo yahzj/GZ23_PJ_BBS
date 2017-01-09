@@ -36,6 +36,7 @@ class SubjectModel extends Model{
 		// 基本处理
 		foreach($list as $key => &$val){
 			$val['status'] = $status[ $val['status'] ];
+			$val['content'] = substr($val['content'],0,128);
 		}
 
 		// 返回处理完成的信息
