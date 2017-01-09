@@ -8,7 +8,8 @@
              <table border="1">
                       
                      <form action="{:U('Admin/Sections/doedit')}" method="post">
-                           <input type="hidden" name="id" value="{$info['id']}"/>
+                        <input type="hidden" name="id" value="{$info['id']}"/>
+                        <div>
                           父级板块id: <input type="text" name="parent_id" value="{$info['parent_id']}"><br>
                            
                          板块名称: <input type="text" name="name" value="{$info['name']}"><br>
@@ -21,6 +22,7 @@
 
                            <input type="submit" value="提交">
                            <input type="reset" value="重置">
+                           </div>
                      </form>
               </table>
 </body>
