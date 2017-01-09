@@ -13,7 +13,11 @@
                            
                          板块名称: <input type="text" name="name" ><br>
                 
-                         板块状态: <input type="text" name="status" ><br>
+                         板块状态: <select name="status">
+                                        <option value="0" {$info['status']==0?'selected':''}>锁定</option>
+                                        <option value="1" {$info['status']==1?'selected':''}>正常</option>
+                                        <option value="2" {$info['status']==2?'selected':''}>高亮</option>
+                                       </select><br>
 
                          板块管理员: <input type="text" name="administrators" ><br>
   

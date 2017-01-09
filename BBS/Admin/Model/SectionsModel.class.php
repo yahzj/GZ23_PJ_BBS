@@ -34,6 +34,12 @@ class SectionsModel extends Model{
 		// 执行分页查询
 		$list = $this->order('id desc')->limit( $page->firstRow . ',' . $page->listRows )->select();
 
+                         $status = ['锁定','正常','高亮'];
+		// 基本处理
+		foreach($list as $key => &$val){
+			$val['status'] = $status[ $val['status'] ];
+		}
+
 		return [
 			// 用户列表
 			'list' => $list,
@@ -65,14 +71,11 @@ class SectionsModel extends Model{
 	}
 
 
-
-
-         // 添加新数据
-	public function pro_add(){
+             public function pro_add(){
 		$post=I('post.');
 		// 自动验证并判断
 		if($this->create($post)){    
-			// 写入数据到数据库并判断
+				// 写入数据到数据库并判断
 			$res=$this->add();
 			return $res;
 	    	}else{
@@ -80,6 +83,6 @@ class SectionsModel extends Model{
 	    	}
 	}
 
-          
+                 
 }
 

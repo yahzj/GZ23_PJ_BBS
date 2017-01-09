@@ -76,7 +76,18 @@ class SectionsController extends EmptyController{
             }
 
             public function doadd(){
-            	
+
+		
+		$obj = D("sections"); 
+			// 根据表单提交的POST数据创建数据对象
+		$data=$obj->pro_add();
+		if($data){        
+		          return $this->success('新增成功',U('sections/index'),5);   
+		}else{
+		       // 如果验证失败，则显示错误提示
+	    	          return $this->Error($obj->getError());
+	    	}
+		
             }
      
 
