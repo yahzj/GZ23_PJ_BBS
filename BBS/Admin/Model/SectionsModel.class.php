@@ -74,6 +74,28 @@ class SectionsModel extends Model{
              public function pro_add(){
 		$post=I('post.');
 		// 自动验证并判断
+		if($post['pid']!=0)
+		{
+			$pid=D('sections');
+
+			$map['path']=I('post.pid');
+			$pid->where($map)->select();
+
+			//判断父级是否存在，并引入父级path
+			if($pid['id']!=null)
+			{
+				$pid=$row['path'].$_POST['pid'].",";
+				mysqli_free_result($result);
+			}else
+			{
+				mysqli_free_result($result);
+				header("Location:./typeadd.php?typea=1");
+				exit();
+			}
+		}else
+		{
+			$pid="0,";
+		}
 		if($this->create($post)){    
 				// 写入数据到数据库并判断
 			$res=$this->add();
