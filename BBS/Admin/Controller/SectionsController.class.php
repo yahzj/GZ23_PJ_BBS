@@ -71,10 +71,12 @@ class SectionsController extends EmptyController{
 	    }
 
            //增加板块
-            public function add(){
-                      
-					
+            public function add(){				
 	            $this->display();
+            }
+
+            public function doadd(){
+            	
             }
      
 
