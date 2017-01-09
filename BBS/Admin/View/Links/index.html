@@ -1,0 +1,18 @@
+<!doctype html>
+ <html lang="en">
+ <head>
+ 	<meta charset="UTF-8">
+ 	<title>Document</title>
+ </head>
+ <body>
+ <form action="{:U('Admin/Links/update')}" method="post">
+ 	<foreach name="list" key="key" item="val">
+		名称:<input type="text" value="{$val['title']}">&nbsp;&nbsp;&nbsp;
+		网址:<input type="text" value="{$val['link']}" style="width:300px;"><br><br>
+	</foreach>
+	<input type="reset" value="重置">
+	<input type="submit" value="更新">
+</form>
+ </body>
+
+ </html> 
