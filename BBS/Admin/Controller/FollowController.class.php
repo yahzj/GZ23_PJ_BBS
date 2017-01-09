@@ -49,8 +49,13 @@ class FollowController extends EmptyController
 						
 					}
 					//调用FollowModel.class.php中的spage函数，重新实例化当前页面的分页类。系统的page分页类会根据参数p的大小自动调整跳转的链接。
-					$data['show']=$follow->spage();
+					$data['show']=$follow->sPage();
 	    		}
+	    		//将status的状态改为中文。
+	    		$status=['只对楼主可见','全部可见'];
+				foreach($data['list'] as $key=>&$val){
+				$val['status']=$status[$val['status']];
+			}
 	    	//用户希望回到默认主页，即没有搜索条件。	
 	    	}else{
 	    		//是默认主页的话，就删除用户之前的搜索条件。这样跳转就不会再次使用用户之前搜索出来的数据了。
@@ -66,41 +71,12 @@ class FollowController extends EmptyController
 
 	    public function del()
 	    {
-	    	//获得需要删除的id
-	    	$id=I('get.id');
-	    	//防止id乱写
-	    	$id+=0;
+	    	
 	    	$follow=D("follow");
-	    	//设置$link为空，在success方法跳转就是直接返回跳过来的这一页。
-	    	$link='';
-
-	    	/*
-	    		如果删除的是最后一条数据，并且所有的数据取余显示的条数等于1，
-	    		则说明最后一页只有一条数据。success方法就要跳回到上一页。否则调回原页面会无数据显示。
-	    	*/
-	    	if($id==$follow->max('id') && $follow->count()%10==1){
-	    		//先得到跳转过来的网址，并且将它用/分隔到数组中。
-	    		$arrs=explode("/",$_SERVER["HTTP_REFERER"]);
-	    		//得到$arrs数组的最大下标值。
-		    	$num=count($arrs)-1;
-		    	//将$arrs的最后一个值(例如:10.html)用.切割成数组。
-		    	$arr=explode(".",$arrs[$num]);
-		    	//删除$arrs数组的最后一个值
-		    	array_pop($arrs);
-		    	//$arr[0]-1 得到上一页的页数，覆盖之前的页数。如9覆盖10.
-		    	$arr[0]=$arr[0]-1;
-		    	//将最新的$arr数组弄成字符串(如9.html)
-		    	$arrs[$num]=implode(".",$arr);
-		    	//dump($arrs);
-		    	//再把$arrs数组用/拼接成新的链接，当删除成功的时候就可以跳转回去最新正确的页面了。
-	    		$link=implode("/",$arrs);
-	    	}
-	    	//执行删除
-	    	$res=$follow->delete($id);
-	    	//dump($link);
-	    	if($res){
+	    	$data = $follow->pro_del();
+	    	if($data['res']){
 	    		//成功的跳转
-	    		$this->success('删除成功！',$link,3);
+	    		$this->success('删除成功！',$data['link'],3);
 	    	}else{
 	    		//失败的跳转
 	    		$this->error("删除失败",'',3);

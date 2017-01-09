@@ -7,8 +7,24 @@
 <body>
 	<form method="post" action="{:U('Admin/Follow/index')}">
 		搜索<input name='search' type='text' placeholder='请输入搜索内容'>
+		帖子板块:
+		<select name="cardid">
+			<option value="0">全部</option>
+			<option value="1">PHP</option>
+			<option value="2">JS</option>
+			<option value="3">HTML</option>
+			<option value="4">CSS</option>
+		</select>
+		留言状态:
+		<select name="status">
+			<option value="0">全部</option>
+			<option value="1">全部可见</option>
+			<option value="2">只对楼主可见</option>
+		</select>
 		<input type="submit" value="搜索">
 	</form>
+	{//恢复默认页面，server的两个变量为获得当前文件的url地址。}
+	<a href="<php> echo'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];</php>">恢复默认</a>
 	<table border=1>
 		<tr>
 			<th>id</th>
