@@ -26,7 +26,7 @@
 
 		public function pro_del(){
 
-			//设置$link为空，在success方法跳转就是直接返回跳过来的这一页,空就是。
+			//设置$link为空，在success方法里空就是跳转回上一页，给链接就是跳转到链接的地址。
 	    	$link='';
 	    	//获得需要删除的id
 	    	$id=I('get.id');
