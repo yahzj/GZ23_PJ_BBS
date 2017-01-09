@@ -4,7 +4,13 @@
 <title>后台模板</title>
 
 <script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
-
+<script charset="utf-8" src="__PUBLIC__/edit/kindeditor.js"></script>
+<script charset="utf-8" src="__PUBLIC__/edit/lang/zh-CN.js"></script>
+<script>
+        KindEditor.ready(function(K) {
+                window.editor = K.create('#editor_id');
+        });
+</script>
 <link rel="stylesheet" href="__PUBLIC__/css/add.css" type="text/css" media="screen">
 <link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css" type="text/css" media="screen">
 
@@ -18,7 +24,7 @@
 
         <div class="control-group">
             <label class="laber_from">主题名称</label>
-            <div class="controls"><input disabled name="name" class="input_from" value="{$info['name']}" placeholder=" 请输入用户名" type="text"><p class="help-block"></p></div>
+            <div class="controls"><input name="name" class="input_from" value="{$info['name']}" placeholder=" 请输入用户名" type="text"><p class="help-block"></p></div>
         </div>
 
         <div class="control-group">
@@ -37,9 +43,18 @@
             <p class="help-block"></p></div>
         </div>
         <div class="control-group">
+            <label class="laber_from">状态</label>
+            <div class="controls"><select name="status">
+                <option value="0" {$info['status']==0?'selected':''}>锁定</option>
+                <option value="1" {$info['status']==1?'selected':''}>正常</option>
+                <option value="2" {$info['status']==2?'selected':''}>高亮</option>
+            </select>
+            <p class="help-block"></p></div>
+        </div>
+        <div class="control-group">
             <label class="laber_from">主体内容</label>
             <div class="controls">
-                <textarea name="content" cols="30" rows="10">{$info['content']}</textarea>
+                <textarea name="content" cols="30" rows="10" id="editor_id">{$info['content']}</textarea>
             </div>
         </div>
 

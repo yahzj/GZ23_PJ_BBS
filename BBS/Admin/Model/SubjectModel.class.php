@@ -9,7 +9,7 @@ class SubjectModel extends Model{
 		// [验证字段1,验证规则,错误提示,[验证条件,附加规则,验证时间]]
 		// ['email','email','你的邮箱格式不正确！！！'],
 		// ['address','require','邮箱地址必填！！'],
-		// ['pwd','3,6','你太短了，老娘不要！！' , 1, 'length' , 3],
+		['content','1,1024','请输入至少1个字至多1024个字的内容' , 1, 'length' , 3],
 		// ['repwd', 'pwd' , '你跟老子不是一块的！' , 1  , 'confirm',3],
 	];
 
@@ -32,10 +32,10 @@ class SubjectModel extends Model{
 		// 执行查询
 		$list = $this->order('`id` asc')->limit( $page->firstRow . ',' . $page->listRows   )->select();
 
-		$sex = ['女','男','妖'];
+		$status = ['锁定','正常','高亮'];
 		// 基本处理
 		foreach($list as $key => &$val){
-			$val['sex'] = $sex[ $val['sex'] ];
+			$val['status'] = $status[ $val['status'] ];
 		}
 
 		// 返回处理完成的信息

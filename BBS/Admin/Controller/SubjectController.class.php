@@ -6,9 +6,9 @@ class SubjectController extends EmptyController{
 	//查询
 	public function index(){
 
-		$User=D('subject');
+		$obj=D('subject');
 
-		$data=$User->pro_index();
+		$data=$obj->pro_index();
 
 		$this->assign($data);
 
@@ -18,14 +18,14 @@ class SubjectController extends EmptyController{
 	public function add(){
 
 		if ($_POST['username']) {
-			$User = D("subject"); 
+			$obj = D("subject"); 
 			// 根据表单提交的POST数据创建数据对象
-			$data=$User->pro_add();
+			$data=$obj->pro_add();
 			if($data){        
 				return $this->success('新增成功',U('subject/index'),5);   
 			}else{
     		// 如果验证失败，则显示错误提示
-	    	return $this->Error();
+	    	return $this->Error($obj->getError());
 	    	}
 		}else{
 			$this->display();
@@ -43,7 +43,7 @@ class SubjectController extends EmptyController{
 			return $this->success('删除成功','',5);   
 		}else{
     		// 如果验证失败，则显示错误提示
-	    	return $this->Error();
+	    	return $this->Error($obj->getError());
     	}
 	}
 
@@ -59,7 +59,7 @@ class SubjectController extends EmptyController{
 				$this->success('修改成功',U('subject/index'),5);   
 			}else{
 				// 如果验证失败，则显示错误提示
-		    	return $this->Error();
+		    	$this->Error($obj->getError());
 			}
 		}else{
 		$obj=D('subject');
