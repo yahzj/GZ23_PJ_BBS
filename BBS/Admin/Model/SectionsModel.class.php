@@ -47,15 +47,15 @@ class SectionsModel extends Model{
 		
 		// 在model层接收用户提交的数据
 		$post = I('post.');
-    	dump($post);
+    	//dump($post);
     	// 正则验证？
 
     	// 创建数据创建对象，会触发自动验证
     	$res = $this->create($post);
-		dump($res);
+		//dump($res);
 	    	if($res){
 	    		$res = $this->save();
-	    		dump($res);
+	    		//dump($res);
 	    		return '修改成功！';
 	    	}else{
 	    		// 如果验证失败，则显示错误提示

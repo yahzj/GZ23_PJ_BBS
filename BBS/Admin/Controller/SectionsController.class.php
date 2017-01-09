@@ -61,7 +61,7 @@ class SectionsController extends EmptyController{
     	// 2.调用model层的数据处理方法
     	$msg = $sections->pro_edit();
     	// 3.跳转
-    	$this->success($msg,"",50);
+    	$this->success($msg,"",5);
      
     }
 
