@@ -9,7 +9,7 @@
 </head>
 <body>
               <h1>{$title}</h1>
-              <table border="1">
+              <table class="table table-hover">
                       <tr>
                             <th>id</th>
                             <th>父级板块id</th>
@@ -34,8 +34,14 @@
 	        </tr>
  	</foreach>
               </table>
-              <div>
+              <div  id="btnBox">
  		{$show}
- 	</div>
+ 	      </div>
 </body>
+<script type="text/javascript">
+         // 将数字按钮进行包裹
+      $('#btnBox').children().children().unwrap().wrap('<li></li>').parent().wrapAll('<ul class="pagination"></ul>');
+      // 给当前页码高亮显示
+      $('#btnBox span').parent().addClass('active');
+</script>
 </html>

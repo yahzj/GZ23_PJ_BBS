@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+             <h1>{$title}</h1>
+             <table border="1">
+                      
+                     <form action="{:U('Admin/Sections/add')}" method="post">
+                        <div>
+                          父级板块id: <input type="text" name="parent_id" ><br>
+                           
+                         板块名称: <input type="text" name="name" ><br>
+                
+                         板块状态: <input type="text" name="status" ><br>
+
+                         板块管理员: <input type="text" name="administrators" ><br>
+  
+                         板块路径: <input type="text" name="path" ><br>
+
+                           <input type="submit" value="提交">
+                           <input type="reset" value="重置">
+                      </div>
+                     </form>
+              </table>
+</body>
+</html>

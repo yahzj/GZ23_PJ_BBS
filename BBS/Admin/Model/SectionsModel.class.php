@@ -63,6 +63,23 @@ class SectionsModel extends Model{
 	    	}
 
 	}
+
+
+
+
+         // 添加新数据
+	public function pro_add(){
+		$post=I('post.');
+		// 自动验证并判断
+		if($this->create($post)){    
+			// 写入数据到数据库并判断
+			$res=$this->add();
+			return $res;
+	    	}else{
+	    		return false;
+	    	}
+	}
+
           
 }
 

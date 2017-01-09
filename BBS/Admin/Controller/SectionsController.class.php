@@ -14,6 +14,8 @@ class SectionsController extends EmptyController{
 		$this->display();
 	}
 
+
+            //删除板块表单
 	 public function del(){
     	// Admim/Sections/del
     	// 接收用户ID
@@ -37,6 +39,8 @@ class SectionsController extends EmptyController{
     	}
 
          }
+
+
                  // 加载编辑模板
 	       public function edit(){
 	    	// 接收用户ID
@@ -55,16 +59,23 @@ class SectionsController extends EmptyController{
 	    	$this->display();
 	    }
    
- public function doedit(){
-           // 1.使用自动验证，必须走Model层
-    	$sections = D('sections');
-    	// 2.调用model层的数据处理方法
-    	$msg = $sections->pro_edit();
-    	// 3.跳转
-    	$this->success($msg,"",5);
-     
-    }
+              //编辑模板
+	 public function doedit(){
+	           // 1.使用自动验证，必须走Model层
+	    	$sections = D('sections');
+	    	// 2.调用model层的数据处理方法
+	    	$msg = $sections->pro_edit();
+	    	// 3.跳转
+	    	$this->success($msg,"",5);
+	     
+	    }
 
+           //增加板块
+            public function add(){
+                      
+					
+	            $this->display();
+            }
      
 
 }
