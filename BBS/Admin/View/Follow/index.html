@@ -10,16 +10,9 @@
 <body>
 	<h1>{$title}</h1>
 	<form method="post" action="{:U('Admin/Follow/index')}">
-		搜索<input name='search' type='text' placeholder='请输入搜索内容'>
-		帖子板块:
-		<select name="cardid">
-			<option value="0">全部</option>
-			<option value="1">PHP</option>
-			<option value="2">JS</option>
-			<option value="3">HTML</option>
-			<option value="4">CSS</option>
-		</select>
-		留言状态:
+		搜索内容<input name='search_content' type='text' placeholder='请输入搜索内容'>
+		搜索回帖者<input name='search_username' type='text' placeholder='请输入回帖者昵称'>
+		回帖状态:
 		<select name="status">
 			<option value="0">全部</option>
 			<option value="1">全部可见</option>
@@ -31,9 +24,12 @@
 		<tr>
 			<th></th>
 			<th>id</th>
-			<th>跟帖人uid</th>
-			<th>发帖人authorid</th>
-			<th>发帖板块</th>
+			<th>回帖人id</th>
+			<th>回帖人昵称</th>
+			<th>发帖人id</th>
+			<th>发帖人昵称</th>
+			<th>帖子id</th>
+			<th>帖子主题</th>
 			<th>跟帖内容</th>
 			<th>楼层</th>
 			<th>发布时间</th>
@@ -41,13 +37,16 @@
 			<th>状态</th>
 			<th>操作</th>
 		</tr>
-
+	<form action="{:U('Admin/Follow/del')}" method="post">
 		<foreach name="list" key="key" item="val">
 			<tr>
-				<td><input type="checkbox" name="$val['id']"></td>
+				<td><input type="checkbox" name="{$val['id']}" value="{$val['id']}"></td>
 				<td>{$val['id']}</td>
 				<td>{$val['uid']}</td>
+				<td>{$val['uid']}</td>
 				<td>{$val['authorid']}</td>
+				<td>{$val['authorid']}</td>
+				<td>{$val['cardid']}</td>
 				<td>{$val['cardid']}</td>
 				<td>{$val['content']}</td>
 				<td>{$val['floor']}</td>
@@ -58,6 +57,8 @@
 					<if condition="$val['floor'] neq 1">
 						<a class="btn btn-danger" href="{:U('Admin/Follow/del',['id'=>$val['id'],'p'=>$_GET['p']])}">
 						删除</a>
+						<a class="btn btn-info" href="{:U('Admin/Follow/update',['id'=>$val['id']])}">
+						修改</a>
 					<else/>
 						<b>不可操作</b>
 					</if>
@@ -65,8 +66,13 @@
 			</tr>
 		</foreach>
 	</table>
+	<input type="submit" value="删除选中">
+	</form>
+	<button onclick="choose()">全选</button>
+ 	<button onclick="clear_all()">清空</button>
+ 	<button onclick="fx()">反选</button>
 	<div id="btnBox">{$show}</div>
-
+	
 </body>
 <script>
 
@@ -75,5 +81,34 @@
 	// 给当前页码高亮显示
 	$('#btnBox span').parent().addClass('active');
 	
+
+	var form=document.getElementById("form");
+	function choose(){
+		// each 就是循环
+		$('input').each(function(i){
+			// 转换为dom对象
+			var ziji = $(this)[0];
+			// 当前状态全部取true
+			ziji.checked = true;
+		});
+	}
+	function clear_all(){
+		// each 就是循环
+		$('td input').each(function(i){
+			// 转换为dom对象
+			var ziji = $(this)[0];
+			// 当前状态全部取false
+			ziji.checked = false;
+		});
+	}
+	function fx(){
+		// each 就是循环
+		$('td input').each(function(i){
+			// 转换为dom对象
+			var ziji = $(this)[0];
+			// 当前状态取反
+			ziji.checked = !ziji.checked;
+		});
+	}
 </script>
 </html>
