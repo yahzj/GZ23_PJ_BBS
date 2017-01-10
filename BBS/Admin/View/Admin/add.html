@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台注册</title>
+<style type='text/css'>
+    .input_from{
+        width:300px;
+    }
+</style>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/css/add.css" type="text/css" media="screen">
+<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css" type="text/css" media="screen">
+
+</head>
+<body>
+<center>
+<h1>后台注册</h1>
+<div class="div_from_aoto" style="width: 500px;">
+    <!-- <form action="{:U('Home/User/doedit')}"  method="post"> -->
+    <form action="{:U('Admin/Admin/doadd')}"  method="post" enctype="multipart/form-data">
+      
+
+        <div class="control-group">
+            <label class="laber_from">管理员账号</label>
+            <div class="controls"><input  class="input_from"  placeholder=" 请输入纯数字字符" type="text" name='admin_name'><p class="help-block"></p></div>
+        </div>
+
+        <div class="control-group">
+            <label class="laber_from">密码</label>
+            <div class="controls"><input class="input_from" placeholder=" 请输入至少六位的包含数字，字母的字符组合" type="password" name='pass'><p class="help-block"></p></div>
+        </div>
+        <div class="control-group">
+            <label class="laber_from">确认密码</label>
+            <div class="controls"><input name="repass" class="input_from" placeholder=" 请输入确认密码" type="password"><p class="help-block"></p></div>
+        </div>
+
+        <div class="control-group">
+            <label class="laber_from">管理员名称</label>
+            <div class="controls"><input name="nickname"  class="input_from" placeholder=" 请输入昵称" type="text"><p class="help-block"></p></div>
+        </div>
+
+       
+        <div class="control-group">
+            <label class="laber_from">状态期权</label>
+            <div class="controls">
+                <select name="status" class="input_select">
+                    <option value="0" {$info['status']==0?'selected':''}>锁定</option>
+                    <option value="1" {$info['status']==1?'selected':''}>正常</option>
+                    <option value="2" {$info['status']==2?'selected':''}>高亮</option>
+                    
+                </select>
+            </div>
+        </div>
+
+            
+        <div class="control-group">
+            <label class="laber_from"></label>
+            <div class="controls">
+                <button class="btn btn-success" style="width:120px;">确认</button>
+                <input type="reset" value="清空" class="btn btn-info" style="width:120px;"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body></html>
