@@ -18,28 +18,10 @@ class UsersController extends EmptyController{
 	//用户信息处理
 	public function doadd(){
 		$user=D('users');
-		//dump($_FILES['image']);
-			//执行文件上传
-		$upload=new \Think\Upload();// 实例化上传类
-		$upload->maxSize=3145728;// 设置附件上传大小
-		$upload->exts=array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
-		$upload->savePath='./images/';// 设置附件上传目录
-		$upload->autoSub =false;//关闭默认子目录;
-		$upload->saveName = time().'_'.mt_rand();//设置保存的文件名
-		$info=$upload->upload();//执行文件上传
-		//dump($info);
-		//die();
-		if(!$info){
-       	$this->error($upload->getError());// 上传错误提示错误信息
-       	}else{
-                $_POST['image']=$info['image']['savename'];//将文件名写入POST再写入数据库
-       //================================修改图像尺寸=================================
-				$image = new \Think\Image(); 
-				$image->open('./Uploads/images/'.$_POST['image']);// 生成一个左上角裁剪为150*150的缩略图并保存为thumb.jpg
-				$image->thumb(100, 100,\Think\Image::IMAGE_THUMB_NORTHWEST)->save('./Uploads/images/new'.$_POST['image']);
-		//================================修改图像尺寸=================================
-                $msg=$user->pro_add();
-        }	
+		if($_FILES['image']['error']!=4){
+			$this->imgUpload();//执行文件上传
+		}
+		$msg=$user->pro_add();//执行数据处理	
         $this->success($msg,U('add'),3);//输出信息并跳转到注册页面(错误或正确的);
 	}
 	//用户展示界面;
@@ -61,12 +43,51 @@ class UsersController extends EmptyController{
 		$user=D('users');//实例化users类
 		$id=I('get.id');//获取get传过来的ID
 		$data=$user->find($id);//通过ID查询一条数据
-		dump($data);
+		//dump($data);
 		$this->assign('data',$data);//分配数据
 		$this->display();//展示模板
 	}
+	//修改用户信息;
 	public function updata(){
+		$user=D('users');//实例化类
+		$data=I('post.');//获取post传过来的值
+		if($_FILES['image']['error']!=4){
+			$this->imgUpload();//执行文件上传
+		//修改了图像，删除原图
+		// $a='./Uploads/images/new'.$data['oldimage'];//裁剪后图片路径
+		// $b='./Uploads/images/'.$data['oldimage'];//裁剪前图片路径
+		// @unlink($a);//删除裁剪后图片
+		// @unlink($b);//删除裁剪前图片
+		$user->imgdel($data,'oldimage');
+		}
+		$res=$user->pro_updata();//执行数据处理
+		$this->success($res);//输出信息并跳转到注册页面(错误或正确的);
 
 	}
+	//========================图片上传的方法=============================================
+	public function imgUpload(){
+		$upload=new \Think\Upload();// 实例化上传类
+		$upload->maxSize=3145728;// 设置附件上传大小
+		$upload->exts=array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+		$upload->savePath='./images/';// 设置附件上传目录
+		$upload->autoSub =false;//关闭默认子目录;
+		$upload->saveName = time().'_'.mt_rand();//设置保存的文件名
+		$info=$upload->upload();//如果用户选择了图像上传便执行文件上传
+				//dump($info);
+				//die();
+				if(!$info){
+		       	$this->error($upload->getError());// 上传错误提示错误信息
+		       	}else{
+		                $_POST['image']=$info['image']['savename'];//将文件名写入POST再写入数据库
+		       //================================修改图像尺寸=================================
+						$image = new \Think\Image(); 
+						$image->open('./Uploads/images/'.$_POST['image']);// 生成一个左上角裁剪为100*100的缩略图并保存为thumb.jpg
+						$image->thumb(100, 100,\Think\Image::IMAGE_THUMB_NORTHWEST)->save('./Uploads/images/new'.$_POST['image']);
+				//================================修改图像尺寸=================================
+		        }
+
+	}
+	//========================图片上传的方法结束=========================================
+
 
 }
