@@ -15,7 +15,40 @@
 <body>
 	<h1>{$title}</h1>
 	<a href='{:U('add')}'>管理员注册</a>
-	<form action='{:U('del')}' method='post'>
+<!-- =========查询条件开始============================================================================== -->
+		<form class="form-inline" action='{:U('index')}' method="post">
+		  <div class="form-group">
+		    <label class="sr-only" for="exampleInputEmail3">账号</label>
+		    <input type="text" class="form-control" id="exampleInputEmail3" placeholder="输入账号" name='username'>
+		  </div>
+		  <div class="form-group">
+		    <label class="sr-only" for="exampleInputEmail3">昵称</label>
+		    <input type="text" class="form-control" id="exampleInputEmail3" placeholder="输入昵称" name='nickname'>
+		  </div>
+		<div class="checkbox">
+		    <label>
+			    <select class="form-control" name='sex'>
+					  <option value='0'>女</option>
+					  <option value='1'>男</option>
+				</select>
+		    </label>
+		  </div>
+
+		 <div class="checkbox">
+		    <label>
+			    <select class="form-control" name='status'>
+					  <option value='0'>超级管理员</option>
+					  <option value='1'>管理员</option>
+					  <option value='2'>会员</option>
+				</select>
+		    </label>
+		  </div>
+
+		  <button type="submit" class="btn btn-default">查询</button>
+		</form>
+<!-- 查询条件结束======================================================================================= -->
+	<form action='{:U('del')}' method='post'><br>
+
 		<table class="table table-hover">
 			<tr>
 				<th></th>
