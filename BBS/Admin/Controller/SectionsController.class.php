@@ -40,7 +40,17 @@ class SectionsController extends EmptyController{
 
     }
 
-
+                 // 加载编辑模板
+	       public function edit(){
+	    	// 接收用户ID
+	    	$id = I('get.id') + 0;
+	    	//dump($id);
+	    	// 实例化
+	    	$sections = D('sections');
+	    	$sections->pro_edit();
+	    	$data['info'] = $info;
+	    	$data['title'] = '板块表单修改';
+}
     // 加载编辑模板
 	public function edit(){
     	// 接收用户ID
