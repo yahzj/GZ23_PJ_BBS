@@ -15,50 +15,58 @@
 <body>
 	<h1>{$title}</h1>
 
-	<table class="table table-hover">
-		<tr>
-			<th>id</th>
-			<th>账号</th>
-			<th>密码</th>
-			<th>昵称</th>
-			<th>性别</th>
-			<th>图像</th>
-			<th>地址</th>
-			<th>邮箱</th>
-			<th>积分</th>
-			<th>个性签名</th>
-			<th>帖子数</th>
-			<th>审核状态</th>
-			<th>用户类型</th>
-			<th>注册时间</th>
-			<th>操作</th>
-		</tr>
-
-		<foreach name="data" key="key" item="val">
+	<form action='{:U('del')}' method='post'>
+		<table class="table table-hover">
 			<tr>
-				<td>{$val['id']}</td>
-				<td>{$val['username']}</td>
-				<td>{$val['userpass']}</td>
-				<td>{$val['nickname']}</td>
-				<td>{$val['sex']}</td>
-				<td>{$val['image']}</td>
-				<td>{$val['address']}</td>
-				<td>{$val['email']}</td>
-				<td>{$val['integral']}</td>
-				<td>{$val['sign']}</td>
-				<td>{$val['total']}</td>
-				<td>{$val['auditingstatus']}</td>
-				<td>{$val['status']}</td>
-				<td>{$val['addtime']}</td>		
-				<td>
-					<a class="btn btn-danger" href="{:U('Subject/delete' , ['id' => $val['id'] ] )}">删除</a>
-					<a class="btn btn-info" href="{:U('Subject/edit' , ['id' => $val['id'] ] )}">修改</a>
-				</td>
+				<th></th>	
+				<th>id</th>
+				<th>账号</th>
+				<th>密码</th>
+				<th>昵称</th>
+				<th>性别</th>
+				<th>图像</th>
+				<th>地址</th>
+				<th>邮箱</th>
+				<th>积分</th>
+				<th>个性签名</th>
+				<th>帖子数</th>
+				<th>审核状态</th>
+				<th>用户类型</th>
+				<th>注册时间</th>
+				<th>操作</th>
 			</tr>
-		</foreach>
-	</table>
-	<div id="btnBox">{$show}</div>
-
+			
+			<foreach name="list" key="key" item="val">
+				<tr>
+					<td><input type='checkbox' value="{$val['id']}" name='checkbox{$key}'></td>
+					<td>{$val['id']}</td>
+					<td>{$val['username']}</td>
+					<td>{$val['userpass']}</td>
+					<td>{$val['nickname']}</td>
+					<td>{$val['sex']}</td>
+					<td>{$val['image']}</td>
+					<td>{$val['address']}</td>
+					<td>{$val['email']}</td>
+					<td>{$val['integral']}</td>
+					<td>{$val['sign']}</td>
+					<td>{$val['total']}</td>
+					<td>{$val['auditingstatus']}</td>
+					<td>{$val['status']}</td>
+					<td>{$val['addtime']}</td>		
+					<td>
+						<a class="btn btn-danger" href="{:U('Users/del' , ['id' => $val['id'] ] )}">删除</a>
+						<a class="btn btn-info" href="{:U('Users/edit' , ['id' => $val['id'] ] )}">修改</a>
+					</td>
+				</tr>
+			</foreach>
+		</table>
+		<button onclick='conFirm()'>批量删除</button><br><br>
+		</form>
+		<button onclick='choose()'>全选</button>
+		<button onclick='fx()'>反选</button>
+		<button onclick='reset()'>清空选择</button>
+		<div id="btnBox">{$show}</div>
+	
 </body>
 <script>
 
@@ -66,6 +74,35 @@
 	$('#btnBox').children().children().unwrap().wrap('<li></li>').parent().wrapAll('<ul class="pagination"></ul>');
 	// 给当前页码高亮显示
 	$('#btnBox span').parent().addClass('active');
+	//执行全选
+	function choose(){
+		var ipt=document.getElementsByTagName('input');//找对象
+					for(var i=0;i<ipt.length;i++){
+						ipt[i].checked=true;//用for循环分别改属性
+					}
+	}
+	//清空选择
+	function reset(){
+		var ipt=document.getElementsByTagName('input');//找对象
+					for(var i=0;i<ipt.length;i++){
+						ipt[i].checked=false;//用for循环分别改属性
+					}
+	}
+	//执行反选
+	function fx(){
+		//遍历改属性，
+			$('input').each(function(i){
+					var zj=$(this)[0];
+					zj.checked=!zj.checked;//将true改为false false 改为true;
+				})
+	}
+	function conFirm(){
+		if(!confirm('确定要删除数据么')){
+			reset();
+			location.href ='http://localhost/GZ23_PJ_BBS/Admin/Users/del';
+		}
+	}
+
 	
 </script>
 </html>
