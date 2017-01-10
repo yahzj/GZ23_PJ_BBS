@@ -10,6 +10,7 @@ class SectionsController extends EmptyController{
 		// 走Model层处理数据
 		$data=$sections->pro_index();
 		$data['title']='板块表单';
+		//dump($data);
 		$this->assign($data);
 		$this->display();
 	}
@@ -17,40 +18,24 @@ class SectionsController extends EmptyController{
 
     //删除板块表单
 	public function del(){
-    	// Admim/Sections/del
-    	// 接收用户ID
-    	$id = I('get.id');
-    	$id += 0;
-
+    	
     	// 实例化对象
     	$sections = D('sections');
     	// 执行删除，返回受影响行
-    	$res = $sections->delete($id);
-
-    	echo '你要删除的ID：' . $id . '<br>';
-    	//echo '删除结果：';
-    	//dump($res);
+    	$res = $sections->pro_del();
     	
-    	if($res){
-    		// 默认返回上一个URL(来源地址)
-	    	$this->success( '删除成功!','',5);
+    	if($res==2){
+    		$this->error("你要删除的目录还有子目录存在，不能删除！");
+    	}elseif($res==1){
+    		$this->success("删除成功！");
     	}else{
-    		$this->error('删除失败');
+    		$this->success("删除失败！");
     	}
+    	
 
     }
 
-                 // 加载编辑模板
-	       public function edit(){
-	    	// 接收用户ID
-	    	$id = I('get.id') + 0;
-	    	//dump($id);
-	    	// 实例化
-	    	$sections = D('sections');
-	    	$sections->pro_edit();
-	    	$data['info'] = $info;
-	    	$data['title'] = '板块表单修改';
-}
+         
     // 加载编辑模板
 	public function edit(){
     	// 接收用户ID
@@ -58,13 +43,8 @@ class SectionsController extends EmptyController{
     	//dump($id);
     	// 实例化
     	$sections = D('sections');
-    	// find : 只找一条信息
-    	// 查询用户信息
-    	$info = $sections->find($id);
-    	 //dump($info);
-    	$data['info'] = $info;
+    	$data=$sections->pro_edit();	
     	$data['title'] = '板块表单修改';
-
     	$this->assign($data);
     	$this->display();
     }
@@ -73,15 +53,15 @@ class SectionsController extends EmptyController{
 	public function doedit(){
        	// 1.使用自动验证，必须走Model层
     	$sections = D('sections');
-    	// 2.调用model层的数据处理方法
-    	$msg = $sections->pro_edit();
-    	// 3.跳转
-    	$this->success($msg,"",5);
-	     
+    	$res=$sections->pro_doedit();
+	   
     }
 
            //增加板块
-    public function add(){				
+    public function add(){
+    	$sections=D('sections');
+    	$data=$sections->pro_add();		
+    	$this->assign($data);		
         $this->display();
     }
 
@@ -89,9 +69,9 @@ class SectionsController extends EmptyController{
 
 		$obj = D("sections"); 
 			// 根据表单提交的POST数据创建数据对象
-		$data=$obj->pro_add();
+		$data=$obj->pro_doadd();
 		if($data){        
-         	return $this->success('新增成功',U('sections/index'),5);   
+         	return $this->success('新增成功',U('sections/index'),3);
 		}else{
 		       // 如果验证失败，则显示错误提示
          	return $this->Error($obj->getError());

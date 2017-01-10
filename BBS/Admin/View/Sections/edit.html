@@ -8,21 +8,29 @@
              <table border="1">
                       
                      <form action="{:U('Admin/Sections/doedit')}" method="post">
-                        <input type="hidden" name="id" value="{$info['id']}"/>
+                        <input type="hidden" name="id" value="{$res['id']}"/>
                         <div>
-                          父级板块id: <input type="text" name="parent_id" value="{$info['parent_id']}"><br>
+                          选择父级板块: <select name="parent_id">
+                                        <option value="0">根目录</option>
+                                        <foreach name="list" key="key" item="val">
+                                          <if condition="$val['id'] eq $res['id']">
+                                          <elseif condition="$val['id'] eq $res['parent_id']"/>
+                                            <option selected value="{$val['id']}">{$val['name']}</option>
+                                          <else/>
+                                           <option value="{$val['id']}">{$val['name']}</option>
+                                          </if>
+                                        </foreach>
+                                       </select><br>
                            
-                         板块名称: <input type="text" name="name" value="{$info['name']}"><br>
+                         板块名称: <input type="text" name="name" value="{$res['name']}"><br>
                 
                          板块状态: <select name="status">
-                                        <option value="0" {$info['status']==0?'selected':''}>锁定</option>
-                                        <option value="1" {$info['status']==1?'selected':''}>正常</option>
-                                        <option value="2" {$info['status']==2?'selected':''}>高亮</option>
+                                        <option value="0" {$res['status']==0?'selected':''}>锁定</option>
+                                        <option value="1" {$res['status']==1?'selected':''}>正常</option>
+                                        <option value="2" {$res['status']==2?'selected':''}>高亮</option>
                                        </select><br>
 
-                         板块管理员: <input type="text" name="administrators" value="{$info['administrators']}"><br>
-  
-                         板块路径: <input type="text" name="path" value="{$info['path']}"><br>
+                         板块管理员: <input type="text" name="administrators" value="{$res['administrators']}"><br>
 
                            <input type="submit" value="提交">
                            <input type="reset" value="重置">

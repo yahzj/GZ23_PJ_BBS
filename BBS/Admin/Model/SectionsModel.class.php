@@ -28,13 +28,13 @@ class SectionsModel extends Model{
 		// 得到总行数
 		$totalRow = $this->count();
 		// 每页显示条数
-		$num = 15;
+		$num = 6;
 		// 实例化分页类
 		$page = new \Think\Page($totalRow , $num);
 		// 执行分页查询
 		$list = $this->order('id asc')->limit( $page->firstRow . ',' . $page->listRows )->select();
 
-                         $status = ['锁定','正常','高亮'];
+        $status = ['锁定','正常','高亮'];
 		// 基本处理
 		foreach($list as $key => &$val){
 			$val['status'] = $status[ $val['status'] ];
@@ -50,71 +50,79 @@ class SectionsModel extends Model{
 	}
 
 	//获得用户要处理的ip，将原始数据读出并处理后发送到edit.html
-       public function pro_edit(){
+    public function pro_edit(){
 		$id=I("get.id");
 		$res=$this->find($id);
-		$sections=D();
-		$sql="select * from sections order by concat(parent_Id,id)";
-		$list = $sections->query($sql);
-		dump($res);
-		dump($list);
-		foreach($list as $key=>$val){
-			if($val['id']==0){
-				$list['parent_name']=''
-			}
-			
-		}
+		$aaa=D();
+		$sql="select * from mybbs_sections order by concat(path,id)";
+		$list = $aaa->query($sql);
 		return[
 			"res"=>$res,
 			"list"=>$list,
 		];
-
-
-    public function pro_edit(){
-		
-		// 在model层接收用户提交的数据
-		$post = I('post.');
-    	//dump($post);
-    	// 正则验证？
-
-    	// 创建数据创建对象，会触发自动验证
-    	$res = $this->create($post);
-		//dump($res);
-    	if($res){
-    		$res = $this->save();
-    		//dump($res);
-    		return '修改成功！';
-    	}else{
-    		// 如果验证失败，则显示错误提示
-	    	return $this->getError();
-    	}
-
-    	
 	}
 
- 	public function pro_add(){
-		$post=I('post.');
-		// 自动验证并判断
-		if($post['parent_id']!=0)
-		{
-			$pid=D('sections');
-			$map['id']=$post['parent_id'];
-			$path=$pid->where($map)->select();
-			$post['path']=$path[0]['path'].$post['parent_id'].",";
-		}else
-		{
+	public function pro_doedit(){
+		$post=I("post.");
+		if($post['parent_id']==0){
 			$post['path']="0,";
-		}
 
-		if($this->create($post)){    
-				// 写入数据到数据库并判断
-			$res=$this->add();
-			return $res;
-    	}else{
-    		return false;
-    	}
+		}else{
+			$res=$this->find($post['parent_id']);
+			$post['path']=$res['path'].$post['parent_id'].",";
+			$post['parent_id']=$res['id'];
+		}
+		
+		dump($res);
+		dump(11111);
+		dump($post);
+		$msg=$this->save($post);
+		return $msg;
 	}
 
-                 
+	public function pro_add(){
+		$aaa=D();
+		$sql="select * from mybbs_sections order by concat(path,id)";
+		$list = $aaa->query($sql);
+		return[
+			'list'=>$list,
+		];
+	}
+
+ 	public function pro_doadd(){
+		$post=I('post.');
+		
+		if($post['parent_id']==0){
+			$post['path']="0,";
+
+		}else{
+			$res=$this->find($post['parent_id']);
+			$post['path']=$res['path'].$post['parent_id'].",";
+			$post['parent_id']=$res['id'];
+		}
+		dump($post);
+		$msg=$this->add($post);
+		return $msg;
+	}
+
+	public function pro_del(){
+		// Admim/Sections/del
+    	// 接收用户ID
+    	$id = I('get.id');
+    	$id += 0;
+    	$map['parent_id']=['eq',$id];
+    	$list=$this->where($map)->select();
+    	if(count($list)>0){
+    		return "2";
+    	}else{
+    		$res=$this->delete($id);
+    		if($res){
+    			return "1";
+    		}else{
+    			return "0";
+    		}
+    		
+    	}
+	}
 }
 

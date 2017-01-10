@@ -9,19 +9,22 @@
                       
                      <form action="{:U('Admin/Sections/doadd')}" method="post">
                         <div>
-                          父级板块id: <input type="text" name="parent_id" ><br>
-                           
+                          选择父级板块: <select name="parent_id">
+                                        <option value="0">根目录</option>
+                                        <foreach name="list" key="key" item="val">
+                                            <option value="{$val['id']}">{$val['name']}</option>
+                                        </foreach>
+                                       </select><br>
+
                          板块名称: <input type="text" name="name" ><br>
                 
                          板块状态: <select name="status">
-                                        <option value="0" {$info['status']==0?'selected':''}>锁定</option>
-                                        <option value="1" {$info['status']==1?'selected':''}>正常</option>
-                                        <option value="2" {$info['status']==2?'selected':''}>高亮</option>
+                                        <option value="0">锁定</option>
+                                        <option value="1" selected>正常</option>
+                                        <option value="2">高亮</option>
                                        </select><br>
 
                          板块管理员: <input type="text" name="administrators" ><br>
-  
-                         <!-- 板块路径: <input type="text" name="path" ><br> -->
 
                            <input type="submit" value="提交">
                            <input type="reset" value="重置">
