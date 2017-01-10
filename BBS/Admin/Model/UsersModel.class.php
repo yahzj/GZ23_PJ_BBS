@@ -42,6 +42,58 @@ class UsersModel extends Model{
 					return $this->getError();//验证错误，返回错误信息
 				}
 			}
+			//处理用户显列表数据
+			public function pro_index(){
+				$totalRow=$this->count();//计算数据总行数
+				$rows=10;//每行显示行数
+				$page=new \Think\Page($totalRow,$rows);//实例化分页类
+
+				$list=$this->order('`id`')->limit($page->firstRow.",".$page->listRows)->select();//执行查询数据
+				$sex=['女','男'];//设定转换性别
+				$status=['超级管理员','管理员','会员'];//设定用户类型
+				foreach($list as $k=>&$v){
+					$v['sex']=$sex[$v['sex']];//修改性别显示
+					$v['status']=$status[$v['status']];//修改用户类型显示
+				}
+		//================================修改图像尺寸=================================
+				$image = new \Think\Image(); 
+				$image->open('./1.jpg');// 生成一个左上角裁剪为150*150的缩略图并保存为thumb.jpg
+				$image->thumb(150, 150,\Think\Image::IMAGE_THUMB_NORTHWEST)->save('./thumb.jpg');
+		//================================修改图像尺寸=================================
+				return [
+					'list'=>$list,
+					'show'=>$page->show(),//取得分页按钮;
+				];
+
+			}
+			//删除用户信息
+			public function pro_del(){
+					$data=I('post.');//获取多选框传过来的值
+					$ids=[];//定义一个空数组做Id的容器
+					if($data){
+						foreach($data as $k=>$v){
+							$ids[]=$v;//将遍历的ID值放到容器里
+						}
+						$map['id']=['in',$ids];
+						$res=$this->where($map)->delete();//通过WHere方法批量删除数据
+						if(!$res){
+							return $this->getError();
+						}else{
+							return "删除成功";
+						}
+					
+					}else{
+						$id=I('get.id');//获取删除的Id;
+						$res=$this->delete($id);//执行删除的条数
+						if(!$res){
+							return $this->getError();
+						}else{
+							return "删除成功";
+						}
+					}
+
+				}
+
 			
 				
 				
