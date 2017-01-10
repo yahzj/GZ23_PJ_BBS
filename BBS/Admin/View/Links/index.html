@@ -1,70 +1,73 @@
 <!doctype html>
- <html lang="en">
- <head>
- 	<meta charset="UTF-8">
- 	<title>Document</title>
- 	<load href="__PUBLIC__/js/jquery.js"/>
- </head>
- <body>
- 	{//友情链接主页，显示所有的友情链接}
- 	<table border="1">
- 		<tr>
- 			<th></th>
- 			<th>id</th>
- 			<th>链接名称</th>
- 			<th>链接网址</th>
- 			<th>操作</th>
- 		</tr>
-	<form action="{:U('Admin/Links/del')}" method="post" id="form">
- 		<foreach name="list" key="key" item="val">
- 			
-			<tr>
-				<td><input type='checkbox' name="name_{$val['id']}" value="{$val['id']}"></td>
-				<td>{$val['id']}</td>
-				<td>{$val['title']}</td>
-				<td>{$val['link']}</td>
-				<td><a href="{:U('Admin/Links/update',['id'=>$val['id']])}">更新</a></td>
-			</tr>
- 		</foreach>
- 	</table>
-	<input type="submit" value="删除">
- 	</form>
- 	{//js的全选，清空和反选等操作}
- 	<button onclick="choose()">全选</button>
- 	<button onclick="clear_all()">清空</button>
- 	<button onclick="fx()">反选</button>
- 	<a href="{:U('Admin/Links/add')}">新增</a>
- </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <load href="__PUBLIC__/css/bootstrap.min.css"/>
+    <load href="__PUBLIC__/js/jquery.js"/>
+    <load href="__PUBLIC__/js/bootstrap.min.js"/>
+</head>
+<body>
+    <h1>友情链接 <a class="btn btn-primary" href="{:U('Admin/Links/add')}">新增链接</a></h1>
+    
+    <form action="{:U('Admin/Links/del')}" method="post" id="form">
+    <table class="table table-hover">
+        <tr>
+            <th></th>
+            <th>id</th>
+            <th>链接名称</th>
+            <th>链接网址</th>
+            <th>操作</th>
+        </tr>
+        <foreach name="list" key="key" item="val">
+            <tr>
+                <td><input type='checkbox' name="name_{$val['id']}" value="{$val['id']}"></td>
+                <td>{$val['id']}</td>
+                <td>{$val['title']}</td>
+                <td>{$val['link']}</td>
+                <td>
+                    <a class="btn btn-danger" href="{:U('Admin/Links/update',['id'=>$val['id']])}">更新</a>
+                </td>
+            </tr>
+        </foreach>
+    </table>
+    <input class="btn btn-danger" type="submit" value="删除">
+    </form>
+    {//js的全选，清空和反选等操作}
+    <button class="btn btn-info" onclick="choose()">全选</button>
+    <button class="btn btn-info" onclick="clear_all()">清空</button>
+    <button class="btn btn-info" onclick="fx()">反选</button>
+</body>
 <script>
-	var form=document.getElementById("form");
-	function choose(){
-		// each 就是循环
-		$('input').each(function(i){
-			// 转换为dom对象
-			var ziji = $(this)[0];
-			// 当前状态全部取true
-			ziji.checked = true;
-		});
-	}
-	function clear_all(){
-		// each 就是循环
-		$('td input').each(function(i){
-			// 转换为dom对象
-			var ziji = $(this)[0];
-			// 当前状态全部取false
-			ziji.checked = false;
-		});
-	}
-	function fx(){
-		// each 就是循环
-		$('td input').each(function(i){
-			// 转换为dom对象
-			var ziji = $(this)[0];
-			// 当前状态取反
-			ziji.checked = !ziji.checked;
-		});
-	}
+    var form=document.getElementById("form");
+    function choose(){
+        // each 就是循环
+        $('input').each(function(i){
+            // 转换为dom对象
+            var ziji = $(this)[0];
+            // 当前状态全部取true
+            ziji.checked = true;
+        });
+    }
+    function clear_all(){
+        // each 就是循环
+        $('td input').each(function(i){
+            // 转换为dom对象
+            var ziji = $(this)[0];
+            // 当前状态全部取false
+            ziji.checked = false;
+        });
+    }
+    function fx(){
+        // each 就是循环
+        $('td input').each(function(i){
+            // 转换为dom对象
+            var ziji = $(this)[0];
+            // 当前状态取反
+            ziji.checked = !ziji.checked;
+        });
+    }
 
-	
+    
 </script>
- </html> 
+</html>
