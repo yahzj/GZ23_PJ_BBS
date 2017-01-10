@@ -15,8 +15,8 @@ class SectionsController extends EmptyController{
 	}
 
 
-            //删除板块表单
-	 public function del(){
+    //删除板块表单
+	public function del(){
     	// Admim/Sections/del
     	// 接收用户ID
     	$id = I('get.id');
@@ -38,57 +38,55 @@ class SectionsController extends EmptyController{
     		$this->error('删除失败');
     	}
 
-         }
+    }
 
 
-                 // 加载编辑模板
-	       public function edit(){
-	    	// 接收用户ID
-	    	$id = I('get.id') + 0;
-	    	//dump($id);
-	    	// 实例化
-	    	$sections = D('sections');
-	    	// find : 只找一条信息
-	    	// 查询用户信息
-	    	$info = $sections->find($id);
-	    	 //dump($info);
-	    	$data['info'] = $info;
-	    	$data['title'] = '板块表单修改';
+    // 加载编辑模板
+	public function edit(){
+    	// 接收用户ID
+    	$id = I('get.id') + 0;
+    	//dump($id);
+    	// 实例化
+    	$sections = D('sections');
+    	// find : 只找一条信息
+    	// 查询用户信息
+    	$info = $sections->find($id);
+    	 //dump($info);
+    	$data['info'] = $info;
+    	$data['title'] = '板块表单修改';
 
-	    	$this->assign($data);
-	    	$this->display();
-	    }
+    	$this->assign($data);
+    	$this->display();
+    }
    
               //编辑模板
-	 public function doedit(){
-	           // 1.使用自动验证，必须走Model层
-	    	$sections = D('sections');
-	    	// 2.调用model层的数据处理方法
-	    	$msg = $sections->pro_edit();
-	    	// 3.跳转
-	    	$this->success($msg,"",5);
+	public function doedit(){
+       	// 1.使用自动验证，必须走Model层
+    	$sections = D('sections');
+    	// 2.调用model层的数据处理方法
+    	$msg = $sections->pro_edit();
+    	// 3.跳转
+    	$this->success($msg,"",5);
 	     
-	    }
+    }
 
            //增加板块
-            public function add(){				
-	            $this->display();
-            }
+    public function add(){				
+        $this->display();
+    }
 
-            public function doadd(){
+    public function doadd(){
 
-		
 		$obj = D("sections"); 
 			// 根据表单提交的POST数据创建数据对象
 		$data=$obj->pro_add();
 		if($data){        
-		          return $this->success('新增成功',U('sections/index'),5);   
+         	return $this->success('新增成功',U('sections/index'),5);   
 		}else{
 		       // 如果验证失败，则显示错误提示
-	    	          return $this->Error($obj->getError());
-	    	}
+         	return $this->Error($obj->getError());
+    	}
 		
-            }
-     
-
+    }
+    
 }
