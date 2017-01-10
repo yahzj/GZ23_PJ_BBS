@@ -32,7 +32,7 @@
     <div class="layout_left_menu">
         <ul class="tendina" id="menu">
             <li class="childUlLi">
-               <a href="{:U(index)}"><i class="glyph-icon icon-home"></i>首页</a>
+               <a href="{:U('index/welcome')}" target="menuFrame"><i class="glyph-icon icon-home"></i>首页</a>
             </li>
 
 
@@ -57,6 +57,12 @@
             </li>
             <li class="childUlLi">
                 <a href="{:U('users/index')}"  target="menuFrame"> <i class="glyph-icon  icon-location-arrow"></i>用户管理</a>
+            </li>
+            <li class="childUlLi">
+                <a href="{:U('admin/index')}"  target="menuFrame"> <i class="glyph-icon  icon-location-arrow"></i>后台管理员管理</a>
+            </li>
+            <li class="childUlLi">
+                <a href="{:U('links/index')}"  target="menuFrame"> <i class="glyph-icon  icon-location-arrow"></i>友情链接</a>
             </li>
         </ul>
     </div>

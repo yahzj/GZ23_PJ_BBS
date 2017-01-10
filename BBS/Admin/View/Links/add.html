@@ -1,17 +1,36 @@
-<!doctype html>
- <html lang="en">
- <head>
- 	<meta charset="UTF-8">
- 	<title>Document</title>
- 
- </head>
- <body>
- 	{//添加页面}
- 	<form action="{:U('Admin/Links/doadd')}" method="post">
- 		名称:<input type="text" name="title"><br>
- 		网址:<input type="text" name="link"><br>
- 		<input type="reset" value="重置"><input type="submit" value="修改">
- 	</form>
- </body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台模板</title>
 
- </html> 
+<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/css/add.css" type="text/css" media="screen">
+<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css" type="text/css" media="screen">
+
+</head>
+<body>
+<div class="div_from_aoto" style="width: 500px;">
+    <form action="{:U('Admin/Links/doadd')}"  method="post">
+
+        <div class="control-group">
+            <label class="laber_from">名称</label>
+            <div class="controls"><input name="title" class="input_from" placeholder=" 请输入名称" type="text"><p class="help-block"></p></div>
+        </div>
+
+        <div class="control-group">
+            <label class="laber_from">链接地址</label>
+            <div class="controls"><input name="link" class="input_from" placeholder=" 请输入链接地址" type="text"><p class="help-block"></p></div>
+        </div>
+
+        <div class="control-group">
+            <label class="laber_from"></label>
+            <div class="controls">
+                <button class="btn btn-success" style="width:120px;">确认</button>
+                <input type="reset" value="清空" class="btn btn-info" />
+            </div>
+        </div>
+    </form>
+</div>
+
+</body></html>
