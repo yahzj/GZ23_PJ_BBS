@@ -40,8 +40,6 @@ class SectionsController extends EmptyController{
 
     }
 
-
-<<<<<<< HEAD
                  // 加载编辑模板
 	       public function edit(){
 	    	// 接收用户ID
@@ -52,7 +50,7 @@ class SectionsController extends EmptyController{
 	    	$sections->pro_edit();
 	    	$data['info'] = $info;
 	    	$data['title'] = '板块表单修改';
-=======
+}
     // 加载编辑模板
 	public function edit(){
     	// 接收用户ID
@@ -66,7 +64,6 @@ class SectionsController extends EmptyController{
     	 //dump($info);
     	$data['info'] = $info;
     	$data['title'] = '板块表单修改';
->>>>>>> d77b142abdbbf496ab32f7c9e6a83fff02ea0f68
 
     	$this->assign($data);
     	$this->display();

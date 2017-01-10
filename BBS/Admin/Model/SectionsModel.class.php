@@ -48,12 +48,14 @@ class SectionsModel extends Model{
 		];		
 
 	}
-<<<<<<< HEAD
+
 	//获得用户要处理的ip，将原始数据读出并处理后发送到edit.html
        public function pro_edit(){
 		$id=I("get.id");
 		$res=$this->find($id);
 		$sections=D();
+		$sql="select * from sections order by concat(parent_Id,id)";
+		$list = $sections->query($sql);
 		dump($res);
 		dump($list);
 		foreach($list as $key=>$val){
@@ -66,7 +68,7 @@ class SectionsModel extends Model{
 			"res"=>$res,
 			"list"=>$list,
 		];
-=======
+
 
     public function pro_edit(){
 		
@@ -86,7 +88,6 @@ class SectionsModel extends Model{
     		// 如果验证失败，则显示错误提示
 	    	return $this->getError();
     	}
->>>>>>> d77b142abdbbf496ab32f7c9e6a83fff02ea0f68
 
     	
 	}
