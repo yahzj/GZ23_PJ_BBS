@@ -9,6 +9,7 @@ class SubjectController extends EmptyController{
 		$obj=D('subject');
 
 		$data=$obj->pro_index();
+		$data['title']='主题列表';
 
 		$this->assign($data);
 
@@ -17,7 +18,7 @@ class SubjectController extends EmptyController{
 	//添加
 	public function add(){
 
-		if ($_POST['username']) {
+		if ($_POST['name']) {
 			$obj = D("subject"); 
 			// 根据表单提交的POST数据创建数据对象
 			$data=$obj->pro_add();
@@ -28,6 +29,12 @@ class SubjectController extends EmptyController{
 	    	return $this->Error($obj->getError());
 	    	}
 		}else{
+			$sections=D('sections');
+
+			$data['list']=$sections->field('id,name')->select();
+
+			$this->assign($data);
+
 			$this->display();
 		}
 		

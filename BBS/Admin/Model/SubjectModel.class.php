@@ -30,7 +30,7 @@ class SubjectModel extends Model{
 		// 实例化分页类
 		$page = new \Think\Page( $totalRow,$rows );
 		// 执行查询
-		$list = $this->order('`id` asc')->limit( $page->firstRow . ',' . $page->listRows   )->select();
+		$list = $this->order('`id` ')->limit( $page->firstRow . ',' . $page->listRows   )->select();
 
 		$status = ['锁定','正常','高亮'];
 		// 基本处理
