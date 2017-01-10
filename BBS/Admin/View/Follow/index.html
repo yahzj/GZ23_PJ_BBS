@@ -3,8 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<load href="__PUBLIC__/css/bootstrap.min.css"/>
+	<load href="__PUBLIC__/js/jquery.js"/>
+	<load href="__PUBLIC__/js/bootstrap.min.js"/>
 </head>
 <body>
+	<h1>{$title}</h1>
 	<form method="post" action="{:U('Admin/Follow/index')}">
 		搜索<input name='search' type='text' placeholder='请输入搜索内容'>
 		帖子板块:
@@ -21,35 +25,38 @@
 			<option value="1">全部可见</option>
 			<option value="2">只对楼主可见</option>
 		</select>
-		<input type="submit" value="搜索">
+		<input class="btn btn-primary" type="submit" value="搜索">
 	</form>
-	{//恢复默认页面，server的两个变量为获得当前文件的url地址。}
-	<a href="<php> echo'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];</php>">恢复默认</a>
-	<table border=1>
+	<table class="table table-hover">
 		<tr>
+			<th></th>
 			<th>id</th>
 			<th>跟帖人uid</th>
 			<th>发帖人authorid</th>
 			<th>发帖板块</th>
 			<th>跟帖内容</th>
 			<th>楼层</th>
+			<th>发布时间</th>
 			<th>最后修改时间</th>
 			<th>状态</th>
 			<th>操作</th>
 		</tr>
+
 		<foreach name="list" key="key" item="val">
 			<tr>
+				<td><input type="checkbox" name="$val['id']"></td>
 				<td>{$val['id']}</td>
 				<td>{$val['uid']}</td>
 				<td>{$val['authorid']}</td>
 				<td>{$val['cardid']}</td>
 				<td>{$val['content']}</td>
 				<td>{$val['floor']}</td>
+				<td>{$val['addtime']}</td>
 				<td>{$val['edittime']}</td>
 				<td>{$val['status']}</td>
 				<td>
 					<if condition="$val['floor'] neq 1">
-						<a href="{:U('Admin/Follow/del',['id'=>$val['id'],'p'=>$_GET['p']])}">
+						<a class="btn btn-danger" href="{:U('Admin/Follow/del',['id'=>$val['id'],'p'=>$_GET['p']])}">
 						删除</a>
 					<else/>
 						<b>不可操作</b>
@@ -58,8 +65,15 @@
 			</tr>
 		</foreach>
 	</table>
-	
-		<h1>{$show}</h1>
-	</table>
+	<div id="btnBox">{$show}</div>
+
 </body>
+<script>
+
+	// 将数字按钮进行包裹
+	$('#btnBox').children().children().unwrap().wrap('<li></li>').parent().wrapAll('<ul class="pagination"></ul>');
+	// 给当前页码高亮显示
+	$('#btnBox span').parent().addClass('active');
+	
+</script>
 </html>

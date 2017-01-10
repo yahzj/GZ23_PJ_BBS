@@ -15,7 +15,7 @@
 </head>
 <body>
 <center>
-<h1>管理员注册</h1>
+<h1>管理员信息修改</h1>
 <div class="div_from_aoto" style="width: 500px;">
     <!-- <form action="{:U('Home/User/doedit')}"  method="post"> -->
     <form action="{:U('Admin/Users/doadd')}"  method="post" enctype="multipart/form-data">
@@ -23,7 +23,7 @@
 
         <div class="control-group">
             <label class="laber_from">账号</label>
-            <div class="controls"><input  class="input_from"  placeholder=" 请输入纯数字字符" type="text" name='username'><p class="help-block"></p></div>
+            <div class="controls"><input  class="input_from"  placeholder=" 请输入纯数字字符" type="text" name='username' disabled value="{$data['username']}"><p class="help-block"></p></div>
         </div>
 
         <div class="control-group">
@@ -37,7 +37,7 @@
 
         <div class="control-group">
             <label class="laber_from">昵称</label>
-            <div class="controls"><input name="nickname"  class="input_from" placeholder=" 请输入昵称" type="text"><p class="help-block"></p></div>
+            <div class="controls"><input name="nickname"  class="input_from" placeholder=" 请输入昵称" type="text" value="{$data['nickname']}"><p class="help-block"></p></div>
         </div>
 
         <div class="control-group">

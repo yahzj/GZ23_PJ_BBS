@@ -42,6 +42,61 @@ class UsersModel extends Model{
 					return $this->getError();//验证错误，返回错误信息
 				}
 			}
+			//处理用户显列表数据
+			public function pro_index(){
+				$totalRow=$this->count();//计算数据总行数
+				$rows=10;//每行显示行数
+				$page=new \Think\Page($totalRow,$rows);//实例化分页类
+
+				$list=$this->order('`id`')->limit($page->firstRow.",".$page->listRows)->select();//执行查询数据
+				$sex=['女','男'];//设定转换性别
+				$status=['超级管理员','管理员','会员'];//设定用户类型
+				foreach($list as $k=>&$v){
+					$v['sex']=$sex[$v['sex']];//修改性别显示
+					$v['status']=$status[$v['status']];//修改用户类型显示
+				}
+
+				return [
+					'list'=>$list,
+					'show'=>$page->show(),//取得分页按钮;
+				];
+
+			}
+			//删除用户信息
+			public function pro_del(){
+					$data=I('post.');//获取多选框传过来的值
+					$ids=[];//定义一个空数组做Id的容器
+					if($data){
+						foreach($data as $k=>$v){
+							$ids[]=$v;//将遍历的ID值放到容器里
+						}
+						$map['id']=['in',$ids];
+						$images=$this->field('image')->where($map)->select();//通过id查询需要删除的数据的图像的路径
+						foreach($images as $k=>$v){
+							$a='./Uploads/images/new'.$v['image'];//裁剪后图片路径
+							$b='./Uploads/images/'.$v['image'];//裁剪前图片路径
+							@unlink($a);//删除裁剪后图片
+							@unlink($b);//删除裁剪前图片
+						}
+						$res=$this->where($map)->delete();//通过WHere方法批量删除数据
+						if(!$res){
+							return $this->getError();
+						}else{
+							return "删除成功";
+						}
+					
+					}else{
+						$id=I('get.id');//获取删除的Id;
+						$res=$this->delete($id);//执行删除的条数
+						if(!$res){
+							return $this->getError();
+						}else{
+							return "删除成功";
+						}
+					}
+
+				}
+
 			
 				
 				
