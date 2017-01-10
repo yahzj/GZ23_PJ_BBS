@@ -48,10 +48,7 @@ class SectionsController extends EmptyController{
 	    	//dump($id);
 	    	// 实例化
 	    	$sections = D('sections');
-	    	// find : 只找一条信息
-	    	// 查询用户信息
-	    	$info = $sections->find($id);
-	    	 //dump($info);
+	    	$sections->pro_edit();
 	    	$data['info'] = $info;
 	    	$data['title'] = '板块表单修改';
 

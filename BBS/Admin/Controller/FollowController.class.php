@@ -83,4 +83,13 @@ class FollowController extends EmptyController
 	    	}
 	    }
 
+	    public function update()
+	    {
+	    	$follow=D("follow");
+	    	$id=$_GET['id'];
+	    	$res=$follow->find($id);
+	    	$this->assign("res",$res);
+	    	$this->display();
+	    }
+
 }

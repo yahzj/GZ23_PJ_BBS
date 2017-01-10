@@ -32,7 +32,7 @@ class SectionsModel extends Model{
 		// 实例化分页类
 		$page = new \Think\Page($totalRow , $num);
 		// 执行分页查询
-		$list = $this->order('id desc')->limit( $page->firstRow . ',' . $page->listRows )->select();
+		$list = $this->order('id asc')->limit( $page->firstRow . ',' . $page->listRows )->select();
 
                          $status = ['锁定','正常','高亮'];
 		// 基本处理
@@ -48,26 +48,25 @@ class SectionsModel extends Model{
 		];		
 
 	}
-
+	//获得用户要处理的ip，将原始数据读出并处理后发送到edit.html
        public function pro_edit(){
-		
-		// 在model层接收用户提交的数据
-		$post = I('post.');
-    	//dump($post);
-    	// 正则验证？
+		$id=I("get.id");
+		$res=$this->find($id);
+		$sections=D();
+		dump($res);
+		dump($list);
+		foreach($list as $key=>$val){
+			if($val['id']==0){
+				$list['parent_name']=''
+			}
+			
+		}
+		return[
+			"res"=>$res,
+			"list"=>$list,
+		];
 
-    	// 创建数据创建对象，会触发自动验证
-    	$res = $this->create($post);
-		//dump($res);
-	    	if($res){
-	    		$res = $this->save();
-	    		//dump($res);
-	    		return '修改成功！';
-	    	}else{
-	    		// 如果验证失败，则显示错误提示
-		    	return $this->getError();
-	    	}
-
+    	
 	}
 
              public function pro_add(){

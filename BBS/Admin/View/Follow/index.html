@@ -10,20 +10,14 @@
 <body>
 	<h1>{$title}</h1>
 	<form method="post" action="{:U('Admin/Follow/index')}">
-		搜索<input name='search' type='text' placeholder='请输入搜索内容'>
-		帖子板块:
-		<select name="cardid">
-			<option value="0">全部</option>
-			<option value="1">PHP</option>
-			<option value="2">JS</option>
-			<option value="3">HTML</option>
-			<option value="4">CSS</option>
-		</select>
-		留言状态:
+		回帖者搜索:<input name='search' type='text' placeholder='请输入回帖者名字'>
+		搜索内容:<input name='search' type='text' placeholder='请输入搜索内容'>
+		回帖状态:
 		<select name="status">
 			<option value="0">全部</option>
 			<option value="1">全部可见</option>
 			<option value="2">只对楼主可见</option>
+			<option value="2">全部不可见</option>
 		</select>
 		<input class="btn btn-primary" type="submit" value="搜索">
 	</form>
@@ -32,7 +26,9 @@
 			<th></th>
 			<th>id</th>
 			<th>跟帖人uid</th>
+			<th>跟帖人昵称</th>
 			<th>发帖人authorid</th>
+			<th>发帖人昵称</th>
 			<th>发帖板块</th>
 			<th>跟帖内容</th>
 			<th>楼层</th>
@@ -47,6 +43,8 @@
 				<td><input type="checkbox" name="$val['id']"></td>
 				<td>{$val['id']}</td>
 				<td>{$val['uid']}</td>
+				<td>{$val['uid']}</td>
+				<td>{$val['authorid']}</td>
 				<td>{$val['authorid']}</td>
 				<td>{$val['cardid']}</td>
 				<td>{$val['content']}</td>
@@ -58,6 +56,8 @@
 					<if condition="$val['floor'] neq 1">
 						<a class="btn btn-danger" href="{:U('Admin/Follow/del',['id'=>$val['id'],'p'=>$_GET['p']])}">
 						删除</a>
+						<a class="btn btn-danger" href="{:U('Admin/Follow/update',['id'=>$val['id']])}">
+						修改</a>
 					<else/>
 						<b>不可操作</b>
 					</if>
