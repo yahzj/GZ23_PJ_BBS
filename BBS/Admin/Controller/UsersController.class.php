@@ -36,7 +36,7 @@ class UsersController extends EmptyController{
        //================================修改图像尺寸=================================
 				$image = new \Think\Image(); 
 				$image->open('./Uploads/images/'.$_POST['image']);// 生成一个左上角裁剪为150*150的缩略图并保存为thumb.jpg
-				$image->thumb(150, 150,\Think\Image::IMAGE_THUMB_NORTHWEST)->save('./Uploads/images/new'.$_POST['image']);
+				$image->thumb(100, 100,\Think\Image::IMAGE_THUMB_NORTHWEST)->save('./Uploads/images/new'.$_POST['image']);
 		//================================修改图像尺寸=================================
                 $msg=$user->pro_add();
         }	

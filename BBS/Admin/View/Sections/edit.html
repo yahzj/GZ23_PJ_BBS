@@ -10,11 +10,7 @@
                      <form action="{:U('Admin/Sections/doedit')}" method="post">
                         <input type="hidden" name="id" value="{$info['id']}"/>
                         <div>
-                          父级板块: <select name="parent_Id">
-                                        <option value="0" {$info['path']==0?'selected':''}>锁定</option>
-                                        <option value="1" {$info['path']==1?'selected':''}>正常</option>
-                                        <option value="2" {$info['path']==2?'selected':''}>高亮</option>
-                                       </select><br>
+                          父级板块id: <input type="text" name="parent_id" value="{$info['parent_id']}"><br>
                            
                          板块名称: <input type="text" name="name" value="{$info['name']}"><br>
                 
@@ -26,7 +22,7 @@
 
                          板块管理员: <input type="text" name="administrators" value="{$info['administrators']}"><br>
   
-                         
+                         板块路径: <input type="text" name="path" value="{$info['path']}"><br>
 
                            <input type="submit" value="提交">
                            <input type="reset" value="重置">

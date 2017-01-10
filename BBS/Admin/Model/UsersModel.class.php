@@ -55,11 +55,7 @@ class UsersModel extends Model{
 					$v['sex']=$sex[$v['sex']];//修改性别显示
 					$v['status']=$status[$v['status']];//修改用户类型显示
 				}
-		//================================修改图像尺寸=================================
-				$image = new \Think\Image(); 
-				$image->open('./1.jpg');// 生成一个左上角裁剪为150*150的缩略图并保存为thumb.jpg
-				$image->thumb(150, 150,\Think\Image::IMAGE_THUMB_NORTHWEST)->save('./thumb.jpg');
-		//================================修改图像尺寸=================================
+
 				return [
 					'list'=>$list,
 					'show'=>$page->show(),//取得分页按钮;
@@ -75,6 +71,13 @@ class UsersModel extends Model{
 							$ids[]=$v;//将遍历的ID值放到容器里
 						}
 						$map['id']=['in',$ids];
+						$images=$this->field('image')->where($map)->select();//通过id查询需要删除的数据的图像的路径
+						foreach($images as $k=>$v){
+							$a='./Uploads/images/new'.$v['image'];//裁剪后图片路径
+							$b='./Uploads/images/'.$v['image'];//裁剪前图片路径
+							@unlink($a);//删除裁剪后图片
+							@unlink($b);//删除裁剪前图片
+						}
 						$res=$this->where($map)->delete();//通过WHere方法批量删除数据
 						if(!$res){
 							return $this->getError();
