@@ -3,7 +3,7 @@ namespace Admin\Model;
 use Think\Model;
 
 class SectionsModel extends Model{
-            protected $_validate = [
+    protected $_validate = [
 		// [验证字段1,验证规则,错误提示,[验证条件,附加规则,验证时间]]
 
 		// ['email','email','你的邮箱格式不正确！！！'],
@@ -48,6 +48,7 @@ class SectionsModel extends Model{
 		];		
 
 	}
+<<<<<<< HEAD
 	//获得用户要处理的ip，将原始数据读出并处理后发送到edit.html
        public function pro_edit(){
 		$id=I("get.id");
@@ -65,11 +66,32 @@ class SectionsModel extends Model{
 			"res"=>$res,
 			"list"=>$list,
 		];
+=======
+
+    public function pro_edit(){
+		
+		// 在model层接收用户提交的数据
+		$post = I('post.');
+    	//dump($post);
+    	// 正则验证？
+
+    	// 创建数据创建对象，会触发自动验证
+    	$res = $this->create($post);
+		//dump($res);
+    	if($res){
+    		$res = $this->save();
+    		//dump($res);
+    		return '修改成功！';
+    	}else{
+    		// 如果验证失败，则显示错误提示
+	    	return $this->getError();
+    	}
+>>>>>>> d77b142abdbbf496ab32f7c9e6a83fff02ea0f68
 
     	
 	}
 
-             public function pro_add(){
+ 	public function pro_add(){
 		$post=I('post.');
 		// 自动验证并判断
 		if($post['parent_id']!=0)
@@ -82,13 +104,14 @@ class SectionsModel extends Model{
 		{
 			$post['path']="0,";
 		}
+
 		if($this->create($post)){    
 				// 写入数据到数据库并判断
 			$res=$this->add();
 			return $res;
-	    	}else{
-	    		return false;
-	    	}
+    	}else{
+    		return false;
+    	}
 	}
 
                  
