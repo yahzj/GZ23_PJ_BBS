@@ -3,16 +3,68 @@
  <head>
  	<meta charset="UTF-8">
  	<title>Document</title>
+ 	<load href="__PUBLIC__/js/jquery.js"/>
  </head>
  <body>
- <form action="{:U('Admin/Links/update')}" method="post">
- 	<foreach name="list" key="key" item="val">
-		名称:<input type="text" value="{$val['title']}">&nbsp;&nbsp;&nbsp;
-		网址:<input type="text" value="{$val['link']}" style="width:300px;"><br><br>
-	</foreach>
-	<input type="reset" value="重置">
-	<input type="submit" value="更新">
-</form>
+ 	{//友情链接主页，显示所有的友情链接}
+ 	<table border="1">
+ 		<tr>
+ 			<th></th>
+ 			<th>id</th>
+ 			<th>链接名称</th>
+ 			<th>链接网址</th>
+ 			<th>操作</th>
+ 		</tr>
+	<form action="{:U('Admin/Links/del')}" method="post" id="form">
+ 		<foreach name="list" key="key" item="val">
+ 			
+			<tr>
+				<td><input type='checkbox' name="name_{$val['id']}" value="{$val['id']}"></td>
+				<td>{$val['id']}</td>
+				<td>{$val['title']}</td>
+				<td>{$val['link']}</td>
+				<td><a href="{:U('Admin/Links/update',['id'=>$val['id']])}">更新</a></td>
+			</tr>
+ 		</foreach>
+ 	</table>
+	<input type="submit" value="删除">
+ 	</form>
+ 	{//js的全选，清空和反选等操作}
+ 	<button onclick="choose()">全选</button>
+ 	<button onclick="clear_all()">清空</button>
+ 	<button onclick="fx()">反选</button>
+ 	<a href="{:U('Admin/Links/add')}">新增</a>
  </body>
+<script>
+	var form=document.getElementById("form");
+	function choose(){
+		// each 就是循环
+		$('input').each(function(i){
+			// 转换为dom对象
+			var ziji = $(this)[0];
+			// 当前状态全部取true
+			ziji.checked = true;
+		});
+	}
+	function clear_all(){
+		// each 就是循环
+		$('td input').each(function(i){
+			// 转换为dom对象
+			var ziji = $(this)[0];
+			// 当前状态全部取false
+			ziji.checked = false;
+		});
+	}
+	function fx(){
+		// each 就是循环
+		$('td input').each(function(i){
+			// 转换为dom对象
+			var ziji = $(this)[0];
+			// 当前状态取反
+			ziji.checked = !ziji.checked;
+		});
+	}
 
+	
+</script>
  </html> 

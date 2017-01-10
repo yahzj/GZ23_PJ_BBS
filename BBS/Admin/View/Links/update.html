@@ -1,0 +1,18 @@
+<!doctype html>
+ <html lang="en">
+ <head>
+ 	<meta charset="UTF-8">
+ 	<title>Document</title>
+ 
+ </head>
+ <body>
+ 	{//修改页面}
+ 	<form action="{:U('Admin/Links/action')}" method="post">
+ 		id:<input type="text" readonly value="{$res['id']}" name="id"><br>
+ 		链接名称:<input type="text" name="title" value="{$res['title']}"><br>
+ 		链接网址:<input type="text" name="link" value="{$res['link']}"><br>
+ 		<input type="reset" value="重置"><input type="submit" value="修改">
+ 	</form>
+ </body>
+
+ </html> 
