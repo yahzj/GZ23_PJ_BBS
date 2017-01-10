@@ -10,8 +10,11 @@ class IndexController extends Controller {
 
 	    // 欢迎页
 	    public function welcome(){
-	    	$this->assign('title','客官，看中了几号？'); 
-
+	    	$everyday=D('everyday');
+	    	$data['list']=$everyday->pro_select();
+	    	// echo '<pre>';
+	    	// var_dump($data);
+	    	$this->assign($data);
 	    	$this->display();
 	    }
 }

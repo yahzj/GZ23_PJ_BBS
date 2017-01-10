@@ -15,7 +15,6 @@
 	<style>
 		.row{
   		margin:10px;}
-  		#rickshaw-chart-demo #rickshaw-legend{top:70px;}
 	</style>
 </head>
 <body>
@@ -76,17 +75,13 @@
 			var line_chart = Morris.Line({
 				element: 'line-chart-demo',
 				data: [
-					{ y: '2006', a: 100, b: 90 },
-					{ y: '2007', a: 75,  b: 65 },
-					{ y: '2008', a: 50,  b: 40 },
-					{ y: '2009', a: 75,  b: 65 },
-					{ y: '2010', a: 50,  b: 40 },
-					{ y: '2011', a: 75,  b: 65 },
-					{ y: '2012', a: 100, b: 90 }
+					<foreach name='list' item='val'>
+						{ y: '{$val[to_date]}', a: '{$val[daily_visitors]}', b: '{$val[member_num]}' },
+					</foreach>
 				],
 				xkey: 'y',
 				ykeys: ['a', 'b'],
-				labels: ['October 2013', 'November 2013'],
+				labels: ['游客数', '会员数'],
 				redraw: true
 			});
 		
@@ -119,78 +114,18 @@
 			var area_chart = Morris.Area({
 				element: 'area-chart-demo',
 				data: [
-					{ y: '2006', a: 100, b: 90 },
-					{ y: '2007', a: 75,  b: 65 },
-					{ y: '2008', a: 50,  b: 40 },
-					{ y: '2009', a: 75,  b: 65 },
-					{ y: '2010', a: 50,  b: 40 },
-					{ y: '2011', a: 75,  b: 65 },
-					{ y: '2012', a: 100, b: 90 }
+					<foreach name='list' item='val'>
+						{ y: '{$val[to_date]}', a: '{$val[subject_num]}', b: '{$val[follow_num]}' },
+					</foreach>
 				],
 				xkey: 'y',
 				ykeys: ['a', 'b'],
-				labels: ['Series A', 'Series B'],
+				labels: ['主题数量', '回复数量'],
 				lineColors: ['#303641', '#576277']
 			});
 		
 			area_chart_demo.parent().attr('style', '');
 		
-		
-		
-		
-			// Rickshaw
-			var seriesData = [ [], [] ];
-		
-			var random = new Rickshaw.Fixtures.RandomData(50);
-		
-			for (var i = 0; i < 50; i++)
-			{
-				random.addData(seriesData);
-			}
-		
-			var graph = new Rickshaw.Graph( {
-				element: document.getElementById("rickshaw-chart-demo"),
-				height: 193,
-				renderer: 'area',
-				stroke: false,
-				preserve: true,
-				series: [{
-						color: '#73c8ff',
-						data: seriesData[0],
-						name: 'Upload'
-					}, {
-						color: '#e0f2ff',
-						data: seriesData[1],
-						name: 'Download'
-					}
-				]
-			} );
-		
-			graph.render();
-		
-			var hoverDetail = new Rickshaw.Graph.HoverDetail( {
-				graph: graph,
-				xFormatter: function(x) {
-					return new Date(x * 1000).toString();
-				}
-			} );
-		
-			var legend = new Rickshaw.Graph.Legend( {
-				graph: graph,
-				element: document.getElementById('rickshaw-legend')
-			} );
-		
-			var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight( {
-				graph: graph,
-				legend: legend
-			} );
-		
-			setInterval( function() {
-				random.removeData(seriesData);
-				random.addData(seriesData);
-				graph.update();
-		
-			}, 500 );
 		});
 		
 		
@@ -206,7 +141,7 @@
 		
 				<div class="tile-stats tile-red">
 					<div class="icon"><i class="entypo-users"></i></div>
-					<div class="num" data-start="0" data-end="83" data-postfix="" data-duration="1500" data-delay="0">0</div>
+					<div class="num" data-start="0" data-end="{$list[0]['registered_users']}" data-postfix="" data-duration="1500" data-delay="0">0</div>
 		
 					<h3>新会员数量</h3>
 					<p>今天0时开始到现在的总数量。</p>
@@ -218,10 +153,10 @@
 		
 				<div class="tile-stats tile-green">
 					<div class="icon"><i class="entypo-chart-bar"></i></div>
-					<div class="num" data-start="0" data-end="135" data-postfix="" data-duration="1500" data-delay="600">0</div>
+					<div class="num" data-start="0" data-end="{$list[0]['member_num']+$list[0]['daily_visitors']}" data-postfix="" data-duration="1500" data-delay="600">0</div>
 		
 					<h3>来访数量</h3>
-					<p>今天0时开始到现在的总来访次数，其中未注册用户数量：1000、已注册用户数量：1000。</p>
+					<p>今天0时开始到现在的总来访次数，其中未注册用户数量：{$list[0]['daily_visitors']}、已注册用户数量：{$list[0]['member_num']}。</p>
 				</div>
 		
 			</div>
@@ -230,9 +165,9 @@
 		
 				<div class="tile-stats tile-aqua">
 					<div class="icon"><i class="entypo-mail"></i></div>
-					<div class="num" data-start="0" data-end="23" data-postfix="" data-duration="1500" data-delay="1200">0</div>
+					<div class="num" data-start="0" data-end="{$list[0]['subject_num']}" data-postfix="" data-duration="1500" data-delay="1200">0</div>
 		
-					<h3>主题数量</h3>
+					<h3>新的主题数量</h3>
 					<p>今天0时开始到现在在所有版块发布的主题总数。</p>
 				</div>
 		
@@ -242,9 +177,9 @@
 		
 				<div class="tile-stats tile-blue">
 					<div class="icon"><i class="entypo-rss"></i></div>
-					<div class="num" data-start="0" data-end="52" data-postfix="" data-duration="1500" data-delay="1800">0</div>
+					<div class="num" data-start="0" data-end="{$list[0]['follow_num']}" data-postfix="" data-duration="1500" data-delay="1800">0</div>
 		
-					<h3>回复数量</h3>
+					<h3>新的回复数量</h3>
 					<p>今天0时开始到现在在所有主题下回复的总数。</p>
 				</div>
 		
@@ -259,13 +194,13 @@
 				<div class="panel panel-primary" id="charts_env">
 		
 					<div class="panel-heading">
-						<div class="panel-title">Site Stats</div>
+						<div class="panel-title">历史数据统计对比</div>
 		
 						<div class="panel-options">
 							<ul class="nav nav-tabs">
-								<li class=""><a href="#area-chart" data-toggle="tab">Area Chart</a></li>
-								<li class="active"><a href="#line-chart" data-toggle="tab">Line Charts</a></li>
-								<li class=""><a href="#pie-chart" data-toggle="tab">Pie Chart</a></li>
+								<li class=""><a href="#area-chart" data-toggle="tab">新增主题与回复</a></li>
+								<li class="active"><a href="#line-chart" data-toggle="tab">每日来访游客及会员数</a></li>
+								<!-- <li class=""><a href="#pie-chart" data-toggle="tab">Pie Chart</a></li> -->
 							</ul>
 						</div>
 					</div>
@@ -294,17 +229,24 @@
 		
 						<thead>
 							<tr>
-								<th width="50%" class="col-padding-1">
+								<th width="33%" class="col-padding-1">
 									<div class="pull-left">
-										<div class="h4 no-margin">Pageviews</div>
+										<div class="h4 no-margin">总会员数</div>
 										<small>54,127</small>
 									</div>
 									<span class="pull-right pageviews">4,3,5,4,5,6,5</span>
 		
 								</th>
-								<th width="50%" class="col-padding-1">
+								<th width="33%" class="col-padding-1">
 									<div class="pull-left">
-										<div class="h4 no-margin">Unique Visitors</div>
+										<div class="h4 no-margin">总主题数</div>
+										<small>25,127</small>
+									</div>
+									<span class="pull-right uniquevisitors">2,3,5,4,3,4,5</span>
+								</th>
+								<th width="33%" class="col-padding-1">
+									<div class="pull-left">
+										<div class="h4 no-margin">总回复数</div>
 										<small>25,127</small>
 									</div>
 									<span class="pull-right uniquevisitors">2,3,5,4,3,4,5</span>
@@ -318,34 +260,6 @@
 		
 			</div>
 		
-			<div class="col-sm-4">
-		
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<div class="panel-title">
-							
-								Real Time Stats
-								<br />
-								<small>current server uptime</small>
-							
-						</div>
-		
-						<div class="panel-options">
-							<a href="#sample-modal" data-toggle="modal" data-target="#sample-modal-dialog-1" class="bg"><i class="entypo-cog"></i></a>
-							<a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
-							<a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
-							<a href="#" data-rel="close"><i class="entypo-cancel"></i></a>
-						</div>
-					</div>
-		
-					<div class="panel-body no-padding">
-						<div id="rickshaw-chart-demo">
-							<div id="rickshaw-legend"></div>
-						</div>
-					</div>
-				</div>
-		
-			</div>
 		</div>
 		
 		
@@ -657,7 +571,6 @@
 
 
 	<!-- Imported styles on this page -->
-	<!-- <link rel="stylesheet" href="__PUBLIC__/js/rickshaw.min.css"> -->
 
 	<!-- Bottom scripts (common) -->
 	<script src="__PUBLIC__/js/main-gsap.js"></script>
@@ -671,7 +584,6 @@
 	<!-- Imported scripts on this page -->
 	<script src="__PUBLIC__/js/jquery.sparkline.min.js"></script>
 	<script src="__PUBLIC__/js/d3.v3.js"></script>
-	<script src="__PUBLIC__/js/rickshaw.min.js"></script>
 	<script src="__PUBLIC__/js/raphael-min.js"></script>
 	<script src="__PUBLIC__/js/morris.min.js"></script>
 	<script src="__PUBLIC__/js/toastr.js"></script>
