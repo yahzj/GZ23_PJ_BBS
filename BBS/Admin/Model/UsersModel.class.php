@@ -55,11 +55,7 @@ class UsersModel extends Model{
 					$v['sex']=$sex[$v['sex']];//修改性别显示
 					$v['status']=$status[$v['status']];//修改用户类型显示
 				}
-		//================================修改图像尺寸=================================
-				$image = new \Think\Image(); 
-				$image->open('./1.jpg');// 生成一个左上角裁剪为150*150的缩略图并保存为thumb.jpg
-				$image->thumb(150, 150,\Think\Image::IMAGE_THUMB_NORTHWEST)->save('./thumb.jpg');
-		//================================修改图像尺寸=================================
+				
 				return [
 					'list'=>$list,
 					'show'=>$page->show(),//取得分页按钮;
