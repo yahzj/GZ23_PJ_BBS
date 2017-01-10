@@ -18,7 +18,59 @@ class AdminModel extends Model{
 	protected $_auto=[
     //               //对密码进行哈希加密
 	   // ['pass','myHash',3,'function'],
-	]
+	];
+
+
+            public function pro_index(){
+
+		// 得到总行数
+		$totalRow = $this->count();
+		// 每页显示条数
+		$num = 10;
+		// 实例化分页类
+		$page = new \Think\Page($totalRow , $num);
+		// 执行分页查询
+		$list = $this->order('id asc')->limit( $page->firstRow . ',' . $page->listRows )->select();
+
+                         $status = ['锁定','正常','高亮'];
+		// 基本处理
+		foreach($list as $key => &$val){
+			$val['status'] = $status[ $val['status'] ];
+		}
+
+		return [
+			// 用户列表
+			'list' => $list,
+			// 分页按钮
+			'show' => $page->show(),
+		];		
+
+	}
+
+                     // 数据编辑处理，加入自动验证
+	public function pro_edit(){
+		
+		// 在model层接收用户提交的数据
+		$post = I('post.');
+		//dump($post);
+	    	// 创建数据创建对象，会触发自动验证
+		$res=$this->create($post);
+		//dump($res);
+	    	if($res){
+    		      // 进行写入，并判断
+    		      $res=$this->save();
+			return TRUE;
+		}else{
+			// return false;
+		}
+	    }
+
+
+
+  
+
+
+
 
 	// 添加新数据
 	public function pro_add(){
