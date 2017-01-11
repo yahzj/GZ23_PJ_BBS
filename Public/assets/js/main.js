@@ -43,6 +43,7 @@
 
 		// Nav.
 			var $nav = $('#nav');
+			var $um = $('#um');
 
 			if ($nav.length > 0) {
 
@@ -52,9 +53,12 @@
 							mode: 'top',
 							enter: function() {
 								$nav.addClass('alt');
+								$um.addClass('alt');
+								console.dir($um);
 							},
 							leave: function() {
 								$nav.removeClass('alt');
+								$um.removeClass('alt');
 							},
 						});
 
@@ -137,3 +141,14 @@
 	});
 
 })(jQuery);
+
+$('#header').delay(3300).slideUp(750);
+function onresize_Function(){
+	var bodywidth=$('#wrapper').width()-280;
+	var bodyleft=parseFloat($('#wrapper').offset().left);
+	$('#um').css({
+		'left':bodywidth+bodyleft+'px',
+	});
+	$('#nav').width(bodywidth-60);
+}
+onresize_Function();
