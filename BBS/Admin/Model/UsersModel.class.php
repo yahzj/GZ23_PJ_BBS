@@ -75,15 +75,18 @@ class UsersModel extends Model{
 					dump($map);
 					$totalRow=$this->where($map)->count();
 					dump($totalRow);
-					
+					$data['p']=1;
 				}else{
 					$totalRow=$this->count();//计算数据总行数
 				}
 				
 				$rows=10;//每行显示行数
 				$page=new \Think\Page($totalRow,$rows);//实例化分页类
+
 				foreach($data as $key=>$val){
-					echo $key;
+					
+					//echo $key;
+					echo "<hr>";
 					echo $val;   
        				$page->parameter.= "$key=".urlencode($val)."&";//将参数写入分页参数类，，，但P不会存在了。
        			}	
