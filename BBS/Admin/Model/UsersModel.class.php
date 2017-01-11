@@ -64,15 +64,13 @@ class UsersModel extends Model{
 					// $map['sex']=['eq',$data['sex']];
 					// $map['status']=['eq',$data['status']];
 					foreach($data as $k=>$v){
-						if(!$v){
-							unset($data[$k]);//如果值为空销毁	
-						}
 						if($v&&($k=='username'||$k=='nickname')){
 							$map[$k]=['like','%'.$v.'%'];//如果POST传过来的键为username和nickname 那么搜索表达式用like
-						}
-						if(in_array($v,[0,1,2])&&($k=='sex'||$k=='status')){
-							$map[$k]=['eq',$v];//如果POST传过来的键为sex和status 那么搜索表达式用eq
-						}
+							}
+							if(in_array($v,[0,1,2])&&($k=='sex'||$k=='status')){
+								$map[$k]=['eq',$v];//如果POST传过来的键为sex和status 那么搜索表达式用eq
+							}
+						
 					}
 					dump($map);
 					$totalRow=$this->where($map)->count();
