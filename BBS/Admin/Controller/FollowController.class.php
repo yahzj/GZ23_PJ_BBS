@@ -83,4 +83,15 @@ class FollowController extends EmptyController
 	    	}
 	    }
 
+	    public function show(){
+	    	$follow=D("follow");
+	    	$list=$follow->pro_show();
+	    	$this->assign('list',$list);
+	    	$this->display();
+
+	    }
+
+	    public function seniorSearch(){
+	    	$this->display();
+	    }
 }
