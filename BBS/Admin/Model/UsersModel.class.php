@@ -48,11 +48,48 @@ class UsersModel extends Model{
 			}
 			//处理用户显列表数据
 			public function pro_index(){
-				$totalRow=$this->count();//计算数据总行数
+				//if(IS_POST){
+				$data=I('post.');//获取post的值
+				//}elseif(IS_GET){
+					//$data=I('get.');
+					//echo'这是get传的值';
+					//dump($data);
+				//}
+				//查询条件处理
+				dump($data);
+				if(!empty($data)){
+					$map=[];//定义一个查询条件的数组
+					// $map['username']=['like','%'.$data['username'].'%'];
+					// $map['nickname']=['like','%'.$data['nickname'].'%'];
+					// $map['sex']=['eq',$data['sex']];
+					// $map['status']=['eq',$data['status']];
+					foreach($data as $k=>$v){
+						if(!$v){
+							unset($data[$k]);//如果值为空销毁	
+						}
+						if($v&&($k=='username'||$k=='nickname')){
+							$map[$k]=['like','%'.$v.'%'];//如果POST传过来的键为username和nickname 那么搜索表达式用like
+						}
+						if(in_array($v,[0,1,2])&&($k=='sex'||$k=='status')){
+							$map[$k]=['eq',$v];//如果POST传过来的键为sex和status 那么搜索表达式用eq
+						}
+					}
+					dump($map);
+					$totalRow=$this->where($map)->count();
+					dump($totalRow);
+					
+				}else{
+					$totalRow=$this->count();//计算数据总行数
+				}
+				
 				$rows=10;//每行显示行数
 				$page=new \Think\Page($totalRow,$rows);//实例化分页类
-
-				$list=$this->order('`id`')->limit($page->firstRow.",".$page->listRows)->select();//执行查询数据
+				foreach($data as $key=>$val){
+					echo $key;
+					echo $val;   
+       				$page->parameter.= "$key=".urlencode($val)."&";//将参数写入分页参数类，，，但P不会存在了。
+       			}	
+				$list=$this->where($map)->order('`id`')->limit($page->firstRow.",".$page->listRows)->select();//执行查询数据
 				$sex=['女','男'];//设定转换性别
 				$status=['超级管理员','管理员','会员'];//设定用户类型
 				foreach($list as $k=>&$v){
@@ -132,6 +169,10 @@ class UsersModel extends Model{
 				@unlink($a);//删除裁剪后图片
 				@unlink($b);//删除裁剪前图片
 			}
+			//======================================================================
+
+			//======================================================================
+
 
 	}
 

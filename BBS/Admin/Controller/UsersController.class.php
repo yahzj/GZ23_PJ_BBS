@@ -6,12 +6,12 @@ class UsersController extends EmptyController{
 	//用户添加界面
 	public function add(){
 		//===========测试用的添加数据随时可删===============================
-		//$user=D('users');
-		//for($i=1;$i<100;$i++){
-			//$data=['username'=>rand(),'userpass'=>'sdadeasd'];
-			//$user->add($data);
+		// $user=D('users');
+		// for($i=1;$i<100;$i++){
+		// 	$data=['username'=>rand(1000,2000),'nickname'=>rand(3000,4000),sex=>rand(0,1),status=>rand(0,2),];
+		// 	$user->add($data);
 
-		//}
+		// }
 		//===========测试用添加数据===============================
 		$this->display();
 	}
@@ -54,10 +54,6 @@ class UsersController extends EmptyController{
 		if($_FILES['image']['error']!=4){
 			$this->imgUpload();//执行文件上传
 		//修改了图像，删除原图
-		// $a='./Uploads/images/new'.$data['oldimage'];//裁剪后图片路径
-		// $b='./Uploads/images/'.$data['oldimage'];//裁剪前图片路径
-		// @unlink($a);//删除裁剪后图片
-		// @unlink($b);//删除裁剪前图片
 		$user->imgdel($data,'oldimage');
 		}
 		$res=$user->pro_updata();//执行数据处理
