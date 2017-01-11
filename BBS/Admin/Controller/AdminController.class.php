@@ -62,6 +62,10 @@ class AdminController extends EmptyController{
 
                //编辑管理员
 	public function doedit(){
+                    $post_pass=I('post.pass');
+         	        $post_repass=I('post.repass');
+                     if($post_pass==$post_repass){
+
 	       	// 1.使用自动验证，必须走Model层
 	    	$admin = D('admin');
 	    	// 2.调用model层的数据处理方法
@@ -69,6 +73,10 @@ class AdminController extends EmptyController{
 	    	//dump($msg);
 	    	// 3.跳转
 	    	$this->success($msg,"",5);
+
+	    }else{
+	            return $this->Error('密码不正确');
+	    }
 	     
            }
       
@@ -79,16 +87,22 @@ class AdminController extends EmptyController{
 	}
 
          public function doadd(){
-
-	$obj = D("admin"); 
-	// 根据表单提交的POST数据创建数据对象
-	$data=$obj->pro_add();
-	if($data){        
-         	      return $this->success('新增成功',U('admin/index'),5);   
-	}else{
-                     // 如果验证失败，则显示错误提示
-         	    return $this->Error($obj->getError());
-    	}		
+         	$post_pass=I('post.pass');
+         	$post_repass=I('post.repass');
+         	if($post_pass==$post_repass){
+	         	$obj = D("admin"); 
+		// 根据表单提交的POST数据创建数据对象
+		$data=$obj->pro_add();
+		if($data){        
+	         	      return $this->success('新增成功',U('admin/index'),5);   
+		}else{
+	                     // 如果验证失败，则显示错误提示
+	         	    return $this->Error($obj->getError());
+	    	}			
+         	}else{
+         		 return $this->Error('密码不正确');
+         	}
+	
        }
 
 }

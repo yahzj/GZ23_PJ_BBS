@@ -10,14 +10,15 @@ class AdminModel extends Model{
 	// //2.关于密码的
 	// ['pass','require','密码必须填'],
 	// ['pass','6,20','长度需在6到20位之间',1,'length',3],
-	// ['pass','reuserpass','密码两次输入不一致',1,'confirm',3],
+	   
+               // ['pass','pass','密码两次输入不一致',1,'confirm',3],
 	// ['pass','/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/','密码不能为纯数字或纯字母',1,'regex',3],
 
 	];
 
 	protected $_auto=[
-    //               //对密码进行哈希加密
-	   // ['pass','myHash',3,'function'],
+                  //对密码进行哈希加密
+	   ['pass','myHash',3,'function'],
 	];
 
 
