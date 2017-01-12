@@ -39,7 +39,10 @@
 		</foreach>
 	</table>
 	<div id="btnBox">{$show}</div>
-
+	 {//js的全选，清空和反选等操作}
+    <button class="btn btn-info" onclick="choose()">全选</button>
+    <button class="btn btn-info" onclick="clear_all()">清空</button>
+    <button class="btn btn-info" onclick="fx()">反选</button>
 </body>
 <script>
 
@@ -48,5 +51,34 @@
 	// 给当前页码高亮显示
 	$('#btnBox span').parent().addClass('active');
 	
+	 var form=document.getElementById("form");
+    function choose(){
+        // each 就是循环
+        $('input').each(function(i){
+            // 转换为dom对象
+            var ziji = $(this)[0];
+            // 当前状态全部取true
+            ziji.checked = true;
+        });
+    }
+    function clear_all(){
+        // each 就是循环
+        $('td input').each(function(i){
+            // 转换为dom对象
+            var ziji = $(this)[0];
+            // 当前状态全部取false
+            ziji.checked = false;
+        });
+    }
+    function fx(){
+        // each 就是循环
+        $('td input').each(function(i){
+            // 转换为dom对象
+            var ziji = $(this)[0];
+            // 当前状态取反
+            ziji.checked = !ziji.checked;
+        });
+    }
+
 </script>
 </html>

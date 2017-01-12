@@ -71,7 +71,10 @@ class FollowController extends EmptyController
 
 	    public function del()
 	    {
-	    	
+	    	if(empty(I('get.id'))&&empty($_POST)){
+	    		//失败的跳转
+	    		$this->error("不要乱搞事好不好？",'',3);
+	    	}
 	    	$follow=D("follow");
 	    	$data = $follow->pro_del();
 	    	if($data['res']){

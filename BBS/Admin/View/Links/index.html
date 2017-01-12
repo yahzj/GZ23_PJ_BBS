@@ -26,7 +26,8 @@
                 <td>{$val['title']}</td>
                 <td>{$val['link']}</td>
                 <td>
-                    <a class="btn btn-danger" href="{:U('Admin/Links/update',['id'=>$val['id']])}">更新</a>
+                    <a class="btn btn-info" href="{:U('Admin/Links/update',['id'=>$val['id']])}">修改</a>
+                    <a class="btn btn-danger" href="{:U('Admin/Links/del',['id'=>$val['id']])}">删除</a>
                 </td>
             </tr>
         </foreach>

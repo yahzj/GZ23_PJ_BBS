@@ -24,6 +24,7 @@ class LinksController extends EmptyController
 		$this->assign("res",$res);
 		$this->display();
 	}
+	
 	//执行更改的数据库操作
 	public function action()
 	{
@@ -35,6 +36,10 @@ class LinksController extends EmptyController
 	}
 
 	public function del(){
+		if(empty(I('get.id'))&&empty($_POST)){
+            //失败的跳转
+             $this->error("不要乱搞事好不好？",'',3);
+        }
 		$links=D("links");
 		//执行删除
 		$res=$links->pro_del();
@@ -56,7 +61,7 @@ class LinksController extends EmptyController
 		//到model类执行添加数据到数据库。
 		$res=$links->pro_doadd();
 		if($res){
-			$this->success("添加成功！",'',3);
+			$this->success("添加成功！",'index',3);
 		}else{
 			$this->error("添加失败",'',3);
 		}

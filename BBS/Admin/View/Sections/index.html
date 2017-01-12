@@ -8,40 +8,96 @@
 	<load href="__PUBLIC__/js/bootstrap.min.js"/>
 </head>
 <body>
-              <h1>{$title}</h1><a href="{:U('Admin/Sections/add/')}" class="btn btn-info">新增板块</a>
+              <h1>{$title}</h1>
+              <form action="{:U('Admin/Sections/index')}" method="get">
+                  搜索父级板块名称:<input type="text" name="parentname">
+                  搜索板块名称:<input type="text" name="name">
+                  搜索板块管理员名称:<input type="text" name="administrators">
+                  板块状态:
+                  <select name="status">
+                        <option value="3">全部</option>
+                        <option value="0">锁定</option>
+                        <option value="1">正常</option>
+                        <option value="2">高亮</option>
+                  </select>
+                  <input type="submit" value="搜索">
+                  <a href="{:U('Admin/Sections/add/')}" class="btn btn-info">新增板块</a>
+              </form>
+              
               <table class="table table-hover">
                       <tr>
+                            <th></th>
                             <th>id</th>
                             <th>父级板块id</th>
+                            <th>父级板块名称</th>
                              <th>板块名称</th>
                              <th>板块状态</th>
                              <th>板块管理员</th>
                              <th>板块路径</th>
                              <th>操作</th>
                       </tr>
+              <form method="post" action="{:U('Admin/Sections/del')}">
               <foreach name="list" key="key" item="val">
                    <tr>
-		<td>{$val['id']}</td>
-		<td>{$val['parent_id']}</td>
-		<td>{$val['name']}</td>
-		<td>{$val['status']}</td>
-		<td>{$val['administrators']}</td>
-		<td>{$val['path']}</td>
-		<td>
-			<a class="btn btn-danger" href="{:U('Admin/Sections/edit' , ['id' => $val['id'] ] )}">修改</a>
-			<a class="btn btn-info"  href="{:U('Admin/Sections/del',['id' => $val['id'] ])}">删除</a>
-		</td>
-	        </tr>
- 	</foreach>
+                      <td><input type="checkbox" name="{$val['id']}"/ value="{$val['id']}"></td>
+                  		<td>{$val['id']}</td>
+                      <td>{$val['parent_id']}</td>
+                  		<td>{$val['parent_name']}</td>
+                  		<td>{$val['name']}</td>
+                  		<td>{$val['status']}</td>
+                  		<td>{$val['administrators']}</td>
+                  		<td>{$val['path']}</td>
+                  		<td>
+                  			<a class="btn btn-info" href="{:U('Admin/Sections/edit' , ['id' => $val['id'] ] )}">修改</a>
+                  			<a class="btn btn-danger"  href="{:U('Admin/Sections/del',['id' => $val['id'] ])}">删除</a>
+                  		</td>
+	                 </tr>
+            	</foreach>
               </table>
+              <input type="submit" value="删除选中" class="btn btn-danger">
+              </form>
+              {//js的全选，清空和反选等操作}
+                <button class="btn btn-info" onclick="choose()">全选</button>
+                <button class="btn btn-info" onclick="clear_all()">清空</button>
+                <button class="btn btn-info" onclick="fx()">反选</button>
               <div  id="btnBox">
- 		{$show}
- 	      </div>
+ 	            	{$show}
+ 	             </div>
+                
 </body>
 <script type="text/javascript">
          // 将数字按钮进行包裹
       $('#btnBox').children().children().unwrap().wrap('<li></li>').parent().wrapAll('<ul class="pagination"></ul>');
       // 给当前页码高亮显示
       $('#btnBox span').parent().addClass('active');
+
+      var form=document.getElementById("form");
+      function choose(){
+          // each 就是循环
+          $('input').each(function(i){
+              // 转换为dom对象
+              var ziji = $(this)[0];
+              // 当前状态全部取true
+              ziji.checked = true;
+          });
+      }
+      function clear_all(){
+          // each 就是循环
+          $('td input').each(function(i){
+              // 转换为dom对象
+              var ziji = $(this)[0];
+              // 当前状态全部取false
+              ziji.checked = false;
+          });
+      }
+      function fx(){
+          // each 就是循环
+          $('td input').each(function(i){
+              // 转换为dom对象
+              var ziji = $(this)[0];
+              // 当前状态取反
+              ziji.checked = !ziji.checked;
+          });
+      }
 </script>
 </html>
