@@ -1,0 +1,1 @@
+mybbs_admin表单里的up_data字段和up_ip字段，修改设置，修改为允许为空；
