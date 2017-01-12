@@ -49,7 +49,7 @@ class UsersModel extends Model{
 			//处理用户显列表数据
 			public function pro_index(){
 				//if(IS_POST){
-				$data=I('post.');//获取post的值
+				$data=I('get.');//获取post的值
 				//}elseif(IS_GET){
 					//$data=I('get.');
 					//echo'这是get传的值';
@@ -75,7 +75,7 @@ class UsersModel extends Model{
 					dump($map);
 					$totalRow=$this->where($map)->count();
 					dump($totalRow);
-					$data['p']=1;
+					
 				}else{
 					$totalRow=$this->count();//计算数据总行数
 				}
@@ -83,13 +83,7 @@ class UsersModel extends Model{
 				$rows=10;//每行显示行数
 				$page=new \Think\Page($totalRow,$rows);//实例化分页类
 
-				foreach($data as $key=>$val){
-					
-					//echo $key;
-					echo "<hr>";
-					echo $val;   
-       				$page->parameter.= "$key=".urlencode($val)."&";//将参数写入分页参数类，，，但P不会存在了。
-       			}	
+			
 				$list=$this->where($map)->order('`id`')->limit($page->firstRow.",".$page->listRows)->select();//执行查询数据
 				$sex=['女','男'];//设定转换性别
 				$status=['超级管理员','管理员','会员'];//设定用户类型
