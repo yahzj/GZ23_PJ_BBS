@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<load href="__PUBLIC__/css/bootstrap.min.css"/>
+	<load href="__PUBLIC__/js/bootstrap.min.js"/>
+</head>
+<body>
+	<table class="table table-hover">
+		<tr>
+			<th></th>
+			<th></th>
+			<th>id</th>
+			<th>{$list['id']}</th>
+		</tr>
+		<tr>
+			<th></th>
+			<th></th>
+			<th>版块id</th>
+			<th>{$list['section_id']}</th>
+		</tr>
+		<tr>
+			<th></th>
+			<th></th>
+			<th>版块名字</th>
+			<th>{$list['section_name']}</th>
+		</tr>
+		<tr>
+			<th></th>
+			<th></th>
+			<th>发帖人id</th>
+			<th>{$list['uid']}</th>
+		</tr>
+		<tr>
+			<th></th>
+			<th></th>
+			<th>发帖人昵称</th>
+			<th>{$list['nickname']}</th>
+		</tr>
+		<tr>
+			<th></th>
+			<th></th>
+			<th>发帖内容</th>
+			<th>{$list['content']}</th>
+		</tr>
+		<tr>
+			<th></th>
+			<th></th>
+			<th>发帖时间</th>
+			<th>{$list['addtime']}</th>
+		</tr>
+		<tr>
+			<th></th>
+			<th></th>
+			<th>最后修改时间</th>
+			<th>{$list['edittime']}</th>
+		</tr>
+		<tr>
+			<th></th>
+			<th></th>
+			<th>状态</th>
+			<th>{$list['status']}</th>
+		</tr>
+	</table>
+	<a href="{:U('Admin/Follow/index')}">回到回帖管理首页</a>
+</body>
+</html>
+

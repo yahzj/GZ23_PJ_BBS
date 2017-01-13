@@ -9,58 +9,54 @@
 </head>
 <body>
 	<h1>{$title}</h1>
-	<form method="post" action="{:U('Admin/Follow/index')}">
-		搜索内容<input name='search_content' type='text' placeholder='请输入搜索内容'>
-		搜索回帖者<input name='search_nickname' type='text' placeholder='请输入回帖者昵称'>
-		回帖状态:
+	<form method="get" action="{:U('Admin/Message/index')}">
+		搜索发信人<input name='search_content' type='text' placeholder='请输入要搜索的发信人'>
+		搜索收信人<input name='search_nickname' type='text' placeholder='请输入要搜索的收信人'>
+		消息状态:
 		<select name="status">
-			<option value="0">全部</option>
-			<option value="1">全部可见</option>
-			<option value="2">只对楼主可见</option>
+			<option value="2">全部</option>
+			<option value="0">未读</option>
+			<option value="1">已读</option>
 		</select>
 		<input class="btn btn-primary" type="submit" value="搜索">
-		<a href="{:U('Admin/follow/seniorSearch')}">高级搜索</a>
+		<a href="{:U('Admin/Message/seniorSearch')}">高级搜索</a>
 	</form>
 
 	<table class="table table-hover">
 		<tr>
 			<th></th>
 			<th>id</th>
-			<th>回帖人id</th>
-			<th>回帖人昵称</th>
-			<th>发帖人id</th>
-			<th>发帖人昵称</th>
-			<th>帖子id</th>
-			<th>帖子主题</th>
-			<th>跟帖内容</th>
-			<th>楼层</th>
-			<th>发布时间</th>
-			<th>最后修改时间</th>
+			<th>发信人id</th>
+			<th>发信人昵称</th>
+			<th>收信人id</th>
+			<th>收信人昵称</th>
+			<th>始发id</th>
+			<th>消息标题</th>
+			<th>消息内容</th>
+			<th>发信时间</th>		
 			<th>状态</th>
 			<th>操作</th>
 			<th>详细</th>
 		</tr>
-	<form action="{:U('Admin/Follow/del')}" method="post">
+	<form action="{:U('Admin/Message/del')}" method="post">
 		<foreach name="list" key="key" item="val">
 			<tr>
 				<td><input type="checkbox" name="{$val['id']}" value="{$val['id']}"></td>
 				<td>{$val['id']}</td>
-				<td>{$val['uid']}</td>
+				<td>{$val['senderid']}</td>
 				<td>{$val['nickname']}</td>
-				<td>{$val['authorid']}</td>
-				<td>{$val['authorname']}</td>
-				<td>{$val['cardid']}</td>
-				<td>{$val['subject']}</td>
+				<td>{$val['receiverid']}</td>
+				<td>{$val['receivername']}</td>
+				<td>{$val['recordid']}</td>
+				<td>{$val['title']}</td>
 				<td>{$val['content']}</td>
-				<td>{$val['floor']}</td>
-				<td>{$val['addtime']}</td>
-				<td>{$val['edittime']}</td>
+				<td>{$val['sendtime']}</td>
 				<td>{$val['status']}</td>
 				<td>
 					<if condition="$val['floor'] neq 1">
-						<a class="btn btn-info" href="{:U('Admin/Follow/update',['id'=>$val['id']])}">
+						<a class="btn btn-info" href="{:U('Admin/Message/update',['id'=>$val['id']])}">
 						修改</a>
-						<a class="btn btn-danger" href="{:U('Admin/Follow/del',['id'=>$val['id'],'p'=>$_GET['p']])}">
+						<a class="btn btn-danger" href="{:U('Admin/Message/del',['id'=>$val['id'],'p'=>$_GET['p']])}">
 						删除</a>
 						
 					<else/>
@@ -68,8 +64,8 @@
 					</if>
 				</td>
 				<td>
-					<a class="btn btn-info" href="{:U('Admin/Follow/show',['cardid'=>$val['cardid']])}">
-					帖子详细信息</a>	
+					<a class="btn btn-info" href="{:U('Admin/Message/show',['cardid'=>$val['cardid']])}">
+					消息详细信息</a>	
 				</td>
 			</tr>
 		</foreach>
