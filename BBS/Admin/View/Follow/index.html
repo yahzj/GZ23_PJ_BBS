@@ -8,35 +8,34 @@
 	<load href="__PUBLIC__/js/bootstrap.min.js"/>
 </head>
 <body>
-	<h1>{$title}</h1>
-	<form method="post" action="{:U('Admin/Follow/index')}">
-		搜索内容<input name='search_content' type='text' placeholder='请输入搜索内容'>
-		搜索回帖者<input name='search_nickname' type='text' placeholder='请输入回帖者昵称'>
-		回帖状态:
-		<select name="status">
-			<option value="0">全部</option>
+	<h1>回复管理</h1>
+	<form method="post"  class="form-inline" action="{:U('Admin/Follow/index')}">
+		<input name='search_content' class="form-control" type='text' placeholder='请输入搜索内容'>
+		<input name='search_nickname' class="form-control" type='text' placeholder='请输入回帖者昵称'>
+		<select name="status" class="form-control">
+			<option value="0">回帖状态</option>
 			<option value="1">全部可见</option>
 			<option value="2">只对楼主可见</option>
 		</select>
-		<input class="btn btn-primary" type="submit" value="搜索">
+		<input class="btn btn-default" type="submit" value="搜索">
 		<a href="{:U('Admin/follow/seniorSearch')}">高级搜索</a>
 	</form>
 
 	<table class="table table-hover">
 		<tr>
 			<th></th>
-			<th>id</th>
-			<th>回帖人id</th>
+<!-- 			<th>id</th>
+ -->			<th>回帖人id</th>
 			<th>回帖人昵称</th>
 			<th>发帖人id</th>
 			<th>发帖人昵称</th>
 			<th>帖子id</th>
 			<th>帖子主题</th>
 			<th>跟帖内容</th>
-			<th>楼层</th>
-			<th>发布时间</th>
-			<th>最后修改时间</th>
-			<th>状态</th>
+			<!-- <th>楼层</th> -->
+			<th style="width: 85px;">发布时间</th>
+			<th style="width: 85px;">最后修改时间</th>
+			<!-- <th>状态</th> -->
 			<th>操作</th>
 			<th>详细</th>
 		</tr>
@@ -44,41 +43,40 @@
 		<foreach name="list" key="key" item="val">
 			<tr>
 				<td><input type="checkbox" name="{$val['id']}" value="{$val['id']}"></td>
-				<td>{$val['id']}</td>
-				<td>{$val['uid']}</td>
+<!-- 				<td>{$val['id']}</td>
+ -->				<td>{$val['uid']}</td>
 				<td>{$val['nickname']}</td>
 				<td>{$val['authorid']}</td>
 				<td>{$val['authorname']}</td>
 				<td>{$val['cardid']}</td>
 				<td>{$val['subject']}</td>
 				<td>{$val['content']}</td>
-				<td>{$val['floor']}</td>
+				<!-- <td>{$val['floor']}</td> -->
 				<td>{$val['addtime']}</td>
 				<td>{$val['edittime']}</td>
-				<td>{$val['status']}</td>
+				<!-- <td>{$val['status']}</td> -->
 				<td>
 					<if condition="$val['floor'] neq 1">
 						<a class="btn btn-info" href="{:U('Admin/Follow/update',['id'=>$val['id']])}">
 						修改</a>
 						<a class="btn btn-danger" href="{:U('Admin/Follow/del',['id'=>$val['id'],'p'=>$_GET['p']])}">
 						删除</a>
-						
 					<else/>
-						<b>不可操作</b>
+						<b class="btn btn-danger">不可操作</b>
 					</if>
 				</td>
 				<td>
 					<a class="btn btn-info" href="{:U('Admin/Follow/show',['cardid'=>$val['cardid']])}">
-					帖子详细信息</a>	
+					详细信息</a>	
 				</td>
 			</tr>
 		</foreach>
 	</table>
 	<input type="submit" value="删除选中" class="btn btn-danger">
-	</form>
 	<button onclick="choose()" class="btn btn-info">全选</button>
  	<button onclick="clear_all()" class="btn btn-info">清空</button>
  	<button onclick="fx()" class="btn btn-info">反选</button>
+	</form>
 	<div id="btnBox">{$show}</div>
 	
 </body>

@@ -30,7 +30,7 @@ class UsersModel extends Model{
 			public function pro_add(){
 				//echo '我在数据处理方法';
 				$data=I('post.');//获取数据
-				//dump($data);
+				// dump($data);
 				//创建数据对象，触发自动验证
 				$newdata=$this->create($data);
 				//dump($newdata);
@@ -56,7 +56,7 @@ class UsersModel extends Model{
 					//dump($data);
 				//}
 				//查询条件处理
-				dump($data);
+				// dump($data);
 				if(!empty($data)){
 					$map=[];//定义一个查询条件的数组
 					// $map['username']=['like','%'.$data['username'].'%'];
@@ -72,9 +72,9 @@ class UsersModel extends Model{
 							}
 						
 					}
-					dump($map);
+					// dump($map);
 					$totalRow=$this->where($map)->count();
-					dump($totalRow);
+					// dump($totalRow);
 					
 				}else{
 					$totalRow=$this->count();//计算数据总行数
@@ -133,18 +133,18 @@ class UsersModel extends Model{
 			public function pro_updata(){
 				$data=I('post.');//获取post传的值
 				$id=I('post.id');//得到ID
-				dump($data);
+				// dump($data);
 				//判断是否修改了图像，如果没有修改就用原图
 				if($_FILES['image']['error']==4){
 					$data['image']=$data['oldimage'];//将原图像名给修改数据后
-					dump($data);
+					// dump($data);
 				}
 				//创建数据对象，触发自动验证
 				$newdata=$this->create($data,2);
-				dump($newdata);
+				// dump($newdata);
 				if($newdata){
 					$map['id'] = ['eq',$id];
-					dump($map);
+					// dump($map);
 					$this->where($map)->save($newdata);//执行保存
 					return '修改信息成功';
 				}else{

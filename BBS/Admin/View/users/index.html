@@ -13,8 +13,9 @@
 	}
 </style>
 <body>
-	<h1>{$title}</h1>
-	<a href='{:U('add')}'>管理员注册</a>
+	<h1>{$title}
+	<a class="btn btn-success" href='{:U('add')}'>管理员注册</a>
+	</h1>
 <!-- =========查询条件开始============================================================================== -->
 		<form class="form-inline" action='{:U('index')}' method="get">
 		  <div class="form-group">
@@ -89,17 +90,17 @@
 					<td>{$val['status']}</td>
 					<td>{$val['addtime']}</td>		
 					<td>
-						<a class="btn btn-danger" href="{:U('Users/del' , ['id' => $val['id'] ] )}">删除</a>
 						<a class="btn btn-info" href="{:U('Users/edit' , ['id' => $val['id'] ] )}">修改</a>
+						<a class="btn btn-danger" href="{:U('Users/del' , ['id' => $val['id'] ] )}">删除</a>
 					</td>
 				</tr>
 			</foreach>
 		</table>
-		<button onclick='conFirm()'>批量删除</button><br><br>
+		<input type="submit" class="btn btn-danger" onclick='conFirm()' value="删除选中">
+		<a class="btn btn-info" onclick='choose()'>全选</a>
+		<a class="btn btn-info" onclick='fx()'>反选</a>
+		<a class="btn btn-info" onclick='reset()'>清空选择</a>
 		</form>
-		<button onclick='choose()'>全选</button>
-		<button onclick='fx()'>反选</button>
-		<button onclick='reset()'>清空选择</button>
 		<div id="btnBox">{$show}</div>
 	
 </body>
