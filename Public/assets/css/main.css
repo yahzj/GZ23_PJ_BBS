@@ -1631,14 +1631,14 @@
 	}
 
 		body.is-loading *, body.is-loading *:before, body.is-loading *:after {
-			-moz-animation: none;
-			-webkit-animation: none;
-			-ms-animation: none;
-			animation: none;
-			-moz-transition: none;
-			-webkit-transition: none;
-			-ms-transition: none;
-			transition: none;
+			-moz-animation: none !important;
+			-webkit-animation: none !important;
+			-ms-animation: none !important;
+			animation: none !important;
+			-moz-transition: none !important;
+			-webkit-transition: none !important;
+			-ms-transition: none !important;
+			transition: none !important;
 		}
 
 /* Type */
@@ -1986,7 +1986,7 @@
 	.button {
 		background-color: transparent;
 		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
-		/*color: #ffffff;*/
+		color: #ffffff 
 	}
 
 		input[type="submit"]:hover,
@@ -2019,7 +2019,7 @@
 		button.special,
 		.button.special {
 			background-color: #8cc9f0;
-			color: #ffffff;
+			color: #ffffff 
 			box-shadow: none;
 		}
 
@@ -2044,7 +2044,7 @@
 			input[type="button"].special.icon:before,
 			button.special.icon:before,
 			.button.special.icon:before {
-				color: #ffffff;
+				color: #ffffff 
 			}
 
 /* Form */
@@ -2099,7 +2099,7 @@
 			font-family: FontAwesome;
 			font-style: normal;
 			font-weight: normal;
-			text-transform: none;
+			text-transform: none !important;
 		}
 
 		.select-wrapper:before {
@@ -2163,7 +2163,7 @@
 				font-family: FontAwesome;
 				font-style: normal;
 				font-weight: normal;
-				text-transform: none;
+				text-transform: none !important;
 			}
 
 			input[type="checkbox"] + label:before,
@@ -2232,9 +2232,9 @@
 		input[type="email"]:focus,
 		select:focus,
 		textarea:focus {
-			/*border-color: #8cc9f0;*/
-			/*box-shadow: 0 0 0 1px #8cc9f0;*/
-		}
+/*			border-color: #8cc9f0;
+			box-shadow: 0 0 0 1px #8cc9f0;
+*/		}
 
 	.select-wrapper:before {
 		color: rgba(255, 255, 255, 0.35);
@@ -2265,23 +2265,23 @@
 	}
 
 	::-webkit-input-placeholder {
-		color: rgba(255, 255, 255, 0.5);
+		color: rgba(255, 255, 255, 0.5) 
 	}
 
 	:-moz-placeholder {
-		color: rgba(255, 255, 255, 0.5);
+		color: rgba(255, 255, 255, 0.5) 
 	}
 
 	::-moz-placeholder {
-		color: rgba(255, 255, 255, 0.5);
+		color: rgba(255, 255, 255, 0.5) 
 	}
 
 	:-ms-input-placeholder {
-		color: rgba(255, 255, 255, 0.5);
+		color: rgba(255, 255, 255, 0.5) 
 	}
 
 	.formerize-placeholder {
-		color: rgba(255, 255, 255, 0.5);
+		color: rgba(255, 255, 255, 0.5) 
 	}
 
 /* Icon */
@@ -2302,7 +2302,7 @@
 			font-family: FontAwesome;
 			font-style: normal;
 			font-weight: normal;
-			text-transform: none;
+			text-transform: none !important;
 		}
 
 		.icon > .label {
@@ -2517,7 +2517,7 @@
 			}
 
 				ul.icons li:last-child {
-					padding-right: 0;
+					padding-right: 0 !important;
 				}
 
 		ul.actions {
@@ -2606,7 +2606,7 @@
 
 						ul.actions li > * {
 							width: 100%;
-							margin: 0;
+							margin: 0 !important;
 						}
 
 					ul.actions.small li {
@@ -2936,7 +2936,7 @@
 				display: block;
 				font-size: 2em;
 				line-height: 1.1;
-				color: inherit;
+				color: inherit
 				font-weight: 300;
 				letter-spacing: -0.025em;
 			}
@@ -3400,7 +3400,7 @@
 		#main .button {
 			background-color: transparent;
 			box-shadow: inset 0 0 0 1px #dddddd;
-			color: #636363;
+			color: #636363 
 		}
 
 			#main input[type="submit"]:hover,
@@ -3433,7 +3433,7 @@
 			#main button.special,
 			#main .button.special {
 				background-color: #8cc9f0;
-				color: #ffffff;
+				color: #ffffff 
 				box-shadow: none;
 			}
 
@@ -3458,7 +3458,7 @@
 				#main input[type="button"].special.icon:before,
 				#main button.special.icon:before,
 				#main .button.special.icon:before {
-					color: #ffffff;
+					color: #ffffff 
 				}
 
 		#main label {
@@ -3512,23 +3512,23 @@
 		}
 
 		#main ::-webkit-input-placeholder {
-			color: rgba(99, 99, 99, 0.25);
+			color: rgba(99, 99, 99, 0.25) 
 		}
 
 		#main :-moz-placeholder {
-			color: rgba(99, 99, 99, 0.25);
+			color: rgba(99, 99, 99, 0.25) 
 		}
 
 		#main ::-moz-placeholder {
-			color: rgba(99, 99, 99, 0.25);
+			color: rgba(99, 99, 99, 0.25) 
 		}
 
 		#main :-ms-input-placeholder {
-			color: rgba(99, 99, 99, 0.25);
+			color: rgba(99, 99, 99, 0.25) 
 		}
 
 		#main .formerize-placeholder {
-			color: rgba(99, 99, 99, 0.25);
+			color: rgba(99, 99, 99, 0.25) 
 		}
 
 		#main .icon.major {

@@ -23,28 +23,10 @@ class SubjectModel extends Model{
 	// 处理用户显示列表数据
 	public function pro_index(){
 
-		// 计算总行数
-		$totalRow = $this->count();
-		// 定义每页显示行数
-		$rows = 10;
-		// 实例化分页类
-		$page = new \Think\Page( $totalRow,$rows );
-		// 执行查询
-		$list = $this->order('`id` ')->limit( $page->firstRow . ',' . $page->listRows   )->select();
-
-		$status = ['锁定','正常','高亮'];
-		// 基本处理
-		foreach($list as $key => &$val){
-			$val['status'] = $status[ $val['status'] ];
-			$val['content'] = substr($val['content'],0,128);
-		}
+		$page=PageMod($this,'id');
 
 		// 返回处理完成的信息
-		return [
-			// 返回用户信息
-			'list' => $list,
-			'show' => $page->show(),
-		];
+		return $page;
 	}
 
 	// 添加新数据
