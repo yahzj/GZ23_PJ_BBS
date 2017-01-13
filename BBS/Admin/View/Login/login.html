@@ -9,7 +9,8 @@
 
 </head>
 <body>
-
+<center>
+<h1>后台系统登录</h1>
 <div class="div_from_aoto" style="width: 500px;">
     <form action="{:U('Admin/Login/dologin')}"  method="post" enctype="multipart/form-data">
         <div class="control-group">
@@ -22,9 +23,9 @@
         </div>
 
            <div class="control-group">
-                <input type="text" name="verify" class="form-control" placeholder="验证码" style="width:200px;" />
-                <span class="glyphicon glyphicon-qrcode form-control-feedback" style="right:120px;"></span>
-                <img class="verify" src="{:U(Admin/Login/verify)}" alt="验证码" onClick="this.src=this.src+'?'+Math.random()" />
+                 <label class="laber_from">验证码</label>
+                <input type="text" name="verify" class="form-control" placeholder="验证码" style="width:100px;" />               
+                <img class="verify" src="{:U(verify)}" alt="验证码" onClick="this.src=this.src+'?'+Math.random()" />
             </div>
     
 
@@ -37,5 +38,5 @@
         </div>
     </form>
 </div>
-
+</center>
 </body></html>
