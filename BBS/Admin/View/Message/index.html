@@ -10,8 +10,9 @@
 <body>
 	<h1>{$title}</h1>
 	<form method="get" action="{:U('Admin/Message/index')}">
-		搜索发信人<input name='search_content' type='text' placeholder='请输入要搜索的发信人'>
-		搜索收信人<input name='search_nickname' type='text' placeholder='请输入要搜索的收信人'>
+		搜索发信人<input name='sender' type='text' placeholder='请输入要搜索的发信人'>
+		搜索收信人<input name='receiver' type='text' placeholder='请输入要搜索的收信人'>
+		搜索消息内容<input name='content' type='text' placeholder='请输入要搜索的内容'>
 		消息状态:
 		<select name="status">
 			<option value="2">全部</option>
@@ -19,7 +20,6 @@
 			<option value="1">已读</option>
 		</select>
 		<input class="btn btn-primary" type="submit" value="搜索">
-		<a href="{:U('Admin/Message/seniorSearch')}">高级搜索</a>
 	</form>
 
 	<table class="table table-hover">
@@ -30,13 +30,11 @@
 			<th>发信人昵称</th>
 			<th>收信人id</th>
 			<th>收信人昵称</th>
-			<th>始发id</th>
 			<th>消息标题</th>
 			<th>消息内容</th>
 			<th>发信时间</th>		
 			<th>状态</th>
 			<th>操作</th>
-			<th>详细</th>
 		</tr>
 	<form action="{:U('Admin/Message/del')}" method="post">
 		<foreach name="list" key="key" item="val">
@@ -47,15 +45,12 @@
 				<td>{$val['nickname']}</td>
 				<td>{$val['receiverid']}</td>
 				<td>{$val['receivername']}</td>
-				<td>{$val['recordid']}</td>
 				<td>{$val['title']}</td>
 				<td>{$val['content']}</td>
 				<td>{$val['sendtime']}</td>
 				<td>{$val['status']}</td>
 				<td>
 					<if condition="$val['floor'] neq 1">
-						<a class="btn btn-info" href="{:U('Admin/Message/update',['id'=>$val['id']])}">
-						修改</a>
 						<a class="btn btn-danger" href="{:U('Admin/Message/del',['id'=>$val['id'],'p'=>$_GET['p']])}">
 						删除</a>
 						
@@ -63,18 +58,14 @@
 						<b>不可操作</b>
 					</if>
 				</td>
-				<td>
-					<a class="btn btn-info" href="{:U('Admin/Message/show',['cardid'=>$val['cardid']])}">
-					消息详细信息</a>	
-				</td>
 			</tr>
 		</foreach>
 	</table>
 	<input type="submit" value="删除选中" class="btn btn-danger">
 	</form>
-	<button onclick="choose()" class="btn btn-info">全选</button>
- 	<button onclick="clear_all()" class="btn btn-info">清空</button>
- 	<button onclick="fx()" class="btn btn-info">反选</button>
+	<a onclick="choose()" class="btn btn-info">全选</a>
+ 	<a onclick="clear_all()" class="btn btn-info">清空</a>
+ 	<a onclick="fx()" class="btn btn-info">反选</a>
 	<div id="btnBox">{$show}</div>
 	
 </body>
