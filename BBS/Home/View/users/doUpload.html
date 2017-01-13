@@ -1,0 +1,70 @@
+<extend name='./Public/HomeUserBase.html'/>
+<block name='styles'>
+	.form-control{
+		width:350px;
+	}
+</block>
+<block name='center-content'>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class='row'>
+				<div class='col-sm-2'>
+					<img src="__ROOT__/Uploads/images/new{$list['image']}" alt="没有上传文件" class="img-rounded" width='50'>
+				</div>
+				<div class='col-sm-10'>
+					<form action="{:U('Admin/Users/updata')}"  method="post" enctype="multipart/form-data">
+
+						      <!-- 添加一个隐藏表单传id -->
+						      <input type="hidden" name="id" id="" style='width:300px' value="{$list['id']}" />
+						      
+						      <!-- 添加一个隐藏表单传原图像路径 如果要用原图像就用这个路径及图像名oldimage代表修改之前的图像名-->
+						      <input type="hidden" name="oldimage" id="" style='width:300px' value="{$list['image']}" />
+						      
+							<div class="form-group">
+							    <label for="exampleInputEmail1">账号</label>
+							    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Email" value='{$list['username']}' name='username' disabled>
+							  </div>
+
+							  <div class="form-group">
+							    <label for="exampleInputEmail1">昵称</label>
+							    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Email" value='{$list['nickname']}' name='nickname'>
+							  </div>
+
+							  <div class="form-group">
+								<label for="exampleInputEmail1">性别</label>
+							 	<select class="form-control" name='sex'>
+								  <option value="0" {$list['sex']==0?'selected':""}>女</option>
+								  <option value="1" {$list['sex']==1?'selected':""}>男</option>
+								</select>
+								</div>
+
+
+							 <div class="form-group">
+							    <label for="exampleInputEmail1">邮箱</label>
+							    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" value='{$list['email']}' name='email'>
+							  </div>
+
+							   <div class="form-group">
+							    <label for="exampleInputEmail1">地址</label>
+							    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Email" value='{$list['address']}' name='address'>
+							  </div>
+
+							   <div class="form-group">
+							    <label for="exampleInputEmail1">个性签名</label>
+							    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Email" value='{$list['sign']}' name='sign'>
+							  </div>
+
+						
+
+							  <div class="form-group">
+							    <label for="exampleInputFile">修改头像</label>
+							    <input type="file" id="exampleInputFile" name='image'>
+							    <p class="help-block">Example block-level help text here.</p>
+							  </div>
+
+							  <button type="submit" class="btn btn-default">提交</button>
+					</form>
+				</div>
+			</div>  
+		</div>
+</block>

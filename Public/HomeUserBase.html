@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>个人中心</title>
+	<load href="__PUBLIC__/css/bootstrap.min.css"/>
+	<load href="__PUBLIC__/js/jquery.js"/>
+	<load href="__PUBLIC__/js/bootstrap.min.js"/>
+	<style>
+		<block name='styles'>
+			
+		</block>
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+		<!-- 左边内容 -->
+			<div class="col-sm-3">
+				<div class="">
+				  <div class="">
+				  		
+							<div class="row">
+							  	<div class="col-sm-6">
+						  			<img src="__ROOT__/Uploads/images/new{$list['image']}" alt="没有上传文件" class="img-rounded">
+							  	</div>
+								<div class="col-sm-6">
+							  		<ul class="list-group">
+		  								<li class="list-group-item">
+		  								等级
+		    							<span class="badge">14</span>
+		  								</li>
+		  								<li class="list-group-item">
+		  								积分
+		    							<span class="badge">14</span>
+		  								</li>
+									</ul>
+							  	
+							  	</div>
+							</div>
+							<div class='col-sm-12'>
+								<div><h3>{$list['nickname']}</h3></div> 
+								<div>{$list['username']}</div> 
+								<div>{$list['sign']}</div> 
+							</div>
+				  </div>
+				</div>
+					
+							  	
+			</div>
+		<!-- 左边内容结束 -->
+		<!-- 中间内容 -->
+			<div class="col-sm-6">
+				<nav class="navbar navbar-default list-group-item-warning">
+				 	<a class="navbar-brand" href="{:U('index')}">主页</a>
+					<a class="navbar-brand" href='{:U('upload')}'>个人档</a>
+				 	
+				</nav>
+				<block name='center-content'>
+				<div class="panel panel-default">
+				  <div class="panel-body">
+				    Basic panel example
+				  </div>
+				</block>
+				</div>
+			</div>
+		<!-- 中间内容结束 -->		
+		<!-- 右边内容 -->		
+			<div class="col-sm-3">
+				<div class="panel panel-default">
+				  <div class="panel-body">
+				    帖子收藏
+				  </div>
+
+				</div>
+			</div>
+		<!-- 右边内容结束 -->
+		</div>
+	</div>
+</body>
+	<script>
+
+	
+	</script>
+</html>
