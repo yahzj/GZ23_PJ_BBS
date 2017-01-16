@@ -21,6 +21,15 @@ class LoginController extends Controller {
                          $admin=D('admin');
                          $list=$admin->where($map)->select(); 
                          //dump($list);
+                         session('id', $list['id']); // 当前用户ID
+                         session('admin_name', $list['admin_name']);   // 当前用户名称
+                        session('nickname', $list['nickname']);//当前用户昵称
+                        session('up_date', $list['up_date']);//当前用户时间
+                        session('up_datetime', time());//当前用户时间
+                        session('up_ip', $list['up_ip']);//当前用户ip地址
+                        session('status', $list['status']);//当前用户状态
+                        session('login', 'admin');//后台登录
+
                          if ($list[0]['admin_name']==null){
                                  return $this->Error('帐号不存在');
                          }
