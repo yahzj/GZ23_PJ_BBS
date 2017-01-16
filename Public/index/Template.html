@@ -28,7 +28,7 @@
 					<div id="logo">
 						<img src="__PUBLIC__/images/logo.png" alt="">
 					</div>
-					<block name='user_data'>继承user_data，需要在子级block标签放入{:W('Cate/user_data')}</block>
+					<block name='user_data'>{:W('Cate/user_data')}</block>
 					<nav id="nav">
 							<form action="#" method="get">
 								<input type="text" class="form-control" placeholder="输入关键字" name=""><input type="submit" class="form-control" value="搜索">
@@ -36,7 +36,7 @@
 					</nav>
 				<!-- Main -->
 					<div id="main">
-						<block name='main'>这里是主题内容，继承路径写 __PUBLIC__/index/Template.html</block>
+						<block name='main'>这里是主题内容，继承路径写 './Public/index/Template.html'</block>
 					</div>
 				<!-- Footer -->
 					<footer id="footer">
