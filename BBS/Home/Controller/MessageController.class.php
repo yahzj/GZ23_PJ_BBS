@@ -1,13 +1,30 @@
 <?php
-namespace Admin\Controller;
+namespace Home\Controller;
 use Think\Controller;
 class MessageController extends EmptyController{
 	//显示所有数据和搜索后的数据
 	public function index(){
 		$message = D("message");
-		//跳转到Model的pro_index()方法里。
-		$data=$message->pro_index();
-		$this->assign($data);
+		if(empty(I('get.'))){
+			$list=$message->sms();
+		}else{
+			switch(I('get.type')){
+			case 'sms'://短消息
+				$list=$message->sms();
+				break;
+			case 'notice'://系统通知，评论通知
+				$message->notice();
+				break;
+			case 'request'://好友请求
+				$message->request();
+				
+				break;
+			default:
+				$this->error("没有你要找的网页");
+				break;
+		}
+		}
+		$this->assign('list',$list);
 		$this->display();
 	}
 	//删除消息
@@ -26,3 +43,4 @@ class MessageController extends EmptyController{
 		}
 	}
 }
+

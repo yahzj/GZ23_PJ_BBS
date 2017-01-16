@@ -42,8 +42,9 @@ class SectionsModel extends Model{
 			// 得到总行数
 		$totalRow = $this->count();
 		}
+		
 		// 执行分页查询
-		$list = $this->where($map)->order('id asc')->limit( $page->firstRow . ',' . $page->listRows )->select();
+		$list = $this->where($map)->order('id asc')->select();
 		//一定要搜索所有的数据，得到所有的id和名字作为html要显示的父类名字。
 		$lists=$this->select();
 		//准备一个数组用来存放键为id，值为name。用来给最后的数据加入父类名字，方便显示的。0为根目录。
@@ -66,10 +67,7 @@ class SectionsModel extends Model{
 			}
 			$totalRow=count($list);
 		}
-		// 每页显示条数
-		$num = 6;
-		// 实例化分页类
-		$page = new \Think\Page($totalRow,$num);
+		
         $status = ['锁定','正常','高亮'];
 		// 基本处理
 		foreach($list as $key => &$val){
@@ -77,9 +75,44 @@ class SectionsModel extends Model{
 			//新增一个parent_name键，分别存放上面遍历出来存放的根目录等。这样$list数组到了index.html页面就能显示父级名字了。
 			$val['parent_name']=$parent_name[$val['parent_id']];
 		}
+
+		//将所有数据重新按照键为0开始排列。得到一个新数组。
+		$arrlist=array_values($list);
+		$p=$_GET['p'];
+		//每页显示条数。
+		$row=3;
+		//得到总的页数。
+		$num=ceil($totalRow/$row);
+		//防止页数p大于最大的或者小于1.
+		$p=min($p,$num);
+		$p=max($p,1);
+		//设置空数组，是最后要返回给控制器进行分配的。
+		$lastlist=[];
+		//如果条数大于要显示的条数。则走这里
+		if($totalRow>$row){
+			//如果参数p的值和总页数一样，说明最大下标取到总条数就可以了。
+			if($p==$num){
+				for($i=(($p-1)*$row);$i<$totalRow;$i++){
+					$lastlist[]=$arrlist[$i];
+				}
+			}else{
+				//如果参数p的值少于总页数，说明它每页都能显示正常的$row条。
+				for($i=(($p-1)*$row);$i<$p*$row;$i++){
+					$lastlist[]=$arrlist[$i];
+				}
+			}
+		}else{
+			//数据条数少于要显示的条数$row，就在第一页让它全部显示完。
+			for($i=0;$i<$totalRow;$i++){
+				$lastlist[]=$arrlist[$i];
+			}
+		}
+
+		// 实例化分页类
+		$page = new \Think\Page($totalRow,$row);
 		return [
 			// 用户列表
-			'list' => $list,
+			'list' => $lastlist,
 			// 分页按钮
 			"show" => $page->show(),
 		];		

@@ -1,0 +1,333 @@
+<!doctype>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>
+			个人中心
+		</title>
+		<style type="text/css">
+		/*=============================================头部开始==========================================================*/
+			div,ul,li,table,td,input{margin:0px;padding:0px;}
+			a{
+				text-decoration:none;
+				color:red;
+			}
+			.clear
+			{
+				clear:both;
+			}
+			.header
+			{
+				width:100%;
+				height:30;
+				
+				background:#eee;
+			}
+			ul li
+			{
+				list-style:none;
+				float:right;
+				width:100px;
+				text-align:center;
+			}
+			.header ul li:hover
+			{
+				background:#fff;
+			}
+			ul li a
+			{
+				text-decoration:none;
+				line-height:30px;
+				font-size:12px;
+				color:#aaa;
+			}
+			.logo
+			{
+				width:100%;
+				height:125;
+				 /*border:1px solid red; */
+				/* background:#E45050; */
+				background:#fff;/*深橙色#ff8c00*/
+			}
+				.logo ul li
+				{
+					width:200px;
+					height:40px;
+					 /*border:1px solid red; */
+					float:left;
+					margin-top:12px;
+					line-height:40px;
+					color:#111;
+				}
+		/*=============================================头部结束==========================================================*/
+		/*=============================================主体开始==========================================================*/
+		.content div
+		{
+			float:left;
+		}
+		.menu-left
+		{
+			width:180px;
+			border:1px solid #ccc;
+			height:150px;
+			margin-left:10px;
+		}
+			.gerenxixi
+			{
+				width:180px;
+				height:40px;
+				/* border:1px solid #ccc; */
+				line-height:40px;
+				background:#eee;
+				color:#aaa;
+			}
+			.xixizhanshi li
+			{
+				width:180px;
+				height:40px;
+				line-height:40px;
+				font-size:12px;
+			}
+		.menu-right
+		{
+			width:300px;
+			border:1px solid #ccc;
+			/* height:280px; */
+			margin-left:10px;
+		}
+				.lishi
+				{
+				width:300px;
+				height:40px;
+				/* border:1px solid #ccc; */
+				line-height:40px;
+				background:#eee;
+				color:#aaa;
+				}
+				.zuoji
+				{
+					float:left;
+					border:1px solid red;
+					margin-left:15px;
+					margin-bottom:10px;
+					
+				}
+		.admin
+		{
+			width:720px;
+			border:1px solid #ccc;
+			/* height:1200px; */
+			margin-left:10px;
+		}
+			.admin-xixi
+			{
+				width:600px;
+				/* height:300px; */
+				/* border:1px solid red; */
+				margin-left:60px;
+				
+				
+			}
+			.admin-qianmin
+			{
+				width:600px;
+				height:40px;
+				/* border:1px solid red;  */
+				margin-left:60px;
+				line-height:40px;
+				color:#fff;
+				background:red;
+			}
+			input[type='text']
+			{
+				width:400px;
+				height:30px;
+			}
+			input[type='submit']
+			{
+				width:100px;
+				height:30px;
+			}
+			.tuxiang
+			{
+				width:100px;
+				height:100px;
+				border:1px solid #ccc;
+				margin-top:10px;
+				margin-right:30px;
+				border-radius:5px;
+			}
+			table
+			{
+				margin-top:10px;
+			}
+			td
+			{
+				text-align:center;
+				height:30px;
+				color:#00A2E9;
+			}
+			.td-content
+			{
+				width:300px;
+				height:30px;
+				border:1px solid #eee;
+				border-radius:5px;
+				line-height:30px;
+				color:#666;
+			}
+			.td2-content
+			{
+				width:480px;
+				height:30px;
+				border:1px solid #eee;
+				border-radius:5px;
+				line-height:30px;
+				color:#666;
+			}
+			.table2 tr
+			{
+				height:60px;
+			}
+			.state
+			{
+				width:600px;
+				height:30px;
+				/* border:1px solid red;  */
+				margin-left:60px;
+				line-height:30px;
+				color:#fff;
+				background:#ccc;
+			}
+			.state li
+			{
+				float:left;
+				/* border:1px solid red; */
+				height:30px;
+				line-height:30px;
+			}
+			.state li a
+			{
+				color:black;
+			}
+			.state li:hover
+			{
+				background:#fff;
+			}
+		/*=============================================主体结束==========================================================*/
+		</style>
+		
+	</head>
+	<body>
+		
+		<div class="logo">
+				<ul>
+					<li style="width:100px;border-radius:5px;"><img style="border-radius:10px;" src="__ROOT__/Uploads/images/new{$list['image']}" art='图片没上传' width='100'></li>
+					<li>PJ48论坛个人中心&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<div style='font-size:20px;color:#00A2E9;height:30px;line-height:30px;text-align:left;margin-left:15px;'>					{$list['nickname']}
+						</div>
+						<div style='font-size:12px;color:#00A2E9;height:15px;line-height:15px;'>
+							{$list['sign']}
+						</div>
+						<div style='font-size:12px;color:red;height:15px;line-height:15px;text-align:left;margin-left:15px;'>
+						积分  等级  总贴数
+						</div>
+					</li>
+
+				</ul>
+				
+			
+		</div>
+		<div>
+				<ul>
+					<li><a href="./cart.php">卍购物车</a></li>
+					<li><a href="#">客户服务</a></li>
+					<li><a href="index.php">pj48论坛</a></li>
+					<li style="width:100px;"><a style="color:#00A2E9;"></a><a href="./action.php?a=logout">&nbsp;&nbsp;&nbsp;退出</a></li>
+				
+				</ul>
+			</div>
+		<div class='clear'></div>
+		<hr color="#ccc" size="1">
+		<div class="content">
+			<div class="menu-left">
+					<div class="menu-left-me">
+						<div class="gerenxixi">
+							<div style='width:30px;height:30px;border:0px solid red;margin-top:5px;'></div>个人信息
+						</div>
+						<ul class="xixizhanshi">
+							<li>
+								<a href="{:U('index')}">主页<a>
+							</li>
+							<li>
+								<a href="{:U('upload')}">信息修改<a>
+							</li>
+						</ul>
+						
+					</div>
+				</div>
+				<div class="admin">
+					
+				
+				<div class="admin-qianmin">
+								<span style="margin-left:10px;">所有帖子</span>
+								
+							</div>
+				<center>
+						<div class="state">
+							<ul>
+								<li><a href="zone.php?a=2">精品</a></li>
+								<li><a href="zone.php?a=4">新发布</a></li>
+								<li><a href="zone.php?a=1">未审核</a></li>
+								<li><a href="zone.php?a=3">判退</a></li>
+								<li><a href="zone.php?">全部</a></li>
+							</ul>
+						
+						</div>
+						<center>
+						
+						<table width="600" border="0" cellpadding="0" cellspacing="0">
+									<tr height="40" style="background-color:#fff;font-size:12px;">
+										<th width="100">主题</th>
+										<th width="150">ID</th>
+										<th width="100">内容</th>
+										<th width="100">发布时间</th>
+										<th>操作</th>
+									</tr>
+						</table>	
+
+				</div>
+				<div class="menu-right">
+					<div class="menu-left-me">
+						<div class="lishi">
+							<div style='width:30px;height:30px;border:0px solid red;margin-top:5px;'></div>足迹
+						</div>
+						<div style="width:250px;border:1px solid #ccc;margin-left:25px;">
+							
+						</div>
+					</div>
+				</div>
+		</div>
+		<div class="clear"></div>
+				<div style="width:100%;height:300px;">
+				<div>
+	</body>	
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
