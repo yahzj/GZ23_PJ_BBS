@@ -89,18 +89,19 @@ class MessageModel extends Model{
 		$lastlist=[];
 		//如果条数大于要显示的条数。则走这里
 		if($totalRow>$row){
-
-			
+			//如果参数p的值和总页数一样，说明最大下标取到总条数就可以了。
 			if($p==$num){
 				for($i=(($p-1)*$row);$i<$totalRow;$i++){
 					$lastlist[]=$arrlist[$i];
 				}
 			}else{
+				//如果参数p的值少于总页数，说明它每页都能显示正常的$row条。
 				for($i=(($p-1)*$row);$i<$p*$row;$i++){
 					$lastlist[]=$arrlist[$i];
 				}
 			}
 		}else{
+			//数据条数少于要显示的条数$row，就在第一页让它全部显示完。
 			for($i=0;$i<$totalRow;$i++){
 				$lastlist[]=$arrlist[$i];
 			}

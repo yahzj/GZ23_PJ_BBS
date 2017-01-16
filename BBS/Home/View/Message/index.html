@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.main{
+			width:800px;
+			border:1px solid gray;
+		}
+		.right{
+			float:right;
+			width:500px;
+			border:1px solid red;
+		}
+	</style>
+	
+</head>
+<body>
+	<b><a href="{:U('Home/Message/index')}">消息</a></b> <a href="{:U('Home/Users/index')}">个人中心</a><br><br><br>
+	<div class="main">
+	<div class="right">
+		{//第一种可能：只输入了type参数和值为sms，没有action的值，就默认是收件箱}
+		<if condition="($_GET['type'] eq 'sms' AND (count($_GET) eq 1)) or (count($_GET)) lt 1">
+		站内信(共{:count($list)}条)1<br>
+		<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'receive'])}">收件箱</a> <a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'send'])}">发件箱</a>
+		
+		{//第二种可能：输入了type参数和值，action的值为send，就是发件箱}
+		<elseif condition="($_GET['type'] eq 'sms') AND ($_GET['action'] eq 'send')" />
+		站内信(共{:count($list)}条)2<br>
+		<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'receive'])}">收件箱</a> <a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'send'])}">发件箱</a>
+		<foreach name="list" key="key" item="val">
+			<table border=1>
+				<tr>
+					<th>收件人</th>
+					<th>标题</th>
+					<th>内容</th>
+				</tr>
+				<tr>
+					<td>{$val['receiverid']}</td>
+					<td>{$val['title']}</td>
+					<td>{$val['content']}</td>
+				</tr>
+			</table>
+		</foreach>
+		
+		{//第三种可能：输入了type参数和值，action的值为receive，就是收件箱}
+		<elseif condition="($_GET['type'] eq 'sms') AND ($_GET['action'] eq 'receive')" />
+		站内信(共{:count($list)}条)3<br>
+		<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'receive'])}">收件箱</a> <a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'send'])}">发件箱</a>
+		
+		{//第四种可能：只输入了type参数和值为notice，就是通知页面}
+		<elseif condition="($_GET['type'] eq 'notice')" />
+		{$_GET['type']}
+		站内信(共{:count($list)}条)4
+		
+		{//第五种可能：只输入了type参数和值为request，就是通知页面}
+		<elseif condition="($_GET['type'] eq 'request')" />
+		站内信(共{:count($list)}条)5
+		</if>
+	</div>
+	
+	<div class="left">
+		<a href="{:U('Home/Message/index'),['type'=>sms]}">发新消息</a><br>
+		<a href="{:U('Home/Message/index')}">站内信</a><br>
+		<a href="{:U('Home/Message/index')}">通知</a><br>
+		<a href="{:U('Home/Message/index')}">请求</a><br>
+	</div>
+	</div>
+</html>
