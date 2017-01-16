@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>后台模板</title>
+<title>前台登录</title>
 <load href="__PUBLIC__/css/add.css"/>
 <load href="__PUBLIC__/css/bootstrap.min.css"/>
  <load href="__PUBLIC__/js/jquery.js"/>
@@ -10,16 +10,16 @@
 </head>
 <body>
 <center>
-<h1>后台系统登录</h1>
+<h1>前台登录</h1>
 <div class="div_from_aoto" style="width: 500px;">
-    <form action="{:U('Admin/Login/dologin')}"  method="post" enctype="multipart/form-data">
+    <form action="{:U('Home/Login/dologin')}"  method="post" enctype="multipart/form-data">
         <div class="control-group">
             <label class="laber_from">用户名</label>
-            <div class="controls"><input name="admin_name" class="input_from" placeholder=" 请输入用户名" type="text"><p class="help-block"></p></div>
+            <div class="controls"><input name="username" class="input_from" placeholder=" 请输入用户名" type="text"><p class="help-block"></p></div>
         </div>
         <div class="control-group">
             <label class="laber_from">密码</label>
-            <div class="controls"><input name="pass" class="input_from" placeholder=" 请输入密码" type="password"><p class="help-block"></p></div>
+            <div class="controls"><input name="userpass" class="input_from" placeholder=" 请输入密码" type="password"><p class="help-block"></p></div>
         </div>
 
            <div class="control-group">
