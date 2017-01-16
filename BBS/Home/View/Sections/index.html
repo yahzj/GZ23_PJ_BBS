@@ -1,12 +1,47 @@
 <extend name='./public/index/Template.html'/>
+<block name='css'>
+	<style>
+		#subject{padding:10px;}
+		#subject li{list-style:none;height:4em;width:95%;margin:10px;padding:0px;}
+		#subject li a{
+			display:block;
+			padding-left:10px;
+			border-bottom:none;
+		}
+		#subject li div{height:100%;float:left;}
+		#subject li .floor{
+			width:5%;
+			border-right:1px solid #dddddd;
+			text-align:center;
+
+		}
+		#subject li .title{
+			width:65%;
+			font: 18px/1.5 Tahoma,'Microsoft Yahei','Simsun';
+			padding:10px;
+			border-right:1px solid #dddddd;
+		}
+		#subject li .uid{
+			width:15%;
+			border-right:1px solid #dddddd;
+			text-align:center;
+		}
+		#subject li .fid{
+			width:15%;
+			text-align:center;
+		}
+	</style>
+</block>
 <block name='main'>
-	<foreach name='list' item='val'>
-		<div></div>
-		<ul>
-			<li><a href="" class="form-control">{$val.floor}</a></li>
-			<li><a href="" class="form-control">{$val.name}</a></li>
-			<li><a href="" class="form-control">{$val.uname}<br>{$val.a_time}</a></li>
-			<li><a href="" class="form-control">{$val.f_time}<br>{$val.a_time}</a></li>
-		</ul>
-	</foreach>
+	<div></div>
+	<ul id="subject">
+		<foreach name='list' item='val'>
+			<li  class="form-control">
+				<div class="floor">{$val.floor}</div>
+				<div class="title"><a href="">{$val.name}</a></div>
+				<div class="uid"><a href="">{$val.uid}</a>{$val.a_time}</div>
+				<div class="fid"><a href="">{$val.fid}</a>{$val.f_time}</div>
+			</li>
+		</foreach>
+	</ul>
 </block>

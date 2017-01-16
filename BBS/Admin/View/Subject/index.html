@@ -9,13 +9,15 @@
 </head>
 <body>
 	<h1>{$title}</h1>
-	<form method="post"  class="form-inline" action="{:U('Admin/Follow/index')}">
-		<input name='search_content' class="form-control" type='text' placeholder='请输入搜索标题'>
+	<form method="get"  class="form-inline" action="{:U('Admin/Subject/index')}">
+		<input name='name' class="form-control" type='text' placeholder='请输入搜索标题'>
 		<input name='search_nickname' class="form-control" type='text' placeholder='请输入发布者昵称'>
 		<select name="status" class="form-control">
-			<option value="0">主题状态</option>
-			<option value="1">全部可见</option>
-			<option value="2">只对楼主可见</option>
+			<option value="-1">主题状态</option>
+			<option value="0">锁定</option>
+			<option value="1">未锁定</option>
+			<option value="2">高亮</option>
+			<option value="2">加精</option>
 		</select>
 		<input class="btn btn-default" type="submit" value="搜索">
 		<!-- <a href="{:U('Admin/follow/seniorSearch')}">高级搜索</a> -->

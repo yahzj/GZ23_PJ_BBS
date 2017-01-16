@@ -80,7 +80,7 @@ class SectionsModel extends Model{
 		$arrlist=array_values($list);
 		$p=$_GET['p'];
 		//每页显示条数。
-		$row=3;
+		$row=10;
 		//得到总的页数。
 		$num=ceil($totalRow/$row);
 		//防止页数p大于最大的或者小于1.

@@ -22,11 +22,47 @@ class SubjectModel extends Model{
 
 	// 处理用户显示列表数据
 	public function pro_index(){
+		$data=I('get.');
 
-		$page=PageMod($this,'id');
+		if(!empty($data)){
+			$map=[];//定义一个查询条件的数组
+			foreach($data as $k=>$v){
+				if($v&&($k=='name'||$k=='search_nickname')){
+					$map[$k]=['like','%'.$v.'%'];//如果GET传过来的键为username和nickname 那么搜索表达式用like
+					}elseif(in_array($v,[0,1,2,3])&&($k=='status')){
+				$map[$k]=['eq',$v];
+			}
+			}
+			dump($map);
+			$totalRow=$this->where($map)->count();
+			dump($totalRow);
+			
+		}else{
+			$totalRow=$this->count();//计算数据总行数
+		}
+		// 定义每页显示行数
+		$rows = 10;
+			//判断页数
+		if ($_GET['p']>ceil($totalRow/$rows)) {
+			$_GET['p']=ceil($totalRow/$rows);
+		};
+		// 实例化分页类
+		$page = new \Think\Page( $totalRow,$rows );
+		// 执行查询
+		$list = $this->where($map)->order('`id` ')->limit( $page->firstRow . ',' . $page->listRows   )->select();
 
-		// 返回处理完成的信息
-		return $page;
+		$status = ['锁定','正常','高亮'];
+		// 基本处理
+		foreach($list as $key => &$val){
+			$val['status'] = $status[ $val['status'] ];
+			$val['content'] = substr($val['content'],0,128);
+		}
+
+		return [
+			// 返回用户信息
+			'list' => $list,
+			'show' => $page->show(),
+		];
 	}
 
 	// 添加新数据
