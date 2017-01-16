@@ -30,6 +30,21 @@
 			width:15%;
 			text-align:center;
 		}
+		div#btnBox a,div#btnBox span{
+			position: relative;
+			float: left;
+			padding: 6px 12px;
+			margin-left: -1px;
+			line-height: 1.42857143;
+			color: #428bca;
+			text-decoration: none;
+			background-color: #fff;
+			border: 1px solid #ddd;
+		}
+		div#btnBox span{
+			color: #226baa;
+			font-weight:bold;
+		}
 	</style>
 </block>
 <block name='main'>
@@ -39,9 +54,11 @@
 			<li  class="form-control">
 				<div class="floor">{$val.floor}</div>
 				<div class="title"><a href="">{$val.name}</a></div>
-				<div class="uid"><a href="">{$val.uid}</a>{$val.a_time}</div>
-				<div class="fid"><a href="">{$val.fid}</a>{$val.f_time}</div>
+				<div class="uid"><a href="">{$val.uid}</a>{$val.addtime}</div>
+				<div class="fid"><a href="">{$val.fid}</a>{$val.followtime}</div>
 			</li>
 		</foreach>
 	</ul>
+	<div id="btnBox">{$show}</div>
+
 </block>
