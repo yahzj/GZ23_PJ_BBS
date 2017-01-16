@@ -43,7 +43,7 @@
 					{:W('Cate/user_data')}
 					<!-- Main -->
 					<div id="main">
-						<foreach name='sections' item='val'>
+						<foreach name='sections' item='val' key='k'>
 							<section id="sections{$val['nickname']}" class="main">
 								<div class="spotlight">
 									<div class="content">
@@ -52,15 +52,15 @@
 										</header>
 										<p>{$val['introduce']}</p>
 										<ul class="actions">
-											<li><a href="{$link}" class="button">进入{$val['name']}</a></li>
+											<li><a href="{$val['link']}" class="button">进入{$val['name']}</a></li>
 										</ul>
 									</div>
 									<span class="list">
 									<!-- Nav tabs -->										
 										<ul class="nav nav-tabs" role="tablist">
 											<!-- <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab">热门主题</a></li> -->
-											<li role="presentation"><a href="#messages" role="tab" data-toggle="tab">最新回复</a></li>
-											<li role="presentation"><a href="#profile" role="tab" data-toggle="tab">最新主题</a></li>
+											<li role="presentation" class="active"><a href="#messages{$k}" role="tab" data-toggle="tab">最新回复</a></li>
+											<li role="presentation"><a href="#profile{$k}" role="tab" data-toggle="tab">最新主题</a></li>
 										</ul>
 
 										<!-- Tab panes -->
@@ -74,18 +74,22 @@
 											<li><a href=""> 5个关键词看小程序和App的UI设计异同</a></li>
 											</ul>
 										</div> -->
-										<div role="tabpanel" class="tab-pane active" id="messages">
+										<div role="tabpanel" class="tab-pane active" id="messages{$k}">
 											<ul>
-											<foreach name='followtime' item='val'>
-											<li><a href="">{$val['name']}{$val['followtime']}</a></li>
-											</foreach>
+											<li><a href="">{$val['followtime']['0']['name']}{$val['followtime']['0']['followtime']}</a></li>
+											<li><a href="">{$val['followtime']['1']['name']}{$val['followtime']['1']['followtime']}</a></li>
+											<li><a href="">{$val['followtime']['2']['name']}{$val['followtime']['2']['followtime']}</a></li>
+											<li><a href="">{$val['followtime']['3']['name']}{$val['followtime']['3']['followtime']}</a></li>
+											<li><a href="">{$val['followtime']['4']['name']}{$val['followtime']['4']['followtime']}</a></li>
 											</ul>
 										</div>
-										<div role="tabpanel" class="tab-pane" id="profile">
+										<div role="tabpanel" class="tab-pane" id="profile{$k}">
 											<ul>
-											<foreach name='addtime' item='val'>
-											<li><a href="">{$val['name']}{$val['addtime']}</a></li>
-											</foreach>
+											<li><a href="">{$val['addtime']['0']['name']}{$val['addtime']['0']['addtime']}</a></li>
+											<li><a href="">{$val['addtime']['1']['name']}{$val['addtime']['1']['addtime']}</a></li>
+											<li><a href="">{$val['addtime']['2']['name']}{$val['addtime']['2']['addtime']}</a></li>
+											<li><a href="">{$val['addtime']['3']['name']}{$val['addtime']['3']['addtime']}</a></li>
+											<li><a href="">{$val['addtime']['4']['name']}{$val['addtime']['4']['addtime']}</a></li>
 											</ul>
 										</div>
 									</div>
