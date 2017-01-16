@@ -22,7 +22,7 @@ class UsersController extends EmptyController{
 			$this->imgUpload();//执行文件上传
 		}
 		$msg=$user->pro_add();//执行数据处理	
-        $this->success($msg,U('add'),3);//输出信息并跳转到注册页面(错误或正确的);
+        $this->success($msg);//输出信息并跳转到注册页面(错误或正确的);
 	}
 	//用户展示界面;
 	public function index(){

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>用户注册</title>
+	<load href="__PUBLIC__/css/bootstrap.min.css"/>
+	<load href="__PUBLIC__/css/HomeUsersAdd.css"/>
+	<load href="__PUBLIC__/js/jquery.js"/>
+	
+	<load href="__PUBLIC__/js/bootstrap.min.js"/>
+</head>
+<body>
+	<div class="container">
+		<section id="content">
+			<form action="{:U('Admin/Users/doadd')}"  method="post" enctype="multipart/form-data">
+				<h1>注册</h1>
+				<div>
+					<input type="text" placeholder="Username" required="" id="username" name='username'/>
+				</div>
+				<div>
+					<input type="password" placeholder="Password" required="" id="password" name='userpass' />
+				</div>
+				<div>
+					<input type="password" placeholder="rePassword" required="" id="password" name='reuserpass'/>
+				</div>
+					<!-- 给个隐藏的默认值管理员为1 超级管理员为0 会员为2 -->
+	               <input type="hidden" name="status" id="" style='width:300px' value='2' />
+	              	<!-- 给个不显示的file表单，为了验证 -->
+	               <input name="image"  class="input_from" placeholder=" 请输入确认密码" type="file" style='display:none;'><p class="help-block">
+				<div class='confirm'>
+					<div id='change'></div>
+					<div id='move'>
+						滑动验证
+					</div>
+					
+				</div>
+				<div>
+					<input type="submit" value="注册" disabled id='sm'/>
+					<input type="reset" value="重置" />
+				</div>
+				<div class='clear'></div>
+				
+			</form><!-- form -->
+			<div class="button">
+				<a href="#">welcome to pj48</a>
+			</div><!-- button -->
+		</section><!-- content -->
+	</div><!-- container -->
+</body>
+<!-- 滑动验证 -->
+<script src='__PUBLIC__/js/HomeUsersAdd.js' />
+</html>
