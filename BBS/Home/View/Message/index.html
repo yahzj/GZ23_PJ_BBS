@@ -3,68 +3,293 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<load href="__PUBLIC__/css/bootstrap.min.css"/>
+	<load href="__PUBLIC__/js/jquery.js"/>
+	<load href="__PUBLIC__/js/bootstrap.min.js"/>
 	<style>
-		.main{
-			width:800px;
-			border:1px solid gray;
-		}
-		.right{
-			float:right;
-			width:500px;
-			border:1px solid red;
-		}
+		
 	</style>
 	
 </head>
 <body>
 	<b><a href="{:U('Home/Message/index')}">消息</a></b> <a href="{:U('Home/Users/index')}">个人中心</a><br><br><br>
-	<div class="main">
-	<div class="right">
-		{//第一种可能：只输入了type参数和值为sms，没有action的值，就默认是收件箱}
-		<if condition="($_GET['type'] eq 'sms' AND (count($_GET) eq 1)) or (count($_GET)) lt 1">
-		站内信(共{:count($list)}条)1<br>
-		<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'receive'])}">收件箱</a> <a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'send'])}">发件箱</a>
-		
-		{//第二种可能：输入了type参数和值，action的值为send，就是发件箱}
-		<elseif condition="($_GET['type'] eq 'sms') AND ($_GET['action'] eq 'send')" />
-		站内信(共{:count($list)}条)2<br>
-		<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'receive'])}">收件箱</a> <a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'send'])}">发件箱</a>
-		<foreach name="list" key="key" item="val">
-			<table border=1>
-				<tr>
-					<th>收件人</th>
-					<th>标题</th>
-					<th>内容</th>
-				</tr>
-				<tr>
-					<td>{$val['receiverid']}</td>
-					<td>{$val['title']}</td>
-					<td>{$val['content']}</td>
-				</tr>
-			</table>
-		</foreach>
-		
-		{//第三种可能：输入了type参数和值，action的值为receive，就是收件箱}
-		<elseif condition="($_GET['type'] eq 'sms') AND ($_GET['action'] eq 'receive')" />
-		站内信(共{:count($list)}条)3<br>
-		<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'receive'])}">收件箱</a> <a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'send'])}">发件箱</a>
-		
-		{//第四种可能：只输入了type参数和值为notice，就是通知页面}
-		<elseif condition="($_GET['type'] eq 'notice')" />
-		{$_GET['type']}
-		站内信(共{:count($list)}条)4
-		
-		{//第五种可能：只输入了type参数和值为request，就是通知页面}
-		<elseif condition="($_GET['type'] eq 'request')" />
-		站内信(共{:count($list)}条)5
-		</if>
+	<div class="container">
+			<div class="row">
+					<div class="left" class="col-sm-3">
+						<a href="{:U('Home/Message/index'),['type'=>sms]}">发新消息</a><br>
+						<a href="{:U('Home/Message/index')}">站内信</a><br>
+						<a href="{:U('Home/Message/index')}">通知</a><br>
+						<a href="{:U('Home/Message/index')}">请求</a><br>
+					</div>
+				<div class="right"  class="col-sm-6">
+					{//第一种可能：只输入了type参数和值为sms，没有action的值，就默认是收件箱}
+					<if condition="($_GET['type'] eq 'sms' AND (count($_GET) eq 1)) or (count($_GET)) lt 1">
+					站内信(共{:count($list)}条)1<br>
+					<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'receive'])}">收件箱</a> <a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'send'])}">发件箱</a>
+					
+					<a id="tag" class="btn btn-info" onclick="tag()">标记已读</a>
+ 					<a id="del" class="btn btn-danger" onclick="return del()">删除</a>
+					<a onclick="choose()" class="btn btn-info">全选</a>
+ 					<a onclick="clear_all()" class="btn btn-info">清空</a>
+ 					<a onclick="fx()" class="btn btn-info">反选</a>
+
+					<table border=1>
+						<tr>
+							<th></th>
+							
+							<th>发件人</th>
+							<th>标题</th>
+							<th>内容</th>
+							<th>状态</th>
+							<th>接收时间</th>
+						</tr>
+						<foreach name="list" key="key" item="val">
+								<tr>
+									<td><input type="checkbox" name="$val['id']" value="$val['id']"><span style="display:none;">{$val['id']}</span></td>
+									
+									<td>{$val['sendername']}</td>
+									<td><a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'info','titleid'=>$val['id'],'status'=>1])}">{$val['title']}</a></td>
+									<td>{$val['content']}</td>
+									<if condition="$val['status'] eq 0">
+									<td>未读</td>
+									<else/>
+									<td>已读</td>
+									</if>
+									<td>{$val['sendtime']}</td>
+								</tr>
+						</foreach>
+					</table>
+
+					{//第二种可能：输入了type参数和值，action的值为send，就是发件箱}
+					<elseif condition="($_GET['type'] eq 'sms') AND ($_GET['action'] eq 'send')" />
+					站内信(共{$list['count']}条)2<br>
+					<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'receive'])}">收件箱</a> <a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'send'])}">发件箱</a>
+					
+ 					<a id="del" class="btn btn-danger" onclick="return del()">删除</a>
+					<a onclick="choose()" class="btn btn-info">全选</a>
+ 					<a onclick="clear_all()" class="btn btn-info">清空</a>
+ 					<a onclick="fx()" class="btn btn-info">反选</a>
+
+					<table border=1>
+						<tr>
+							<th></th>
+							<th>收件人</th>
+							<th>标题</th>
+							<th>内容</th>
+							<th>状态</th>
+							<th>发送时间</th>
+						</tr>
+						<foreach name="list" key="key" item="val">
+								<tr>
+									<td><input type="checkbox" name="$val['id']" value="$val['id']"><span style="display:none;">{$val['id']}</span></td>
+									<td>{$val['receivername']}</td>
+									<td><a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'info','titleid'=>$val['id'],'status'=>2])}">{$val['title']}</a></td>
+									<td>{$val['content']}</td>
+									<if condition="$val['status'] eq 0">
+									<td>对方未读</td>
+									<else/>
+									<td>对方已读</td>
+									</if>
+									<td>{$val['sendtime']}</td>
+								</tr>
+							
+					
+					</foreach>
+					</table>
+
+
+					{//第三种可能：输入了type参数和值，action的值为receive，就是收件箱}
+					<elseif condition="($_GET['type'] eq 'sms') AND ($_GET['action'] eq 'receive')" />
+					站内信(共{:count($list)}条)3<br>
+					<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'receive'])}">收件箱</a> <a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'send'])}">发件箱</a>
+					
+					<a id="tag" class="btn btn-info" onclick="tag()">标记已读</a>
+ 					<a id="del" class="btn btn-danger" onclick="return del()">删除</a>
+					<a onclick="choose()" class="btn btn-info">全选</a>
+ 					<a onclick="clear_all()" class="btn btn-info">清空</a>
+ 					<a onclick="fx()" class="btn btn-info">反选</a>
+					<table border=1>
+						<tr>
+							<th></th>
+							<th>发件人</th>
+							<th>标题</th>
+							<th>内容</th>
+							<th>状态</th>
+							<th>接收时间</th>
+						</tr>
+						<foreach name="list" key="key" item="val">
+								<tr>
+									<td><input type="checkbox" name="$val['id']" value="$val['id']"><span style="display:none;">{$val['id']}</span></td>
+									<td>{$val['sendername']}</td>
+									<td><a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'info','titleid'=>$val['id'],'status'=>1])}">{$val['title']}</a></td>
+									<td>{$val['content']}</td>
+									<if condition="$val['status'] eq 0">
+									<td>未读</td>
+									<else/>
+									<td>已读</td>
+									</if>
+									<td>{$val['sendtime']}</td>
+								</tr>
+						</foreach>
+					</table>
+
+					{//第四种可能：只输入了type参数和值为notice，就是通知页面}
+					<elseif condition="($_GET['type'] eq 'notice')" />
+					{$_GET['type']}
+					站内信(共{:count($list)}条)4
+					
+					{//第五种可能：只输入了type参数和值为request，就是通知页面}
+					<elseif condition="($_GET['type'] eq 'request')" />
+					站内信(共{:count($list)}条)5
+
+					{//第六种可能：只输入了type参数和值为post，就是写新信息页面}
+					<elseif condition="($_GET['type'] eq 'post')" />
+					站内信(共{:count($list)}条)6
+					
+					{//第七种可能：参数为type值为info,就是回信页面，也是具体消息内容页面}
+					<elseif condition="($_GET['type'] eq 'sms') AND ($_GET['action'] eq 'info')" />
+					站内信(共<volist name='list' id='vo'>
+
+							{$vo.count}
+
+							</volist>条)7
+
+						<volist name='list' id='vo'>
+
+							<if condition="$vo.senderid neq 1">
+								<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'receive'])}">返回</a>
+							<else/>
+								<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'send'])}">返回</a>
+							</if>
+						</volist>
+					
+						<foreach name="list" key="key" item="val">
+							<if condition="$val['lastid'] eq 0 AND $val['nextid'] eq 0">
+								没有更多短消息
+							<elseif condition="$val['lastid'] eq 0 AND $val['nextid'] neq 0"/>
+								上一条没有啦<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'info','titleid'=>$val['nextid']])}">下一条</a>
+							<elseif condition="$val['lastid'] neq 0 AND $val['nextid'] eq 0"/>
+								<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'info','titleid'=>$val['lastid']])}">上一条</a>下一条没有啦
+							<else/>
+								<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'info','titleid'=>$val['lastid']])}">上一条</a>
+								<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'info','titleid'=>$val['nextid']])}">下一条</a>
+							</if>
+							<br>
+							和<span style='color:red;'>{$val['sendername']}</span>的对话
+							<volist name='list' id='vo'>
+
+								<h3>标题：{$val['title']}</h3>
+								<if condition="$vo.senderid neq 1">
+									<b>发信人：</b>{$val['sendername']} <b>内容：</b>{$val['content']}
+								<else/>
+									<b>我：</b>{$_SESSION['usersname']}  {$val['content']}
+								</if>
+							</volist>
+							<if condition="$val['senderid'] eq 1">
+								<form action="{:U('Home/Message/add')}" method="post">
+									<input hidden name="senderid" value=1>
+									<input hidden name="receiverid" value={$val['receiverid']}>
+									<input hidden name="title" value={$val['title']}>
+									<textarea name="content">请输入内容</textarea>
+									<input type="submit" value="提交">
+								</form>
+							<else/>
+								<form action="{:U('Home/Message/add')}" method="post">
+									<input hidden name="senderid" value=1>
+									<input hidden name="receiverid" value={$val['senderid']}>
+									<input hidden name="title" value={$val['title']}>
+									<textarea name="content">请输入内容</textarea>
+									<input type="submit" value="提交">
+								</form>
+							</if>
+						</foreach>
+						
+
+					</if>
+				</div>
+				
+
+					<div class="col-sm-3">
+					</div>
+			</div>
 	</div>
-	
-	<div class="left">
-		<a href="{:U('Home/Message/index'),['type'=>sms]}">发新消息</a><br>
-		<a href="{:U('Home/Message/index')}">站内信</a><br>
-		<a href="{:U('Home/Message/index')}">通知</a><br>
-		<a href="{:U('Home/Message/index')}">请求</a><br>
-	</div>
-	</div>
+</body>
+<script>
+	function choose(){
+		// each 就是循环
+		$('input').each(function(i){
+			// 转换为dom对象
+			var ziji = $(this)[0];
+			// 当前状态全部取true
+			ziji.checked = true;
+		});
+	}
+	function clear_all(){
+		// each 就是循环
+		$('td input').each(function(i){
+			// 转换为dom对象
+			var ziji = $(this)[0];
+			// 当前状态全部取false
+			ziji.checked = false;
+		});
+	}
+	function fx(){
+		// each 就是循环
+		$('td input').each(function(i){
+			// 转换为dom对象
+			var ziji = $(this)[0];
+			// 当前状态取反
+			ziji.checked = !ziji.checked;
+		});
+	}
+
+	function del(){
+		var arr=new Array();  
+		$('td input:checkbox:checked').each(function(i){ 
+			//得到隐藏的id的值。
+			arr[i] = this.parentNode.lastChild.innerHTML;
+			//下面这个可以获得当前顺序的第几个，以0开始，后面的累加。所以选中第1和第3个框就是值0和2。
+			//arr[i] = $(this).parents("tr").index();
+			
+		});
+		
+		console.dir(arr);
+		if(arr.length>0){
+			if(confirm("确定删除吗？")){
+          		location.href="http://localhost/obj2/GZ23_PJ_BBS/Home/Message/del/data/"+arr;
+
+      		}else{
+          
+        	}
+		}else{
+			alert("请至少选择一个"); 
+		}
+		
+	}
+
+	function tag(){
+		var arr=new Array(); 
+		$('td input:checkbox:checked').each(function(i){ 
+			//得到隐藏的id的值。
+			arr[i] = this.parentNode.lastChild.innerHTML;
+			//下面这个可以获得当前顺序的第几个，以0开始，后面的累加。所以选中第1和第3个框就是值0和2。
+			//arr[i] = $(this).parents("tr").index();
+			
+		});
+		
+		console.dir(arr);
+		if(arr.length>0){
+			if(confirm("确定标注已读吗？")){
+          		location.href="http://localhost/obj2/GZ23_PJ_BBS/Home/Message/tag/data/"+arr;
+
+      		}else{
+          
+        	}
+		}else{
+			alert("请至少选择一个"); 
+		}
+		
+	}
+
+</script>
 </html>

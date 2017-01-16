@@ -24,22 +24,37 @@ class MessageController extends EmptyController{
 				break;
 		}
 		}
-		$this->assign('list',$list);
+		if($list===false){
+			$this->error("没有你要找的网页");
+		}
+		$this->assign($list);
 		$this->display();
 	}
 	//删除消息
 	public function del(){
-		//单条删除和批量删除的条件都没有，直接返回到上一页。
-		if(empty(I('get.'))&&empty(I('post.'))){
-			$this->error('不要搞事好不好？');
-		}
-		$message = D("message");
-		//跳转到Model的pro_index()方法里。
+		$message=D('message');
 		$res=$message->pro_del();
 		if($res){
 			$this->success("删除成功");
 		}else{
-			$this->error("删除失败!");
+			$this->error("删除失败");
+		}
+		
+	}
+
+	public function tag(){
+		$message=D('message');
+		$message->pro_tag();
+	}
+
+	public function add(){
+
+		$message=D('message');
+		$res=$message->pro_add();
+		if($res){
+			$this->success("发送成功");
+		}else{
+			$this->error("发送失败");
 		}
 	}
 }
