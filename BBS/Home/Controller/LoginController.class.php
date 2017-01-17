@@ -22,13 +22,13 @@ class LoginController extends Controller {
                          $list=$users->where($map)->select(); 
                         //dump($list);
                         session('id', $list['id']);
-                         session('username', $list['username']); // 当前用户ID
-                         session('nickname', $list['nickname']);   // 当前用户名称
-                        session('addtime', $list['addtime']);//当前用户昵称
-                        session('status', $list['status']);//当前用户时间
-                        session('integral', $list['integral']);//当前用户ip地址
-                        session('sign', $list['sign']);//当前用户状态
-                        session('login', 'home');//后台登录
+                         session('username', $list['username']); // 当前用户名
+                         session('nickname', $list['nickname']);   // 当前用户昵称
+                        session('addtime', $list['addtime']);//注册时间
+                        session('status', $list['status']);//状态
+                        session('integral', $list['integral']);//积分
+                        session('sign', $list['sign']);//签名
+                        session('login', 'home');//前台登录
 
                          if ($list[0]['username']==null){
                                  return $this->Error('帐号不存在');
