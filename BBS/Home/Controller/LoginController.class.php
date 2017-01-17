@@ -26,7 +26,7 @@ class LoginController extends Controller {
                          //session('nickname', $list['nickname']);   // 当前用户昵称
                         session('addtime',time());//注册时间
                          session('login', 'home');//前台登录
-                          session('mybbs', $list); 
+                          session('mybbs_home', $list); 
                         //session('status', $list['status']);//状态
                        // session('integral', $list['integral']);//积分
                        // session('sign', $list['sign']);//签名
