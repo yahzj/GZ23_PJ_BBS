@@ -86,7 +86,7 @@ class UsersModel extends Model{
 			
 				$list=$this->where($map)->order('`id`')->limit($page->firstRow.",".$page->listRows)->select();//执行查询数据
 				$sex=['女','男'];//设定转换性别
-				$status=['超级管理员','管理员','会员'];//设定用户类型
+				$status=['锁定','会员','高级会员'];//设定用户类型
 				foreach($list as $k=>&$v){
 					$v['sex']=$sex[$v['sex']];//修改性别显示
 					$v['status']=$status[$v['status']];//修改用户类型显示

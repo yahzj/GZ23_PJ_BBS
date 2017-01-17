@@ -9,7 +9,7 @@
 </head>
 <body>
         <h1>{$title}
-			  <a class="btn btn-success" href='{:U('Admin/Admin/add')}'>后台管理员注册</a>
+			  <a class="btn btn-success" href='{:U('Admin/Admin/add')}'>后台管理员添加</a>
 			  </h1>
               <table class="table table-hover">
                       <tr>
@@ -18,7 +18,7 @@
                              <th>管理员名称</th>
                              <th>最后登陆日期</th>
                              <th>最后登陆的ip</th>
-                             <th>状态期权</th>
+                             <th>管理员等级</th>
                              <th>操作</th>
                       </tr>
               <foreach name="list" key="key" item="val">
@@ -31,7 +31,7 @@
                   <td>{$val['status']}</td>
               		<td>
               			<a class="btn btn-danger" href="{:U('Admin/Admin/edit' , ['id' => $val['id'] ] )}">修改</a>
-                    <if condition="$val['status'] eq 1">
+                    <if condition="$val['status'] neq '超级管理员'">
               			<a class="btn btn-info"  href="{:U('Admin/Admin/del',['id' => $val['id'] ])}">删除</a>
                     </if>
               		</td>

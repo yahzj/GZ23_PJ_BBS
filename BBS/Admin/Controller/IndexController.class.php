@@ -12,8 +12,9 @@ class IndexController extends EmptyController {
 	    public function welcome(){
 	    	$everyday=D('everyday');
 	    	$data['list']=$everyday->pro_select();
+	    	$data['session']=I('session.');
 	    	// echo '<pre>';
-	    	// var_dump($data);
+	    	// dump($data);
 	    	$this->assign($data);
 	    	$this->display();
 	    }

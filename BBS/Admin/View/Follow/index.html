@@ -56,14 +56,10 @@
 				<td>{$val['edittime']}</td>
 				<!-- <td>{$val['status']}</td> -->
 				<td>
-					<if condition="$val['floor'] neq 1">
 						<a class="btn btn-info" href="{:U('Admin/Follow/update',['id'=>$val['id']])}">
 						修改</a>
 						<a class="btn btn-danger" href="{:U('Admin/Follow/del',['id'=>$val['id'],'p'=>$_GET['p']])}">
 						删除</a>
-					<else/>
-						<b class="btn btn-danger">不可操作</b>
-					</if>
 				</td>
 				<td>
 					<a class="btn btn-info" href="{:U('Admin/Follow/show',['cardid'=>$val['cardid']])}">

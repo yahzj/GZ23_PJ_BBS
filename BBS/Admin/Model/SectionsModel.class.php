@@ -4,12 +4,8 @@ use Think\Model;
 
 class SectionsModel extends Model{
     protected $_validate = [
-		// [验证字段1,验证规则,错误提示,[验证条件,附加规则,验证时间]]
-
-		// ['email','email','你的邮箱格式不正确！！！'],
-		// ['address','require','邮箱地址必填！！'],
-		// ['pwd','3,6','你太短了，老娘不要！！' , 1, 'length' , 3],
-		// ['repwd', 'pwd' , '你跟老子不是一块的！' , 1  , 'confirm',3],
+		['name','require','板块名字必须填写'],
+		['name','','板块名已存在',0,'unique',3],
 	];
 
            // 自动完成
@@ -67,13 +63,26 @@ class SectionsModel extends Model{
 			}
 			$totalRow=count($list);
 		}
-		
+		// 获取会员信息
+		$us=D('users');
+		$ures=$us->field('id,nickname')->select();
+		foreach ($ures as  $val) {
+			$users[$val['id']]=$val['nickname'];
+
+		}
+
         $status = ['锁定','正常','高亮'];
 		// 基本处理
 		foreach($list as $key => &$val){
 			$val['status'] = $status[ $val['status'] ];
 			//新增一个parent_name键，分别存放上面遍历出来存放的根目录等。这样$list数组到了index.html页面就能显示父级名字了。
 			$val['parent_name']=$parent_name[$val['parent_id']];
+			$adm=trim($val['administrators'],',');
+			$adm=explode(',', $adm);
+			foreach ($adm as &$v) {
+				$v=$users[$v];
+			}
+			$val['administrators']=implode(',',$adm);
 		}
 
 		//将所有数据重新按照键为0开始排列。得到一个新数组。

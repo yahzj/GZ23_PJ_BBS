@@ -14,7 +14,7 @@
 </style>
 <body>
 	<h1>{$title}
-	<a class="btn btn-success" href='{:U('add')}'>管理员注册</a>
+	<a class="btn btn-success" href='{:U('add')}'>新会员添加</a>
 	</h1>
 <!-- =========查询条件开始============================================================================== -->
 		<form class="form-inline" action='{:U('index')}' method="get">
@@ -41,9 +41,9 @@
 		    <label>
 			    <select class="form-control" name='status'>
 			    	<option value='4'>用户类型</option>
-					  <option value='0'>超级管理员</option>
-					  <option value='1'>管理员</option>
-					  <option value='2'>会员</option>
+					  <option value='0'>锁定</option>
+					  <option value='1'>会员</option>
+					  <option value='2'>高级会员</option>
 					  
 
 				</select>

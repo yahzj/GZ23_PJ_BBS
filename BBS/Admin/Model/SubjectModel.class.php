@@ -33,9 +33,9 @@ class SubjectModel extends Model{
 				$map[$k]=['eq',$v];
 			}
 			}
-			dump($map);
+			// dump($map);
 			$totalRow=$this->where($map)->count();
-			dump($totalRow);
+			// dump($totalRow);
 			
 		}else{
 			$totalRow=$this->count();//计算数据总行数
@@ -51,11 +51,27 @@ class SubjectModel extends Model{
 		// 执行查询
 		$list = $this->where($map)->order('`id` ')->limit( $page->firstRow . ',' . $page->listRows   )->select();
 
+		// 获取会员信息
+		$us=D('users');
+		$ures=$us->field('id,nickname')->select();
+		foreach ($ures as  $val) {
+			$users[$val['id']]=$val['nickname'];
+
+		}		
+		
+		// 获取板块信息
+		$se=D('sections');
+		$res=$se->field('id,name')->select();
+		foreach ($res as  $val) {
+			$seciton_id[$val['id']]=$val['name'];
+		}
 		$status = ['锁定','正常','高亮'];
 		// 基本处理
 		foreach($list as $key => &$val){
 			$val['status'] = $status[ $val['status'] ];
 			$val['content'] = substr($val['content'],0,128);
+			$val['section_id'] =$seciton_id[$val['section_id']];
+			$val['uid'] =$users[$val['uid']];
 		}
 
 		return [

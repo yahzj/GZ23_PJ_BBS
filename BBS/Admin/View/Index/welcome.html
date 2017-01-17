@@ -44,7 +44,7 @@
 					"hideMethod": "fadeOut"
 				};
 		
-				toastr.success("您上次登陆时间为：0000年00月00日00:00:00，登陆IP为192.168.0.1", "欢迎回来，管理员！", opts);
+				toastr.success("您上次登陆时间为：<br>{$session['mybbs'][0]['up_date']}<br>登陆Ip为：{$session['mybbs'][0]['up_ip']}", "欢迎回来，管理员！", opts);
 			}, 3000);
 		
 		

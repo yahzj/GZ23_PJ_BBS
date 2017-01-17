@@ -38,7 +38,15 @@ class LoginController extends Controller {
                          }
                          $res=password_verify($post_pass,$list[0]['pass']);
                          if($res){
-                         	      return $this->success("登录成功！",U('Admin/Index/index'));
+                            $data['up_ip']=I('server.REMOTE_ADDR');
+                            $data['up_date']=date('Y-m-d H:i:s');
+                            // dump($data);
+                            $res=$admin->create($data);
+                            array_pop($res);
+                            // dump($res);
+                            $res=$admin->where($map)->save($res);
+                            // dump($res);
+                            return $this->success("登录成功！",U('Admin/Index/index'));
                          }else{
                                 return $this->Error('密码不正确',U('Admin/Login/login'));//验证错误，返回错误信息
                          }

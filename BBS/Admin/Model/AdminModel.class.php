@@ -6,12 +6,12 @@ class AdminModel extends Model{
 	protected $_validate=[
 
 		['admin_name','require','账号必须填'],
-		['admin_name','','账号已存在',1,'unique',3],
+		['admin_name','','账号已存在',0,'unique',3],
 		//2.关于密码的
-		['pass','require','密码必须填',1,"",1],
-		['pass','6,20','长度需在6到20位之间',1,'length',1],
-		['pass','repass','密码两次输入不一致',1,'confirm',3],
-		['pass','/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/','密码不能为纯数字或纯字母',1,'regex',1],
+		['pass','require','密码必须填',0,"",1],
+		['pass','6,20','长度需在6到20位之间',0,'length',1],
+		['pass','repass','密码两次输入不一致',0,'confirm',3],
+		['pass','/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/','密码不能为纯数字或纯字母',0,'regex',1],
 
 	];
 
@@ -32,7 +32,7 @@ class AdminModel extends Model{
 		// 执行分页查询
 		$list = $this->order('id asc')->limit( $page->firstRow . ',' . $page->listRows )->select();
 
-                         $status = ['锁定','正常','高亮'];
+        $status = ['锁定','管理员','超级管理员'];
 		// 基本处理
 		foreach($list as $key => &$val){
 			$val['status'] = $status[ $val['status'] ];
@@ -75,7 +75,7 @@ class AdminModel extends Model{
 		
 		if($data){
 		    $this->add($data);//如果验证正确则添加到数据库
-		    return '你已经是管理员了';
+		    return '添加成功';
 		}else{
 		    return false;//验证错误，返回错误信息
 		}
