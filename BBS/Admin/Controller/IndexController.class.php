@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
-class IndexController extends Controller {
+class IndexController extends EmptyController {
     
 		// 显示后台主页
 	    public function index(){

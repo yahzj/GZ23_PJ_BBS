@@ -4,11 +4,11 @@ use Think\Controller;
 class CommonController extends Controller{
 	public function _initialize(){
 		if(empty(session('mybbs'))){
-	    $this->success('您尚未登陆',U('Admin/Login/login'));
+	    $this->redirect('Login/login','',5,'您尚未登陆,正在为您跳转回登陆界面...');
 	    }elseif (time()-session('up_datetime')>1800) {
-	    	$this->success('登陆超时，请重新登陆',U('Admin/Login/login'));
+	    	$this->redirect('Login/login','',5,'登陆超时,正在为您跳转回登陆界面...');
 	    }elseif (session('login')!='admin') {
-	    	$this->success('您没有登陆后台的权限',U('Admin/Login/login'));
+	    	$this->redirect('Login/login','',5,'很抱歉，您没有后台登陆权限,正在为您跳转回登陆界面...');
 	    }
 	    session('up_datetime',time());
 	}

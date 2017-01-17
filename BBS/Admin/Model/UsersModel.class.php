@@ -42,7 +42,7 @@ class UsersModel extends Model{
 					//echo $data['image'];
 					//echo '在';
 					$this->imgdel($data);
-					return $this->getError();//验证错误，返回错误信息
+					return false;//验证错误，返回错误信息
 
 				}
 			}
@@ -112,7 +112,7 @@ class UsersModel extends Model{
 						}
 						$res=$this->where($map)->delete();//通过WHere方法批量删除数据
 						if(!$res){
-							return $this->getError();//返回错误信息
+							return false;//返回错误信息
 						}else{
 							return "删除成功";
 						}
@@ -123,7 +123,7 @@ class UsersModel extends Model{
 						$this->imgdel($images);
 						$res=$this->delete($id);//执行删除的条数
 						if(!$res){
-							return $this->getError();//返回错误信息
+							return false;//返回错误信息
 						}else{
 							return "删除成功";
 						}
@@ -154,7 +154,7 @@ class UsersModel extends Model{
 					if($data['image']!==$data['oldimage']){
 						$this->imgdel($data);//执行图片删除
 					}
-					return $this->getError();//返回错误信息
+					return false();//返回错误信息
 				}
 			}
 			//删除图片的方法，要两个参数：$data数据变量名 $v图片的名称的键值;默认为‘image’;
