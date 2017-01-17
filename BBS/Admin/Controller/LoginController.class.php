@@ -22,15 +22,16 @@ class LoginController extends Controller {
                          $list=$admin->where($map)->select(); 
                          //dump($list);
                     //将session值带入登录页面
-                         session('id', $list['id']); // 当前用户ID
-                         session('admin_name', $list['admin_name']);   // 当前用户名称
-                        session('nickname', $list['nickname']);//当前用户昵称
-                        session('up_date', $list['up_date']);//当前用户时间
+                        //  session('id', $list['id']); // 当前用户ID
+                        //  session('admin_name', $list['admin_name']);   // 当前用户名称
+                        // session('nickname', $list['nickname']);//当前用户昵称
+                        // session('up_date', $list['up_date']);//当前用户时间
                         session('up_datetime', time());//当前用户时间
-                        session('up_ip', $list['up_ip']);//当前用户ip地址
-                        session('status', $list['status']);//当前用户状态
+                        // session('up_ip', $list['up_ip']);//当前用户ip地址
+                        // session('status', $list['status']);//当前用户状态
                         session('login', 'admin');//后台登录
 
+                         session('mybbs', $list); 
                    //判断登录是否成功
                          if ($list[0]['admin_name']==null){
                                  return $this->Error('帐号不存在');
