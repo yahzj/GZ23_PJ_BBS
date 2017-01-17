@@ -1,8 +1,14 @@
 <extend name='./public/index/Template.html'/>
+<block name='path'>
+	<foreach name='link' item='val'>
+		<a href="{$val['path']}">>>{$val['pname']}</a>
+	</foreach>
+</block>
 <block name='css'>
 	<style>
+		li{list-style:none;}
 		#subject{padding:10px;}
-		#subject li{list-style:none;height:4em;width:95%;margin:10px;padding:0px;}
+		#subject li{height:4em;width:95%;margin:10px;margin-left:auto;margin-right:auto;padding:0px;}
 		#subject li a{
 			display:block;
 			padding-left:10px;
@@ -45,13 +51,28 @@
 			color: #226baa;
 			font-weight:bold;
 		}
+		div#title{
+			border: 1px solid #dedede;
+			border-radius:4px;
+			background:#fefefe;
+			padding:10px;
+			font: 18px/1.5 Tahoma,'Microsoft Yahei','Simsun';
+			margin:20px;
+		}
 	</style>
 </block>
 <block name='main'>
-	<div></div>
+	<div id="title">{$SectionTop}</div>
+	<div id="sections">
+		<ul>
+			<foreach name='child' item='val'>
+				<li><a href="{$val['link']}">{$val['name']}</a></li>
+			</foreach>
+		</ul>
+	</div>
 	<ul id="subject">
 		<foreach name='list' item='val'>
-			<li  class="form-control">
+			<li class="form-control">
 				<div class="floor">{$val.floor}</div>
 				<div class="title"><a href="">{$val.name}</a></div>
 				<div class="uid"><a href="">{$val.uid}</a>{$val.addtime}</div>

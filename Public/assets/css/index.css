@@ -163,3 +163,5 @@
 						}
 
 		}
+	right{float:right;}
+	.tab-content .tab-pane ul li{margin-right:25px;}
