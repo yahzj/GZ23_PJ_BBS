@@ -12,7 +12,7 @@ class LoginController extends Controller {
                 //验证码验证
                 $verify=I('param.verify','');
                 if(!check_verify($verify)){
-                	$this->error("亲，验证码输错了哦！",$this->site_url,9);
+                	$this->error("亲，验证码输错了哦！",U('Admin/Login/login'),3);
                 }
                      //接收数据
 	   	$post_admin_name=I('post.admin_name');
@@ -34,13 +34,13 @@ class LoginController extends Controller {
                          session('mybbs', $list); 
                    //判断登录是否成功
                          if ($list[0]['admin_name']==null){
-                                 return $this->Error('帐号不存在');
+                                 return $this->Error('帐号不存在',U('Admin/Login/login'));
                          }
                          $res=password_verify($post_pass,$list[0]['pass']);
                          if($res){
                          	      return $this->success("登录成功！",U('Admin/Index/index'));
                          }else{
-                                return $this->Error('密码不正确');//验证错误，返回错误信息
+                                return $this->Error('密码不正确',U('Admin/Login/login'));//验证错误，返回错误信息
                          }
                                             
 	   }

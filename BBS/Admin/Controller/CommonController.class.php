@@ -10,6 +10,6 @@ class CommonController extends Controller{
 	    }elseif (session('login')!='admin') {
 	    	$this->success('您没有登陆后台的权限',U('Admin/Login/login'));
 	    }
-	    //session('up_datetime')=time();
+	    session('up_datetime',time());
 	}
 }
