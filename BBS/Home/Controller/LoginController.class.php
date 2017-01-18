@@ -19,10 +19,7 @@ class LoginController extends Controller {
 	   	$post_userpass=I('post.userpass');
                          $map['username']=$post_username;
                          $users=D('users');
-                         $list=$users->where($map)->select(); 
-                         $list['landtime']=time();
-                         $list['login']='home';                     
-                          session('mybbs_home', $list); 
+                         $list=$users->field('id,username,userpass,nickname,image,status,integral')->where($map)->select(); 
                    
                        
                          if ($list[0]['username']==null){
@@ -30,6 +27,10 @@ class LoginController extends Controller {
                          }
                          $res=password_verify($post_userpass,$list[0]['userpass']);
                          if($res){
+
+                         $list['landtime']=time();
+                         $list['login']='home';                     
+                          session('mybbs_home', $list); 
                          	      return $this->success("登录成功！",U('Home/Index/index'));
                          }else{
                                 return $this->Error('密码不正确',U('Home/Login/login'));//验证错误，返回错误信息
