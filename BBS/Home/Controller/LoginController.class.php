@@ -20,16 +20,10 @@ class LoginController extends Controller {
                          $map['username']=$post_username;
                          $users=D('users');
                          $list=$users->where($map)->select(); 
-                        //dump($list);
-                       // session('id', $list['id']);
-                        // session('username', $list['username']); // 当前用户名
-                         //session('nickname', $list['nickname']);   // 当前用户昵称
-                        session('addtime',time());//注册时间
-                         session('login', 'home');//前台登录
+                         $list['landtime']=time();
+                         $list['login']='home';                     
                           session('mybbs_home', $list); 
-                        //session('status', $list['status']);//状态
-                       // session('integral', $list['integral']);//积分
-                       // session('sign', $list['sign']);//签名
+                   
                        
                          if ($list[0]['username']==null){
                                  return $this->Error('帐号不存在');
