@@ -6,11 +6,12 @@ class SubjectModel extends Model{
 
 	// $_validate 属性定义验证规则。
 	protected $_validate = [
-		// [验证字段1,验证规则,错误提示,[验证条件,附加规则,验证时间]]
-		// ['email','email','你的邮箱格式不正确！！！'],
-		// ['address','require','邮箱地址必填！！'],
-		['content','1,1024','请输入至少1个字至多1024个字的内容' , 1, 'length' , 3],
-		// ['repwd', 'pwd' , '你跟老子不是一块的！' , 1  , 'confirm',3],
+		// // [验证字段1,验证规则,错误提示,[验证条件,附加规则,验证时间]]
+		['name','require','请输入至少1个字的标题'],
+		['name','1,32','标题至多32个字' , 1, 'length' , 3],
+		['content','require','请输入至少1个字的内容'],
+		['content','1,10240','内容至多10240个字' , 1, 'length' , 3],
+		['uid','require','用户id必须输入'],
 	];
 
 	// 自动完成
@@ -84,6 +85,7 @@ class SubjectModel extends Model{
 	// 添加新数据
 	public function pro_add(){
 		$post=I('post.');
+		$post['fid']=$post['uid'];
 		// 自动验证并判断
 		if($this->create($post)){    
 			// 写入数据到数据库并判断

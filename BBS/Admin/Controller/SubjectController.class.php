@@ -18,7 +18,7 @@ class SubjectController extends EmptyController{
 	//添加
 	public function add(){
 
-		if ($_POST['name']) {
+		if (I('post.')) {
 			$obj = D("subject"); 
 			// 根据表单提交的POST数据创建数据对象
 			$data=$obj->pro_add();

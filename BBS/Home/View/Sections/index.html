@@ -5,86 +5,67 @@
 	</foreach>
 </block>
 <block name='css'>
-	<style>
-		li{list-style:none;}
-		#subject{padding:10px;}
-		#subject li{height:4em;width:95%;margin:10px;margin-left:auto;margin-right:auto;padding:0px;}
-		#subject li a{
-			display:block;
-			padding-left:10px;
-			border-bottom:none;
-		}
-		#subject li div{height:100%;float:left;}
-		#subject li .floor{
-			width:5%;
-			border-right:1px solid #dddddd;
-			text-align:center;
-
-		}
-		#subject li .title{
-			width:65%;
-			font: 18px/1.5 Tahoma,'Microsoft Yahei','Simsun';
-			padding:10px;
-			border-right:1px solid #dddddd;
-		}
-		#subject li .uid{
-			width:15%;
-			border-right:1px solid #dddddd;
-			text-align:center;
-		}
-		#subject li .fid{
-			width:15%;
-			text-align:center;
-		}
-		div#btnBox a,div#btnBox span{
-			position: relative;
-			float: left;
-			padding: 6px 12px;
-			margin-left: -1px;
-			line-height: 1.42857143;
-			color: #428bca;
-			text-decoration: none;
-			background-color: #fff;
-			border: 1px solid #ddd;
-		}
-		div#btnBox span{
-			color: #226baa;
-			font-weight:bold;
-		}
-		div#title{
-			border: 1px solid #dedede;
-			border-radius:4px;
-			background:#fefefe;
-			padding:10px;
-			font: 18px/1.5 Tahoma,'Microsoft Yahei','Simsun';
-			margin:20px;
-		}
-		#sections {
-			margin:20px;
-		}
-		#sections a{
-			font: 25px/1.5 Tahoma,'Microsoft Yahei','Simsun';
-		}
-	</style>
+		<link rel="stylesheet" href="__PUBLIC__/css/session.css" />
+		<style>
+			div#textarea{
+				background:#fff;
+				padding:15px;
+				border-radius:8px;
+			}
+			div#textarea div{
+				margin-top:5px;
+				margin-bottom:5px;
+			}
+		</style>
 </block>
 <block name='main'>
 	<div id="title">{$SectionTop}</div>
-	<div id="sections" class="alert alert-success">
-		子版块
-			<foreach name='child' item='val'>
-				<a href="{$val['link']}" class="btn btn-default">{$val['name']}</a>
+	<if condition='$child neq null'>
+		<div id="sections" class="alert alert-success">
+			子版块
+				<foreach name='child' item='val'>
+					<a href="{$val['link']}" class="btn btn-default">{$val['name']}</a>
+				</foreach>
+		</div>
+	</if>
+	<if condition='$list neq null'>
+		<ul id="subject">
+			<foreach name='list' item='val'>
+				<li class="form-control">
+					<div class="floor">{$val.floor}</div>
+					<div class="title"><a href="">{$val.name}</a></div>
+					<div class="uid"><a href="">{$val.uid}</a>{$val.addtime}</div>
+					<div class="fid"><a href="">{$val.fid}</a>{$val.followtime}</div>
+				</li>
 			</foreach>
-	</div>
-	<ul id="subject">
-		<foreach name='list' item='val'>
-			<li class="form-control">
-				<div class="floor">{$val.floor}</div>
-				<div class="title"><a href="">{$val.name}</a></div>
-				<div class="uid"><a href="">{$val.uid}</a>{$val.addtime}</div>
-				<div class="fid"><a href="">{$val.fid}</a>{$val.followtime}</div>
+		</ul>
+		<div id="btnBox">{$show}</div>
+	<else />
+		<ul id="subject">
+			<li>
+					<div class="floor">0</div>
+					<div class="title">当前板块没有主题</div>
+					<div class="uid"></div>
+					<div class="fid"></div>
 			</li>
-		</foreach>
-	</ul>
-	<div id="btnBox">{$show}</div>
-
+		</ul>
+	</if>
+	<form action="{:U('add_subject')}" method="post">
+		<input type="hidden" name='section_id' value="{:I('get.s')}">
+		<div id="textarea" class="form-group col-md-12">
+			<div class="col-md-1">
+				<select class="form-control">
+				<option value="1">1</option>
+				</select>
+			</div>
+			<div class="col-md-11">
+				<input type="text" class="form-control" name="name" placeholder="输入标题">
+			</div>
+			<div class="col-md-12">
+				<textarea rows="3" name="content" placeholder="输入内容"></textarea>
+			</div>
+			<center>
+			<input type="submit" value="发布新主题" class="btn btn-default">
+		</div>
+	</form>
 </block>

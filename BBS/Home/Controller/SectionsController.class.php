@@ -79,4 +79,36 @@ class SectionsController extends EmptyController {
 	    $this->assign($data);
 		$this->display();
     }
+
+    public function add_subject()
+    {
+    	// 动态验证
+    	$rules=[
+		['name','require','请输入至少1个字的标题'],
+		['name','1,32','标题至多32个字' , 1, 'length' , 3],
+		['content','require','请输入至少1个字的内容'],
+		['content','1,10240','内容至多10240个字' , 1, 'length' , 3],
+		['uid','require','用户id必须输入'],
+	];
+    	// 获取post，并放入用户信息
+    	$post=I('post.');
+    	// dump($post);
+    	$session=I('session.mybbs_home');
+    	// dump($session);
+    	$post[uid]=$session[0]['id'];
+    	$post[fid]=$session[0]['id'];
+    	// 写入数据库
+    	$sub=D('admin/subject');
+    	
+    	// dump($res);
+    	if ($sub->validate($rules)->create($post)) {
+    			$res=$sub->add();
+    			$this->success('发表新主题成功，正在跳转...','',5);   
+    		}else
+    		{
+    			$this->Error($sub->getError());
+    		}
+    	// }
+    	// dump($post);
+    }
 }
