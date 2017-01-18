@@ -44,7 +44,7 @@ class LoginController extends Controller {
                
                     // 清除所有session
                     session(null);
-                    redirect(U('Login/login'), 0, '正在退出登录...');
+                    redirect(U('Index/index'), 0, '正在退出登录...');
                 }
 
 
