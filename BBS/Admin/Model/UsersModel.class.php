@@ -36,7 +36,7 @@ class UsersModel extends Model{
 				//dump($newdata);
 				if($newdata){
 					$this->add($newdata);//如果验证正确则添加到数据库
-					return '你已经是管理大大了';
+					return '添加用户成功';
 					}else{
 					//加入数据库失败。删除已经上传的图片
 					//echo $data['image'];
@@ -49,7 +49,7 @@ class UsersModel extends Model{
 			//处理用户显列表数据
 			public function pro_index(){
 				//if(IS_POST){
-				$data=I('get.');//获取get的值
+				$data=I('get.');//获取post的值
 				//}elseif(IS_GET){
 					//$data=I('get.');
 					//echo'这是get传的值';
@@ -82,6 +82,8 @@ class UsersModel extends Model{
 				
 				$rows=10;//每行显示行数
 				$page=new \Think\Page($totalRow,$rows);//实例化分页类
+
+			
 				$list=$this->where($map)->order('`id`')->limit($page->firstRow.",".$page->listRows)->select();//执行查询数据
 				$sex=['女','男'];//设定转换性别
 				$status=['锁定','会员','高级会员'];//设定用户类型

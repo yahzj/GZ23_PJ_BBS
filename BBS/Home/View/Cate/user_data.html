@@ -1,17 +1,25 @@
-<div id="um">
-	<div class="avt">
-		<a href="#"><img src="__PUBLIC__/images/56_avatar_small.jpg" ></a>
+<if  condition="land_user()">
+	<div id="um">
+		<div class="avt">
+			<a href="#"><img src="__PUBLIC__/images/56_avatar_small.jpg" ></a>
+		</div>
+		<p>
+			<strong class="vwmy"><a href="{:U('users/index')}" target="_blank" title="访问我的空间">{$mybbs_home[0]['username']}</a></strong>
+			<span class="pipe">|</span><a href="#">设置</a>
+			<span class="pipe">|</span><a href="#" id="pm_ntc">消息</a>
+			<span class="pipe">|</span><a href="{:U('Login/logout')}">退出</a>
+		</p>
+		<p>
+			<a href="#" id="extcreditmenu" class="showmenu">积分:{$mybbs_home[0]['integral']}</a>
+			<span class="pipe">|</span><a href="#" id="g_upmine" class="showmenu" initialized="true">用户组: 现在不是Lv2</a>
+		</p>
 	</div>
-	<p>
-	<strong class="vwmy"><a href="#" target="_blank" title="访问我的空间">用户:{$mybbs_home[0]['username']}</a></strong>
+<else />
+	<div id="um" class='land'>
+		<p>
 
-	<span class="pipe">|</span><a href="#" id="myitem" class="showmenu");" initialized="true">我的</a>
-	<span class="pipe">|</span><a href="#">设置</a>
-	<span class="pipe">|</span><a href="#" id="pm_ntc">消息</a>
-	<span class="pipe">|</span><a href="{:U('Home/Login/logout')}">退出</a>
-	</p>
-	<p>
-	<a href="#" id="extcreditmenu" class="showmenu">积分:{$mybbs_home[0]['integral']}</a>
-	<span class="pipe">|</span><a href="#" id="g_upmine" class="showmenu" initialized="true">用户组: 现在不是Lv2</a>
-	</p>
-</div>
+			<span class="pipe">|</span><a href="{:U('login/login')}">登陆</a>
+			<span class="pipe">|</span><a href="{:U('users/add')}">注册</a>
+		</p>
+	</div>
+</if>

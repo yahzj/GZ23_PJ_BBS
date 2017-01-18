@@ -73,6 +73,12 @@
 		margin-right: 8px;
 		border-radius: 2px;
 	}
+	#um.land{
+		height:45px;
+	}
+	#um.land p a{
+		font: 18px/2.5 Tahoma,'Microsoft Yahei','Simsun';
+	}
 	#main > .main {
 		padding: 6em 5em 3em 5em ;
 		border-top: solid 1px #dddddd;
@@ -164,4 +170,7 @@
 
 		}
 	right{float:right;}
+	.active ul li {
+		margin:10px;
+	}
 	.tab-content .tab-pane ul li{margin-right:25px;}

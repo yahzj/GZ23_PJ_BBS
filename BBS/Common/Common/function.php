@@ -9,4 +9,18 @@ function myHash($val){
  function check_verify($code,$id=''){
           	$verify = new \Think\Verify();   
           	 return $verify->check($code, $id);
-   }
+}
+
+function land_user(){
+	    $list=I('session.mybbs_home');
+		if(empty(session('mybbs_home'))){
+	    return false;
+	    }elseif (time()-$list['landtime']>1800) {
+	    return false;
+	    }elseif ($list['login']!='home') {
+	    return false;
+	    }
+	    $list['landtime']=time();
+	     session('mybbs_home', $list); 
+	    return true;
+}

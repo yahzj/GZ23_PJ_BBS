@@ -21,8 +21,13 @@ class UsersController extends EmptyController{
 		if($_FILES['image']['error']!=4){
 			$this->imgUpload();//执行文件上传
 		}
-		$msg=$user->pro_add();//执行数据处理	
-        $this->success($msg);//输出信息并跳转到注册页面(错误或正确的);
+		$res=$user->pro_add();//执行数据处理	
+		if($res){        
+ 	  		return $this->success('新增成功',U('index'),5);   
+		}else{
+            // 如果验证失败，则显示错误提示
+	   			return $this->Error($user->getError());
+     	}
 	}
 	//用户展示界面;
 	public function index(){
@@ -36,7 +41,12 @@ class UsersController extends EmptyController{
 	public function del(){
 		$user=D('users');//实例化MODEL类
 		$res=$user->pro_del();//执行数据处理
-		$this->success($res);//输出信息并跳转到注册页面(错误或正确的);
+		if($res){        
+ 	  		return $this->success('删除成功',U('index'),5);   
+		}else{
+            // 如果验证失败，则显示错误提示
+	   			return $this->Error($user->getError());
+     	}
 	}
 	//显示用户信息;
 	public function edit(){
@@ -57,7 +67,12 @@ class UsersController extends EmptyController{
 		$user->imgdel($data,'oldimage');
 		}
 		$res=$user->pro_updata();//执行数据处理
-		$this->success($res);//输出信息并跳转到注册页面(错误或正确的);
+		if($res){        
+ 	  		return $this->success('修改成功',U('index'),5);   
+		}else{
+            // 如果验证失败，则显示错误提示
+	   			return $this->Error($user->getError());
+     	}
 
 	}
 	//========================图片上传的方法=============================================

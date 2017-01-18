@@ -1,7 +1,7 @@
 <extend name='./public/index/Template.html'/>
 <block name='path'>
 	<foreach name='link' item='val'>
-		<a href="{$val['path']}">>>{$val['pname']}</a>
+		<li><a href="{$val['path']}">{$val['pname']}</a></li>
 	</foreach>
 </block>
 <block name='css'>
@@ -59,16 +59,21 @@
 			font: 18px/1.5 Tahoma,'Microsoft Yahei','Simsun';
 			margin:20px;
 		}
+		#sections {
+			margin:20px;
+		}
+		#sections a{
+			font: 25px/1.5 Tahoma,'Microsoft Yahei','Simsun';
+		}
 	</style>
 </block>
 <block name='main'>
 	<div id="title">{$SectionTop}</div>
-	<div id="sections">
-		<ul>
+	<div id="sections" class="alert alert-success">
+		子版块
 			<foreach name='child' item='val'>
-				<li><a href="{$val['link']}">{$val['name']}</a></li>
+				<a href="{$val['link']}" class="btn btn-default">{$val['name']}</a>
 			</foreach>
-		</ul>
 	</div>
 	<ul id="subject">
 		<foreach name='list' item='val'>
