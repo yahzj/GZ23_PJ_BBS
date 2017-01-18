@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>个人中心</title>
+	<title>帖子</title>
 	<load href="__PUBLIC__/css/bootstrap.min.css"/>
 	<load href="__PUBLIC__/js/jquery.js"/>
 	<load href="__PUBLIC__/js/bootstrap.min.js"/>
@@ -37,6 +37,7 @@
 			index:2;
 			display:none;
 		}
+		
 	</style>
 </head>
 <body>
@@ -47,16 +48,18 @@
 			<div class="panel panel-default">
 			  <div class="panel-heading">跳转至</div>
 			  <div class="panel-body">
-			    Panel content
+			  		<div class="btn-toolbar" role="toolbar" aria-label="...">
+					   <foreach name='followList' key='k' item='v'>
+					   		<div class="btn-group" role="group" aria-label="..."><a href="#{$v['L']+$k+1}L">{$v['L']+$k+1}L</a></div>
+					   </foreach>
+					</div>
 			  </div>
 			</div>
 		</div>
 	<!-- 跳转弹出框结束 -->
 	<!-- 跳转按钮结束 -->
 	<div id="btnBox" style='margin-left:10px;'>{$show}</div>
-	<div>
-		<a class="label label-success" style='margin-left:10px;' onclick=''>跳转至</a>
-	</div><br>
+	
 	 <table class='table' border='0'>
 	 	<tr class='warning'>
 	 		<td width='220'>
@@ -91,7 +94,7 @@
 			 			<span class="badge">{$v['uidData']['username']}</span>
 			 			
 		 			</div><br>
-		 			<div><span class="label label-success"><small>{$v['L']+$k+1}L</small></span></div>
+		 			<div><span class="label label-success"><small><a id="{$v['L']+$k+1}L">{$v['L']+$k+1}L</a></small></span></div>
 		 			<hr>
 		 			<div align='center'>
 		 				<img src="__ROOT__/Uploads/images/new{$v['uidData']['image']}" alt="图片不存在" width='120' class="img-circle">
@@ -114,6 +117,7 @@
 	 	</foreach>
 	 </table>
 	<div id="btnBox2">{$show}</div>
+
 </body>
 <script>
 	// 将数字按钮进行包裹
@@ -124,22 +128,11 @@
 	$('#btnBox2').children().children().unwrap().wrap('<li></li>').parent().wrapAll('<ul class="pagination pagination-sm"></ul>');
 	// 给当前页码高亮显示
 	$('#btnBox2 span').parent().addClass('active');
-
+	//=========================================锚点跳转楼层===========================================
 	var btn=document.getElementById('btn');
 	var show=document.getElementById('show');
 	var jia=document.getElementById('jia');
 	var start=true;
-	function shows(){
-		if(start){
-			show.style.display='block';
-			start=false;
-			jia.style.transform='rotate('+45+'deg)';	
-		}else{
-			show.style.display='none';
-			start=true;
-			jia.style.transform='rotate('+360+'deg)';	
-		};
-	}
 	function shows(){
 		if(start){
 			$("#show").fadeIn("show",function(){
@@ -155,7 +148,10 @@
 			 });
 		}
 	}
-	
+	//=========================================锚点跳转楼层===========================================
+	//============================回到顶部特效=============================================
+		
+	//============================回到顶部特效=============================================
 	
 </script>
 </html>

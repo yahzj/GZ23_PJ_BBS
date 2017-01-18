@@ -56,6 +56,7 @@ class NoticeController extends EmptyController
 	}
 	//用来跳转到add.html页面的。
 	public function add(){
+		dump($_SESSION);
 		$notice=D("notice");
 		//直接跳转到添加页面进行添加
 		$this->display();
@@ -65,12 +66,10 @@ class NoticeController extends EmptyController
 		$notice=D("notice");
 		//到model类执行添加数据到数据库。
 		$res=$notice->pro_doadd();
-		if($res===0){
-			$this->error("已经存在同样的等级,请检查！",'',3);
-		}elseif($res===1){
-			$this->success("添加成功！",'index',3);
+		if($res){
+			$this->success("添加成功");
 		}else{
-			$this->error("添加失败",'',3);
+			$this->error("添加失败");
 		}
 	}
 

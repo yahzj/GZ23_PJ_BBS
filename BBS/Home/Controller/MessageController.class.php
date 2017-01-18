@@ -15,14 +15,14 @@ class MessageController extends EmptyController{
 				$list=$message->sms();
 				break;
 			case 'notice'://系统通知，评论通知
-				$message->sms();
+				$list=$message->sms();
 				break;
 			case 'request'://好友请求
-				$message->sms();
+				$list=$message->sms();
 				
 				break;
 			case 'post'://发新消息
-				
+				$list=$message->sms();
 				break;
 			default:
 				$this->error("没有你要找的网页");

@@ -6,13 +6,9 @@ class NoticeModel extends Model{
 	
 	//获得所有通知，传回给控制器。
     public function pro_index(){
-    	$arr=['0'=>'注册时发送','1'=>'升为一级时发送','2'=>'升为二级时发送','3'=>'升为三级时发送','4'=>'升为四级时发送','5'=>'升为五级时发送','6'=>'升为六级时发送','7'=>'升为七级时发送','8'=>'最新通知','9'=>'历史通知'];
-    	//以status拼接id排行。
-    	$list=$this->field("*,concat(status,'-',id) as bpath")->order('bpath')->select(); 
     	
-    	foreach($list as $key=>&$val){
-    		$val['statusname']=$arr[$val['status']];
-    	}
+    	$list=$this->order('id')->select(); 
+    	
     	return['list'=>$list];
     }
     //根据传过来的id，得到它的所有内容。
@@ -49,19 +45,14 @@ class NoticeModel extends Model{
     }
     //执行添加
     public function pro_doadd(){
-    	$post=I("post.");
-    	$map['status']=['eq',I('post.status')];
-    	$sel=$this->where($map)->select();
-    	if($sel){
-    		return 0;
-    	}
+
+    	$map['name']=$_SESSION['mybbs'][0]['admin_name'];
+        $map['title']=I('post.title');
+        $map['content']=I('post.content');
+        
     	//直接执行添加。在add.html页面已经专门设置成键值为title和content和status了。方便快捷。
-    	$res=$this->add($post);
-    	if($res){
-    		return 1;
-    	}else{
-    		return 2;
-    	}
+    	$res=$this->add($map);
+    	return $res;
     }
 
     public function pro_send(){
