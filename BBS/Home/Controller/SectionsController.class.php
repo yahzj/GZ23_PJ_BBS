@@ -38,7 +38,7 @@ class SectionsController extends EmptyController {
 		$page = new \Think\Page( $totalRow,$rows);
 
 		//TP语句拼装
-		$list =$obj->field('name,uid,followtime,fid,floor,addtime')->where($map)->order('`followtime` desc')->limit( $page->firstRow . ',' . $page->listRows   )->select();
+		$list =$obj->field('id,name,uid,followtime,fid,floor,addtime')->where($map)->order('`followtime` desc')->limit( $page->firstRow . ',' . $page->listRows   )->select();
 		// $data['list'] =$obj->field('mybbs_subject.name as name,mybbs_subject.uid as uid,mybbs_subject.followtime as f_time,mybbs_subject.fid as fid,mybbs_subject.floor as floor,mybbs_subject.addtime as a_time,mybbs_sections.id,mybbs_subject.section_id')->join('mybbs_sections on mybbs_subject.section_id=mybbs_sections.id')->where($map)->select();
 		// $data['list'] = $obj->query($sql);
 		if (!empty($list)) {
@@ -46,7 +46,7 @@ class SectionsController extends EmptyController {
 			foreach($list as $key => $val) {
 				$userid[]=$val[uid];
 				$userid[]=$val[fid];
-			
+				
 			}
 			// dump($sql);
 			// dump($data);
@@ -63,7 +63,8 @@ class SectionsController extends EmptyController {
 			// 进行昵称替换
 			foreach($list as $k=>&$v){
 				$v['uid']=$user[$v['uid']];
-				$v['fid']=$user[$v['fid']];				
+				$v['fid']=$user[$v['fid']];
+				$v['link']=U('subject/index',"cid=$v[id]");
 			}
 		}else{
 
@@ -75,7 +76,7 @@ class SectionsController extends EmptyController {
 			'SectionTop'=>$SectionTop,
 			'link'=>$link,
 			);
-		// dump($data);
+		dump($data);
 	    $this->assign($data);
 		$this->display();
     }
