@@ -12,7 +12,7 @@ class LoginController extends Controller {
 
                 $verify=I('param.verify','');
                 if(!check_verify($verify)){
-                	$this->error("亲，验证码输错了哦！",U('Home/Login/login'),5);
+                	$this->error("亲，验证码输错了哦！",U('Login/login'),5);
                 }
   
 	   	$post_username=I('post.username');
@@ -31,9 +31,9 @@ class LoginController extends Controller {
                          $list['landtime']=time();
                          $list['login']='home';                     
                           session('mybbs_home', $list); 
-                         	      return $this->success("登录成功！",U('Home/Index/index'));
+                         	      return $this->success("登录成功！",U('Index/index'));
                          }else{
-                                return $this->Error('密码不正确',U('Home/Login/login'));//验证错误，返回错误信息
+                                return $this->Error('密码不正确',U('Login/login'));//验证错误，返回错误信息
                          }
                                             
 	   }
