@@ -76,7 +76,7 @@ class SectionsController extends EmptyController {
 			'SectionTop'=>$SectionTop,
 			'link'=>$link,
 			);
-		dump($data);
+		// dump($data);
 	    $this->assign($data);
 		$this->display();
     }
