@@ -22,19 +22,20 @@
 						      
 							<div class="form-group">
 							    <label for="exampleInputEmail1">账号</label>
-							    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Email" value='{$list['username']}' name='username' disabled>
+							    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="账号" value='{$list['username']}' name='username' disabled>
 							  </div>
 
 							  <div class="form-group">
 							    <label for="exampleInputEmail1">昵称</label>
-							    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Email" value='{$list['nickname']}' name='nickname'>
+							    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="昵称" value='{$list['nickname']}' name='nickname'>
 							  </div>
 
 							  <div class="form-group">
 								<label for="exampleInputEmail1">性别</label>
 							 	<select class="form-control" name='sex'>
-								  <option value="0" {$list['sex']==0?'selected':""}>女</option>
-								  <option value="1" {$list['sex']==1?'selected':""}>男</option>
+								<option value="1" {$list['sex']=='男'?'selected':""}>男</option>
+                    			<option value="0" {$list['sex']=='女'?'selected':""}>女</option>
+                    	
 								</select>
 								</div>
 
@@ -46,12 +47,12 @@
 
 							   <div class="form-group">
 							    <label for="exampleInputEmail1">地址</label>
-							    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Email" value='{$list['address']}' name='address'>
+							    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="地址" value='{$list['address']}' name='address'>
 							  </div>
 
 							   <div class="form-group">
 							    <label for="exampleInputEmail1">个性签名</label>
-							    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Email" value='{$list['sign']}' name='sign'>
+							    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="个性签名" value='{$list['sign']}' name='sign'>
 							  </div>
 
 						

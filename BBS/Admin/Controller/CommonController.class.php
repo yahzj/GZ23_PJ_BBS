@@ -8,7 +8,7 @@ class CommonController extends Controller{
 	    }elseif (time()-session('up_datetime')>1800) {
 	    	$this->success('登陆超时，请重新登陆',U('Admin/Login/login'));
 	    }elseif (session(login)!='admin') {
-	    	$this->success('您没有登陆后台的权限',U('Admin/Login/login'));
+	    	$this->success('您没有登陆后台的权限',U('Admin/Login/login'));                                        
 	    }
 	}
 }

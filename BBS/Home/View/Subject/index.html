@@ -1,0 +1,161 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>个人中心</title>
+	<load href="__PUBLIC__/css/bootstrap.min.css"/>
+	<load href="__PUBLIC__/js/jquery.js"/>
+	<load href="__PUBLIC__/js/bootstrap.min.js"/>
+	<style>
+		.table{
+			width:98%;
+			margin:0 auto;
+			box-shadow:0px 0px 3px 0px #ccc;
+			
+		}
+		.td{
+			border-left:1px solid #fff;
+			border-right:1px solid #fff;
+		}
+		.btn{
+			width:40px;
+			height:40px;
+			border-radius:50%;
+			position:fixed;
+			top:100px;
+			right:40px;
+			box-shadow:13px 13px 5px 5px #ccc;
+			transform:rotate(360deg); 
+		}
+		#show{
+			width:200px;
+			height:100px;
+			/*border:1px solid red;*/
+			position:fixed;
+			top:100px;
+			right:100px;
+			index:2;
+			display:none;
+		}
+	</style>
+</head>
+<body>
+	<!-- 跳转按钮开始 -->
+	<button type="button" class="btn btn-success" id='btn' onclick='shows()'><span class="glyphicon glyphicon-plus" aria-hidden="true" id='jia'></span></button>
+	<!-- 跳转弹出框开始 -->
+		<div id='show'>
+			<div class="panel panel-default">
+			  <div class="panel-heading">跳转至</div>
+			  <div class="panel-body">
+			    Panel content
+			  </div>
+			</div>
+		</div>
+	<!-- 跳转弹出框结束 -->
+	<!-- 跳转按钮结束 -->
+	<div id="btnBox" style='margin-left:10px;'>{$show}</div>
+	<div>
+		<a class="label label-success" style='margin-left:10px;' onclick=''>跳转至</a>
+	</div><br>
+	 <table class='table' border='0'>
+	 	<tr class='warning'>
+	 		<td width='220'>
+	 			<div><div><b>{$userList['nickname']}</b>&nbsp;&nbsp;&nbsp;<span class="badge">{$userList['username']}</span></div><br>
+	 				<div><span class="label label-danger"><small>发言人</small></span></div>
+	 			</div>
+	 			<hr>
+	 			<div align='center'>
+	 				<img src="__ROOT__/Uploads/images/new{$userList['image']}" alt="图片不存在" width='120' class="img-circle">
+	 			</div>
+	 			<hr>
+	 			<div>
+	 				<span class="label label-info">等级</span>&nbsp;&nbsp;&nbsp;<span class="badge"><b>8</b></span>&nbsp;&nbsp;&nbsp;
+					<span class="label label-warning">积分</span>&nbsp;&nbsp;&nbsp;<span class="badge"><b>8888</b></span>
+	 			</div>
+	 		</td>
+	 		<td class='td'>
+	 			<div><b>{$list['name']}</b></div>
+	 			<hr>
+	 			<div><small>{$list['content']}</small></div>
+	 			<hr>
+	 			<div><b><small>附件</small></b></div>
+	 		</td>
+	 		<td width='200'>广告</td>
+	 	</tr>
+	 	
+	 	<foreach name='followList' key='k' item='v'>	
+		 	<tr class='active'>
+		 		<td width='220'>
+		 			<div>
+			 			<b>{$v['uidData']['nickname']}</b>&nbsp;&nbsp;&nbsp;
+			 			<span class="badge">{$v['uidData']['username']}</span>
+			 			
+		 			</div><br>
+		 			<div><span class="label label-success"><small>{$v['L']+$k+1}L</small></span></div>
+		 			<hr>
+		 			<div align='center'>
+		 				<img src="__ROOT__/Uploads/images/new{$v['uidData']['image']}" alt="图片不存在" width='120' class="img-circle">
+		 			</div>
+		 			<hr>
+		 			<div>
+		 				<span class="label label-info">等级</span>&nbsp;&nbsp;&nbsp;<span class="badge"><b>8</b></span>&nbsp;&nbsp;&nbsp;
+						<span class="label label-warning">积分</span>&nbsp;&nbsp;&nbsp;<span class="badge"><b>8888</b></span>
+		 			</div>
+		 		</td>
+		 		<td class='td' colspan='2'>
+		 			<div><b><small>{$v['addtime']}</small></b></div>
+		 			<hr>
+		 			<div><small>{$v['content']}</small></div>
+		 			<hr>
+		 			<div><b><small>附件</small></b></div>
+		 		</td>
+		 		
+		 	</tr>
+	 	</foreach>
+	 </table>
+	<div id="btnBox2">{$show}</div>
+</body>
+<script>
+	// 将数字按钮进行包裹
+	$('#btnBox').children().children().unwrap().wrap('<li></li>').parent().wrapAll('<ul class="pagination pagination-sm"></ul>');
+	// 给当前页码高亮显示
+	$('#btnBox span').parent().addClass('active');
+	// 将数字按钮进行包裹
+	$('#btnBox2').children().children().unwrap().wrap('<li></li>').parent().wrapAll('<ul class="pagination pagination-sm"></ul>');
+	// 给当前页码高亮显示
+	$('#btnBox2 span').parent().addClass('active');
+
+	var btn=document.getElementById('btn');
+	var show=document.getElementById('show');
+	var jia=document.getElementById('jia');
+	var start=true;
+	function shows(){
+		if(start){
+			show.style.display='block';
+			start=false;
+			jia.style.transform='rotate('+45+'deg)';	
+		}else{
+			show.style.display='none';
+			start=true;
+			jia.style.transform='rotate('+360+'deg)';	
+		};
+	}
+	function shows(){
+		if(start){
+			$("#show").fadeIn("show",function(){
+			  	show.style.display='block';
+			  	start=false;
+				jia.style.transform='rotate('+45+'deg)';
+			 });
+		}else{
+			$("#show").fadeOut("show",function(){
+			  	show.style.display='none';
+			  	start=true;
+				jia.style.transform='rotate('+360+'deg)';
+			 });
+		}
+	}
+	
+	
+</script>
+</html>

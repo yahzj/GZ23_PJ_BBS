@@ -28,6 +28,7 @@ class UsersController extends EmptyController{
 		$this->display();//显示模板
 	}
 	public function add(){
+		
 		$this->display();//显示模板
 	}
 
