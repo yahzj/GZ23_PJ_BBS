@@ -10,7 +10,7 @@ class AdminController extends EmptyController{
 		$admin=D('admin');
 		// 走Model层处理数据
 		$data=$admin->pro_index();
-		$data['title']='后台管理表单';
+		$data['title']='后台管理员系统';
 		$this->assign($data);
 		$this->display();
 	}
@@ -28,7 +28,7 @@ class AdminController extends EmptyController{
 	    	// 执行删除，返回受影响行
 	    	$res = $admin->delete($id);
 
-	    	echo '你要删除的ID：' . $id . '<br>';
+	    	// echo '你要删除的ID：' . $id . '<br>';
 	    	//echo '删除结果：';
 	    	//dump($res);
 	    	
@@ -86,23 +86,18 @@ class AdminController extends EmptyController{
 		$this->display();
 	}
 
-         public function doadd(){
-         	$post_pass=I('post.pass');
-         	$post_repass=I('post.repass');
-         	if($post_pass==$post_repass){
-	         	$obj = D("admin"); 
-		// 根据表单提交的POST数据创建数据对象
-		$data=$obj->pro_add();
-		if($data){        
-	         	      return $this->success('新增成功',U('admin/index'),5);   
-		}else{
-	                     // 如果验证失败，则显示错误提示
-	         	    return $this->Error($obj->getError());
-	    	}			
-         	}else{
-         		 return $this->Error('密码不正确');
+        public function doadd(){
+	         $obj = D("admin");
+			// 根据表单提交的POST数据创建数据对象
+			$data=$obj->pro_add();
+			// dump($data);
+			if($data){        
+     	  		return $this->success('新增成功',U('admin/index'),5);   
+			}else{
+	            // 如果验证失败，则显示错误提示
+ 	   			return $this->Error($obj->getError());
          	}
 	
-       }
+    	}
 
 }

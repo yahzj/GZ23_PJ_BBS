@@ -3,15 +3,15 @@
 		<a href="#"><img src="__PUBLIC__/images/56_avatar_small.jpg" ></a>
 	</div>
 	<p>
-	<strong class="vwmy"><a href="#" target="_blank" title="访问我的空间">yahzj</a></strong>
+	<strong class="vwmy"><a href="#" target="_blank" title="访问我的空间">用户:{$mybbs_home[0]['username']}</a></strong>
 
 	<span class="pipe">|</span><a href="#" id="myitem" class="showmenu");" initialized="true">我的</a>
 	<span class="pipe">|</span><a href="#">设置</a>
 	<span class="pipe">|</span><a href="#" id="pm_ntc">消息</a>
-	<span class="pipe">|</span><a href="#">退出</a>
+	<span class="pipe">|</span><a href="{:U('Home/Login/logout')}">退出</a>
 	</p>
 	<p>
-	<a href="#" id="extcreditmenu" class="showmenu">积分: 5</a>
+	<a href="#" id="extcreditmenu" class="showmenu">积分:{$mybbs_home[0]['integral']}</a>
 	<span class="pipe">|</span><a href="#" id="g_upmine" class="showmenu" initialized="true">用户组: 现在不是Lv2</a>
 	</p>
 </div>

@@ -42,7 +42,7 @@ class UsersModel extends Model{
 					//echo $data['image'];
 					//echo '在';
 					$this->imgdel($data);
-					return $this->getError();//验证错误，返回错误信息
+					return false;//验证错误，返回错误信息
 
 				}
 			}
@@ -84,7 +84,7 @@ class UsersModel extends Model{
 				$page=new \Think\Page($totalRow,$rows);//实例化分页类
 				$list=$this->where($map)->order('`id`')->limit($page->firstRow.",".$page->listRows)->select();//执行查询数据
 				$sex=['女','男'];//设定转换性别
-				$status=['超级管理员','管理员','会员'];//设定用户类型
+				$status=['锁定','会员','高级会员'];//设定用户类型
 				foreach($list as $k=>&$v){
 					$v['sex']=$sex[$v['sex']];//修改性别显示
 					$v['status']=$status[$v['status']];//修改用户类型显示
@@ -110,7 +110,7 @@ class UsersModel extends Model{
 						}
 						$res=$this->where($map)->delete();//通过WHere方法批量删除数据
 						if(!$res){
-							return $this->getError();//返回错误信息
+							return false;//返回错误信息
 						}else{
 							return "删除成功";
 						}
@@ -121,7 +121,7 @@ class UsersModel extends Model{
 						$this->imgdel($images);
 						$res=$this->delete($id);//执行删除的条数
 						if(!$res){
-							return $this->getError();//返回错误信息
+							return false;//返回错误信息
 						}else{
 							return "删除成功";
 						}
@@ -152,7 +152,7 @@ class UsersModel extends Model{
 					if($data['image']!==$data['oldimage']){
 						$this->imgdel($data);//执行图片删除
 					}
-					return $this->getError();//返回错误信息
+					return false();//返回错误信息
 				}
 			}
 			//删除图片的方法，要两个参数：$data数据变量名 $v图片的名称的键值;默认为‘image’;

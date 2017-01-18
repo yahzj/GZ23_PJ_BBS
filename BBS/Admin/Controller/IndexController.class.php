@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
-class IndexController extends Controller {
+class IndexController extends EmptyController {
     
 		// 显示后台主页
 	    public function index(){
@@ -12,8 +12,9 @@ class IndexController extends Controller {
 	    public function welcome(){
 	    	$everyday=D('everyday');
 	    	$data['list']=$everyday->pro_select();
+	    	$data['session']=I('session.');
 	    	// echo '<pre>';
-	    	// var_dump($data);
+	    	// dump($data);
 	    	$this->assign($data);
 	    	$this->display();
 	    }

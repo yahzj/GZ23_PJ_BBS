@@ -20,11 +20,7 @@
     <!-- <form action="{:U('Home/User/doedit')}"  method="post"> -->
     <form action="{:U('Admin/Admin/doedit')}"  method="post" enctype="multipart/form-data">
           <input type="hidden" name="id" value="{$info['id']}"/>
-
-        <!-- <div class="control-group">
-            <label class="laber_from">管理员账号</label>
-            <div class="controls"><input  class="input_from"  placeholder=" 请输入纯数字字符" type="text" name='admin_name' value="{$info['admin_name']}"><p class="help-block"></p></div>
-        </div> -->
+        </div>
           <div class="control-group">
             <label class="laber_from">管理员名称</label>
             <div class="controls"><input name="nickname" value="{$info['nickname']}"  class="input_from" placeholder=" 请输入昵称" type="text"><p class="help-block"></p></div>
@@ -39,21 +35,6 @@
             <label class="laber_from">确认密码</label>
             <div class="controls"><input name="repass"  class="input_from" placeholder=" 请输入确认密码" type="password"><p class="help-block"></p></div>
         </div>
-
-       
-
-        <div class="control-group">
-            <label class="laber_from">状态期权</label>
-            <div class="controls">
-                <select name="status" class="input_select">
-                   <option value="0" {$info['status']==0?'selected':''}>锁定</option>
-                   <option value="1" {$info['status']==1?'selected':''}>正常</option>
-                    <option value="2" {$info['status']==2?'selected':''}>高亮</option>
-                </select>
-            </div>
-        </div>
-
-
         
         <div class="control-group">
             <label class="laber_from"></label>
