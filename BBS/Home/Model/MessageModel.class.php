@@ -132,8 +132,9 @@ class MessageModel extends Model{
 			//将$list作为二维数组传过去显示。
 			$list=[];
 			$list[]=$arr;
+		//通知页面
 		}elseif(I('get.type')=='notice'){
-			dump(11111);
+			$noticesend=D('noticesend');
 		}elseif(I('get.type')=='request'){
 			dump(11111);
 		}else{//其它情况就是乱来的。

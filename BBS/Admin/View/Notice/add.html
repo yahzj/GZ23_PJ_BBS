@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台模板</title>
+
+<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/css/add.css" type="text/css" media="screen">
+<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css" type="text/css" media="screen">
+
+</head>
+<body>
+<b>温馨提示：如果已经有了本级发送，不能再新增同样的等级发送。你可以到通知管理首页更改或者先删除再增加。</b>
+<div class="div_from_aoto" style="width: 500px;">
+    <form action="{:U('Admin/Notice/doadd')}"  method="post">
+
+        <div class="control-group">
+            <label class="laber_from">通知标题</label>
+            <div class="controls"><input name="title" class="input_from" placeholder="请输入标题" type="text"><p class="help-block"></p></div>
+        </div>
+
+        <div class="control-group">
+            <label class="laber_from">通知内容</label>
+            <div class="controls"><textarea name="content"></textarea><p class="help-block"></div>
+        </div>
+        何时发送：<select name="status">
+            <option value="0">注册时发送</option>
+            <option value="1">升为一级发送</option>
+            <option value="2">升为二级发送</option>
+            <option value="3">升为三级发送</option>
+            <option value="4">升为四级发送</option>
+            <option value="5">升为五级发送</option>
+            <option value="6">升为六级发送</option>
+            <option value="7">升为七级发送</option>   
+            <option value="8">最新通知</option>   
+        </select>
+        <div class="control-group">
+            <label class="laber_from"></label>
+            <div class="controls">
+                <button class="btn btn-success" style="width:120px;">确认</button>
+                <input type="reset" value="清空" class="btn btn-info" />
+            </div>
+        </div>
+    </form>
+</div>
+
+</body></html>

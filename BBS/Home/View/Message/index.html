@@ -102,11 +102,11 @@
 					{//第三种可能：只输入了type参数和值为notice，就是通知页面}
 					<elseif condition="($_GET['type'] eq 'notice')" />
 					{$_GET['type']}
-					站内信(共{:count($list)}条)4
+					通知(共{$count}条)4
 					
 					{//第四种可能：只输入了type参数和值为request，就是请求页面}
 					<elseif condition="($_GET['type'] eq 'request')" />
-					站内信(共{:count($list)}条)5
+					站内信(共{$count}条)5
 
 					{//第五种可能：只输入了type参数和值为post，就是写新信息页面}
 					<elseif condition="($_GET['type'] eq 'post')" />
