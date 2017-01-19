@@ -73,15 +73,6 @@ class NoticeController extends EmptyController
 		}
 	}
 
-	public function send(){
-		$notice=D('notice');
-		$res=$notice->pro_send();
-		if($res){
-			$this->success("发送成功！",'',3);
-		}else{
-			$this->error("发送失败",'',3);
-		}
-	}
 }
 
 

@@ -8,6 +8,8 @@ class MessageController extends EmptyController{
 		//什么参数都没有，默认就是收件箱。
 		if(empty(I('get.'))){
 			$list=$message->sms();
+		}elseif(!empty(I('get.p')) && count(I('get.'))==1){
+			$list=$message->sms();
 		}else{
 			//从参数的不同跳转到不同的地方。
 			switch(I('get.type')){
@@ -53,11 +55,15 @@ class MessageController extends EmptyController{
 	}
 	//短消息回复
 	public function add(){
-
+		//验证码验证
+        $verify=I('param.verify','');
+        if(!check_verify($verify)){
+       	 	$this->error("亲，验证码输错了哦！");
+       	 }
 		$message=D('message');
 		$res=$message->pro_add();
 		if($res){
-			$this->success("发送成功");
+			$this->success("发送成功",'index/type/sms/action/send');
 		}else{
 			$this->error("发送失败");
 		}
@@ -88,6 +94,8 @@ class MessageController extends EmptyController{
        	 	
        	 }elseif($data===1){
        	 	$this->success("发送成功",'index/type/sms/action/send');
+       	 }elseif($data===9){
+       	 	$this->error("你的昵称为空，不能发帖！",'index/type/sms/action/send');
        	 }else{
        	 	$this->error("系统出错，请稍后再试！！",'index/type/post');
        	 }
@@ -105,6 +113,23 @@ class MessageController extends EmptyController{
 	    // $verify->useImgBg = true;   // 开启验证码背景
 	    // $verify->useNoise = false;  // 关闭验证码干扰杂点
 	     $verify->entry();
+	}
+
+	public function friend(){
+		$message=D('message');
+		$res=$message->pro_friend();
+		if($res==0){
+			$this->error('不要在地址栏乱搞啦！');
+		}elseif($res==1){
+			$this->error('你的好友已经达到50人，无法再添加');
+		}elseif($res==2){
+			$this->error('暂无法添加，请稍后再试');
+		}elseif($res==4){
+			$this->success('拒绝成功！','http://localhost/obj2/GZ23_PJ_BBS/Home/Message/index/type/request.html');
+		}else{
+			$this->success('添加好友成功！','http://localhost/obj2/GZ23_PJ_BBS/Home/Message/index/type/request.html');
+			
+		}
 	}
 }
 

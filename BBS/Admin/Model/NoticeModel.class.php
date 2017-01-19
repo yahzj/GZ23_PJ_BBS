@@ -55,23 +55,6 @@ class NoticeModel extends Model{
     	return $res;
     }
 
-    public function pro_send(){
-    	$users=D('users');
-    	$userslist=$users->select();
-    	$noticelist=$this->find(I('get.id'));
-    	$noticesend=D('noticesend');
-    	$userlist=[];
-    	foreach($userslist as $key=>$val){
-    		$userlist[]=$val['id'].'_0';
-    	}
-    	$where['id']=I('get.id');
-    	$map['status']=9;
-    	$this->where($where)->save($map);
-    	$arr['receiverid']=implode(',',$userlist).",";
-    	$arr['title']=$noticelist['title'];
-    	$arr['content']=$noticelist['content'];
-    	$res=$noticesend->add($arr);
-    	return $res;
-    }
+
 }
 
