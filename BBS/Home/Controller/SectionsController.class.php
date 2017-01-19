@@ -4,6 +4,10 @@ use Think\Controller;
 class SectionsController extends EmptyController {
     public function index(){
     	$s_id=(int)I('get.s');
+    	if ($s_id==null) {
+    		return $this->success('未知板块，正在跳转...',U('index/index'),5);
+
+    	}
     	// 获取数据库中本板块的相关信息
     	$section=D('Admin/sections');
     	$Smap['id']=$s_id;
@@ -104,12 +108,42 @@ class SectionsController extends EmptyController {
     	// dump($res);
     	if ($sub->validate($rules)->create($post)) {
     			$res=$sub->add();
-    			$this->success('发表新主题成功，正在跳转...','',5);   
+    			$this->success('发表新主题成功，正在跳转...',U('index',"s={$post['section_id']}"),5);   
     		}else
     		{
     			$this->Error($sub->getError());
     		}
     	// }
     	// dump($post);
+    }
+
+    public function adv_add_subject()
+    {
+    	$s_id=(int)I('get.s');
+    	// 获取数据库中本板块的相关信息
+    	$section=D('Admin/sections');
+    	$Smap['id']=$s_id;
+    	$Sdata=$section->field('name,path,top')->where($Smap)->select();
+    	// 拼接成导航路径
+    	$Sdata['0']['path'].=$s_id;
+    	$path=explode( ',',$Sdata['0']['path']);
+    	$Smap['id']=array('in',$path);
+    	$selist=$section->field('name,id')->where($Smap)->select();
+    	foreach ($selist as $k=>$v) {
+    			$link[0]['pname']='首页';
+    			$link[0]['path']=U('index/index');
+    			$link[$v['id']]['pname']=$v['name'];
+    			$link[$v['id']]['path']=U("sections/index","s=".$v['id']);
+    	}
+    	$data=array(
+    		'link'=>$link,
+    	);
+    	$this->assign($data);
+		$this->display();
+
+    }
+    public function textarea()
+    {
+    	$this->display();
     }
 }

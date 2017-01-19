@@ -6,11 +6,17 @@
 </block>
 <block name='css'>
 		<link rel="stylesheet" href="__PUBLIC__/css/session.css" />
+		<script charset="utf-8" src="__PUBLIC__/edit/kindeditor.js"></script>
+		<script charset="utf-8" src="__PUBLIC__/edit/lang/zh-CN.js"></script>
+		<script>
+		        KindEditor.ready(function(K) {
+		                window.editor = K.create('#editor_id');
+		        });
+		</script>
 		<style>
 		</style>
 </block>
 <block name='main'>
-	<div id="title">{$SectionTop}</div>
 	<if condition='$child neq null'>
 		<div id="sections" class="alert alert-success">
 			子版块
@@ -19,29 +25,6 @@
 				</foreach>
 		</div>
 	</if>
-	<if condition='$list neq null'>
-		<ul id="subject">
-			<foreach name='list' item='val'>
-				<li class="form-control">
-					<div class="floor">{$val.floor}</div>
-					<div class="title"><a href="{$val.link}">{$val.name}</a></div>
-					<div class="uid"><a href="">{$val.uid}</a>{$val.addtime}</div>
-					<div class="fid"><a href="">{$val.fid}</a>{$val.followtime}</div>
-				</li>
-			</foreach>
-		</ul>
-		<div id="btnBox">{$show}</div>
-	<else />
-		<ul id="subject">
-			<li>
-					<div class="floor">0</div>
-					<div class="title">当前板块没有主题</div>
-					<div class="uid"></div>
-					<div class="fid"></div>
-			</li>
-		</ul>
-	</if>
-<if  condition="land_user()">
 	<form action="{:U('add_subject')}" method="post">
 		<input type="hidden" name='section_id' value="{:I('get.s')}">
 		<div id="textarea" class="form-group col-md-12">
@@ -54,11 +37,10 @@
 				<input type="text" class="form-control" name="name" placeholder="输入标题">
 			</div>
 			<div class="col-md-12">
-				<textarea rows="3" name="content" placeholder="输入内容"></textarea>
+				<textarea rows="3" name="content" placeholder="输入内容" id="editor_id"></textarea>
 			</div>
 			<center>
 			<input type="submit" value="发布新主题" class="btn btn-default">
 		</div>
 	</form>
-</if>
 </block>

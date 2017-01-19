@@ -18,6 +18,9 @@
 					<a href="{$val['link']}" class="btn btn-default">{$val['name']}</a>
 				</foreach>
 		</div>
+		<div class="addbtn">
+			<a href="{:U('adv_add_subject',I('get.'))}" class="btn btn-default">发表新主题</a>
+		</div>
 	</if>
 	<if condition='$list neq null'>
 		<ul id="subject">
@@ -57,7 +60,7 @@
 				<textarea rows="3" name="content" placeholder="输入内容"></textarea>
 			</div>
 			<center>
-			<input type="submit" value="发布新主题" class="btn btn-default">
+			<input type="submit" value="快速发布新主题" class="btn btn-default">
 		</div>
 	</form>
 </if>

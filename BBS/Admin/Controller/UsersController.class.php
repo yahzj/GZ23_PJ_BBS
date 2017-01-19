@@ -53,7 +53,7 @@ class UsersController extends EmptyController{
 		$user=D('users');//实例化users类
 		$id=I('get.id');//获取get传过来的ID
 		$data=$user->find($id);//通过ID查询一条数据
-		//dump($data);
+		dump($data);
 		$this->assign('data',$data);//分配数据
 		$this->display();//展示模板
 	}
@@ -73,6 +73,84 @@ class UsersController extends EmptyController{
             // 如果验证失败，则显示错误提示
 	   			return $this->Error($user->getError());
      	}
+
+	}
+	// 变更版主职位
+	public function levelup()
+	{
+		$sec=D('sections');
+		$secdata = $sec->select();
+		foreach($secdata as $key=>&$val){
+			$arr=explode(",",$val['path']);
+			$num=(count($arr)-1)*2;
+			$newstr=str_repeat("&nbsp;", $num)."--";
+			$val['name']=$newstr.$val['name'];
+		}
+
+		$list['list']=$secdata;
+
+		$user=D('users');//实例化users类
+		$id=I('get.id');//获取get传过来的ID
+		$list['data']=$user->find($id);//通过ID查询一条数据
+
+		$this->assign($list);//分配数据
+		$this->display();//展示模板
+	}
+	// 变更处理
+	public function upfind()
+	{
+		// 获取数据
+		$w_user['id']=I('post.id');
+		$post=I('post.');
+		$w_sec['id']=I('post.section_id');
+		$w_old_sec['id']=I('post.admin_sec');
+		// 实例化
+		$user=D('users');
+		$sec=D('sections');
+		// 判断是否有更改职位
+		if ($w_sec['id']!=$w_old_sec['id']) {
+			// 获取旧板块中的版主信息
+			$list=$sec->field('administrators')->where($w_old_sec)->find();
+			// 处理并转换成数组
+			$list['administrators']=trim($list['administrators'],',');
+			$old_admin=explode(',',$list['administrators']);
+			$admin=[];
+			// 把除用户外的其他版主加入新数组进行保存
+			foreach ($old_admin as $v) {
+				if ($v!=$w_user['id']) {
+					$admin[]=$v;
+				}
+			}
+			$admin=implode(',', $admin);
+			$list['administrators']=$admin;
+			// 对旧板块进行处理，移除当前的用户id
+			$sec->where($w_old_sec)->save($list);
+		}
+		// 移除职位判断
+		if ($post['section_id']==0) {
+			$data['status']=1;
+			$data['admin_sec']=0;
+			$user->where($w_user)->save($data);
+			$this->success('设定成功该用户已不是板块管理员',U('index'),3);
+		}else{
+			// 不是移除职位则改变用户状态，并将用户记录到新板块中
+			$data['status']=2;
+			$data['admin_sec']=$w_sec['id'];
+			$list=$sec->field('administrators')->where($w_sec)->find();
+			$list['administrators']=trim($list['administrators'],',');
+			$admin=explode(',',$list['administrators']);
+			
+			if (!in_array(I('post.id'), $admin)) {
+				$admin[]=I('post.id');
+				$admin=implode(',', $admin);
+				$list['administrators']=$admin;
+				$user->where($w_user)->save($data);
+				$sec->where($w_sec)->save($list);
+				$this->success('设定成功',U('index'),3);
+			}else{
+				$this->Error('该用户已经是该板块管理员');
+			}
+		}
 
 	}
 	//========================图片上传的方法=============================================

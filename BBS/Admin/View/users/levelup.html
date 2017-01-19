@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>用户信息修改</title>
+<style type='text/css'>
+    .input_from{
+        width:300px;
+    }
+</style>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/css/add.css" type="text/css" media="screen">
+<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css" type="text/css" media="screen">
+
+</head>
+<body>
+<center>
+<h1>用户信息修改</h1>
+<div><img src="__ROOT__/Uploads/images/new{$data['image']}" alt="图像不存在" /></div>
+<div class="div_from_aoto" style="width: 500px;">
+    
+    <form action="{:U('Admin/Users/upfind')}"  method="post" enctype="multipart/form-data">
+      <!-- 添加一个隐藏表单传id -->
+      <input type="hidden" name="id" id="" style='width:300px' value="{$data['id']}" />
+      <input type="hidden" name="admin_sec" id="" style='width:300px' value="{$data['admin_sec']}" />
+          
+        <div class="control-group">
+            <label class="laber_from">账号</label>
+            <div class="controls"><input  class="input_from"  placeholder=" 请输入纯数字字符" type="text" disabled value="{$data['username']}"><p class="help-block"></p></div>
+        </div>
+
+        <div class="control-group">
+            <label class="laber_from">昵称</label>
+            <div class="controls"><input disabled class="input_from" placeholder=" 请输入昵称" type="text" value="{$data['nickname']}"><p class="help-block"></p></div>
+        </div>
+
+        <div class="control-group">
+            <label class="laber_from">积分</label>
+            <div class="controls"><input disabled class="input_from"  type="text" value="{$data['integral']}"><p class="help-block"></p></div>
+        </div>
+      
+        <div class="control-group">
+            <label class="laber_from">选择板块: </label>
+            <div class="controls">
+                <select name="section_id" class="input_select">
+                    <option value="0">移除权限</option>
+                    <foreach name="list" key="key" item="val">
+                      <if condition="$val['id'] eq $data['admin_sec']">
+                        <option selected value="{$val['id']}">{$val['name']}</option>
+                      <else/>
+                       <option value="{$val['id']}">{$val['name']}</option>
+                      </if>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="laber_from"></label>
+            <div class="controls">
+                <button class="btn btn-success" style="width:120px;">确认</button>
+                <input type="reset" value="清空" class="btn btn-info" style="width:120px;"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body></html>
