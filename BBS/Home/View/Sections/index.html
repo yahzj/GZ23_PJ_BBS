@@ -7,19 +7,11 @@
 <block name='css'>
 		<link rel="stylesheet" href="__PUBLIC__/css/session.css" />
 		<style>
-			div#textarea{
-				background:#fff;
-				padding:15px;
-				border-radius:8px;
-			}
-			div#textarea div{
-				margin-top:5px;
-				margin-bottom:5px;
-			}
+			input.checkbox{float:left;margin-top:25px;}
 		</style>
 </block>
 <block name='main'>
-	<div id="title">{$SectionTop}</div>
+	<div id="title">{$Section['top']}</div>
 	<if condition='$child neq null'>
 		<div id="sections" class="alert alert-success">
 			子版块
@@ -28,18 +20,36 @@
 				</foreach>
 		</div>
 	</if>
+		<div class="addbtn">
+			<a href="{:U('adv_add_subject',I('get.'))}" class="btn btn-default">发表新主题</a>
+		</div>
 	<if condition='$list neq null'>
+	<form action="{:U('admin_option')}" method="post">
 		<ul id="subject">
 			<foreach name='list' item='val'>
+				<if condition="$Section['admin']==1"><input class="checkbox" name="{$val['id']}" type="checkbox"></if>
 				<li class="form-control">
 					<div class="floor">{$val.floor}</div>
-					<div class="title"><a href="">{$val.name}</a></div>
+					<div class="title"><a href="{$val.link}">
+					{$val.name}
+					<if condition='$val["status"] eq 0'>[已锁定]</if>
+					<if condition='$val["status"] eq 2'>[高亮]</if>
+					</a></div>
 					<div class="uid"><a href="">{$val.uid}</a>{$val.addtime}</div>
 					<div class="fid"><a href="">{$val.fid}</a>{$val.followtime}</div>
 				</li>
 			</foreach>
 		</ul>
+		<if condition="$Section['admin']==1">
+		<input id="option" type="hidden" name='option' value=''>
+		<a class="btn btn-info" onclick="choose()">全选</a>
+	    <a class="btn btn-info" onclick="clear_all()">清空</a>
+	    <a class="btn btn-info" onclick="fx()">反选</a>
+	    <button class="btn btn-success" onclick='Highlight()'>高亮</button>
+	    <button class="btn btn-danger" onclick='lock()'>锁定</button>
+	    </if>
 		<div id="btnBox">{$show}</div>
+	</form>
 	<else />
 		<ul id="subject">
 			<li>
@@ -50,6 +60,11 @@
 			</li>
 		</ul>
 	</if>
+	<div class="addbtn">
+		<a href="{:U('adv_add_subject',I('get.'))}" class="btn btn-default">发表新主题</a>
+	</div>
+
+<if  condition="land_user()">
 	<form action="{:U('add_subject')}" method="post">
 		<input type="hidden" name='section_id' value="{:I('get.s')}">
 		<div id="textarea" class="form-group col-md-12">
@@ -65,7 +80,54 @@
 				<textarea rows="3" name="content" placeholder="输入内容"></textarea>
 			</div>
 			<center>
-			<input type="submit" value="发布新主题" class="btn btn-default">
+			<input type="submit" value="快速发布新主题" class="btn btn-default">
 		</div>
 	</form>
+</if>
+<script>
+
+	// 将数字按钮进行包裹
+	$('#subject').children().children().unwrap().wrap('<li></li>').parent().wrapAll('<ul class="pagination"></ul>');
+	// 给当前页码高亮显示
+	$('#subject span').parent().addClass('active');
+	
+	 var form=document.getElementById("form");
+    function choose(){
+        // each 就是循环
+        $('input').each(function(i){
+            // 转换为dom对象
+            var ziji = $(this)[0];
+            // 当前状态全部取true
+            ziji.checked = true;
+        });
+    }
+    function clear_all(){
+        // each 就是循环
+        $('input').each(function(i){
+            // 转换为dom对象
+            var ziji = $(this)[0];
+            // 当前状态全部取false
+            ziji.checked = false;
+        });
+    }
+    function fx(){
+        // each 就是循环
+        $('input').each(function(i){
+            // 转换为dom对象
+            var ziji = $(this)[0];
+            // 当前状态取反
+            ziji.checked = !ziji.checked;
+        });
+    }
+    function Highlight()
+    {
+    	$('#option').attr('value','Highlight');
+    }
+    function lock()
+    {
+    	$('#option').attr('value','lock');
+    }
+
+
+</script>
 </block>

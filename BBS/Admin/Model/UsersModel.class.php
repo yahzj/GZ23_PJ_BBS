@@ -154,7 +154,7 @@ class UsersModel extends Model{
 					if($data['image']!==$data['oldimage']){
 						$this->imgdel($data);//执行图片删除
 					}
-					return false();//返回错误信息
+					return false;//返回错误信息
 				}
 			}
 			//删除图片的方法，要两个参数：$data数据变量名 $v图片的名称的键值;默认为‘image’;

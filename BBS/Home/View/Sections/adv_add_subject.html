@@ -1,0 +1,46 @@
+<extend name='./public/index/Template.html'/>
+<block name='path'>
+	<foreach name='link' item='val'>
+		<li><a href="{$val['path']}">{$val['pname']}</a></li>
+	</foreach>
+</block>
+<block name='css'>
+		<link rel="stylesheet" href="__PUBLIC__/css/session.css" />
+		<script charset="utf-8" src="__PUBLIC__/edit/kindeditor.js"></script>
+		<script charset="utf-8" src="__PUBLIC__/edit/lang/zh-CN.js"></script>
+		<script>
+		        KindEditor.ready(function(K) {
+		                window.editor = K.create('#editor_id');
+		        });
+		</script>
+		<style>
+		</style>
+</block>
+<block name='main'>
+	<if condition='$child neq null'>
+		<div id="sections" class="alert alert-success">
+			子版块
+				<foreach name='child' item='val'>
+					<a href="{$val['link']}" class="btn btn-default">{$val['name']}</a>
+				</foreach>
+		</div>
+	</if>
+	<form action="{:U('add_subject')}" method="post">
+		<input type="hidden" name='section_id' value="{:I('get.s')}">
+		<div id="textarea" class="form-group col-md-12">
+			<div class="col-md-1">
+				<select class="form-control">
+				<option value="1">1</option>
+				</select>
+			</div>
+			<div class="col-md-11">
+				<input type="text" class="form-control" name="name" placeholder="输入标题">
+			</div>
+			<div class="col-md-12">
+				<textarea rows="3" name="content" placeholder="输入内容" id="editor_id"></textarea>
+			</div>
+			<center>
+			<input type="submit" value="发布新主题" class="btn btn-default">
+		</div>
+	</form>
+</block>

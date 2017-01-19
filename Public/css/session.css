@@ -11,7 +11,9 @@ li{list-style:none;}
 	width:5%;
 	border-right:1px solid #dddddd;
 	text-align:center;
-
+	padding-top:10px;
+	font-family: "Microsoft Yahei",'Arial Black',arial-black,'Helvetica Black',helvetica-black,Sans-serif;
+	font-size: 1.5em;
 }
 #subject li .title{
 	width:65%;
@@ -56,4 +58,20 @@ div#title{
 }
 #sections a{
 	font: 25px/1.5 Tahoma,'Microsoft Yahei','Simsun';
+}
+div#textarea{
+	background:#fff;
+	padding:15px;
+	border-radius:8px;
+}
+div#textarea div{
+	margin-top:5px;
+	margin-bottom:5px;
+}
+div.addbtn {
+	margin-left:20px;
+}
+div.addbtn a{
+	background:#ccc;
+	font: 18px/1.5 Tahoma,'Microsoft Yahei','Simsun';
 }

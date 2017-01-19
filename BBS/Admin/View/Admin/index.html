@@ -41,11 +41,14 @@
               <div  id="btnBox">
  		{$show}
  	      </div>
+   
 </body>
 <script type="text/javascript">
          // 将数字按钮进行包裹
       $('#btnBox').children().children().unwrap().wrap('<li></li>').parent().wrapAll('<ul class="pagination"></ul>');
       // 给当前页码高亮显示
       $('#btnBox span').parent().addClass('active');
+
+
 </script>
 </html>

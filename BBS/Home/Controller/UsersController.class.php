@@ -8,6 +8,7 @@ class UsersController extends EmptyController{
 		$user=D('users');//实例化类
 		$list=$user->pro_index();//接收数据处理
 		//dump($list);
+		//dump($_SESSION);
 		$data=[];
 		$data['list']=$list;
 		$this->assign($data);//分配数局

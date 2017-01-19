@@ -2130,7 +2130,6 @@
 		padding: 0.75em 1em;
 	}
 
-	input[type="checkbox"],
 	input[type="radio"] {
 		-moz-appearance: none;
 		-webkit-appearance: none;
@@ -2144,7 +2143,6 @@
 		z-index: -1;
 	}
 
-		input[type="checkbox"] + label,
 		input[type="radio"] + label {
 			text-decoration: none;
 			cursor: pointer;
@@ -2156,7 +2154,6 @@
 			position: relative;
 		}
 
-			input[type="checkbox"] + label:before,
 			input[type="radio"] + label:before {
 				-moz-osx-font-smoothing: grayscale;
 				-webkit-font-smoothing: antialiased;
@@ -2166,7 +2163,6 @@
 				text-transform: none !important;
 			}
 
-			input[type="checkbox"] + label:before,
 			input[type="radio"] + label:before {
 				border-radius: 8px;
 				border: solid 1px;
@@ -2181,7 +2177,6 @@
 				width: 1.65em;
 			}
 
-		input[type="checkbox"]:checked + label:before,
 		input[type="radio"]:checked + label:before {
 			content: '\f00c';
 		}

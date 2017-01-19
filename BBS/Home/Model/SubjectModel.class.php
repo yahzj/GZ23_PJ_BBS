@@ -5,7 +5,8 @@ use Think\Model;
 class SubjectModel extends Model{
 	//前台显示帖子数据	
 	public function pro_index(){
-		$id=0;//这是我的ID;
+		$id=I('get.cid');//这是我的帖子ID;
+		//dump($id);
 		$list=$this->find($id);//通过id找到一条数据
 		//dump($list);
 		//dump($list['uid']);//找到数据里面对应的发帖人ID
@@ -16,6 +17,7 @@ class SubjectModel extends Model{
 			'userList'=>$userList,
 			'followList'=>$followData['followList'],
 			'show'=>$followData['show'],
+			'totalRow'=>$followData['totalRow'],
 		];//返回数据	
 
 	}
@@ -47,7 +49,13 @@ class SubjectModel extends Model{
 		return [
 			'followList'=>$followList,
 			'show'=>$page->show(),
+			'totalRow'=>$totalRow,
 		];
+	}
+	//处理新回复信息。需要用户Id,session里面的Id
+	//如果session里面不存在Id,那么请登录
+	public function dofollow(){
+
 	}	
 
 }

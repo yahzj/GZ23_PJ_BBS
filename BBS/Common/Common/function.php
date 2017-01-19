@@ -16,8 +16,10 @@ function land_user(){
 		if(empty(session('mybbs_home'))){
 	    return false;
 	    }elseif (time()-$list['landtime']>1800) {
+	    	session(null);
 	    return false;
 	    }elseif ($list['login']!='home') {
+	    	session(null);
 	    return false;
 	    }
 	    $list['landtime']=time();

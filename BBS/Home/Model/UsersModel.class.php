@@ -50,7 +50,8 @@ class UsersModel extends Model{
 	public function pro_index(){
 		//dump($_SESSION);
 		$id=$_SESSION['mybbs_home']['0']['id'];//这是我的ID;
-		$list=$this->find($id);//通过id找到一条数据
+		//dump($id);
+		$list=$this->find();//通过id找到一条数据。。find方法不管你有米有参数都会出来一条数据！
 		//dump($list);
 		//对数据进行替换显示
 		$sex=['女','男'];
@@ -58,7 +59,6 @@ class UsersModel extends Model{
 		$list['sex']=$sex[$list['sex']];
 		$list['status']=$status[$list['status']];
 		//dump($list);
-		
 		return $list;//返回数据	
 
 	}

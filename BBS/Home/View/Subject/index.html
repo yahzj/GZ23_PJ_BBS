@@ -6,24 +6,30 @@
 	<load href="__PUBLIC__/css/bootstrap.min.css"/>
 	<load href="__PUBLIC__/js/jquery.js"/>
 	<load href="__PUBLIC__/js/bootstrap.min.js"/>
+	<!-- 文本编辑器 -->
+	
+	 
+	
+
 	<style>
 		.table{
-			width:98%;
+			width:90%;
 			margin:0 auto;
 			box-shadow:0px 0px 3px 0px #ccc;
 			
 		}
 		.td{
+			
 			border-left:1px solid #fff;
 			border-right:1px solid #fff;
 		}
-		.btn{
+		#btn{
 			width:40px;
 			height:40px;
 			border-radius:50%;
 			position:fixed;
 			top:100px;
-			right:40px;
+			right:34px;
 			box-shadow:13px 13px 5px 5px #ccc;
 			transform:rotate(360deg); 
 		}
@@ -37,7 +43,17 @@
 			index:2;
 			display:none;
 		}
-		
+		#send{
+			cursor:pointer;
+		}
+		/*.t{
+			width:25px;
+			height:25px;
+			font-size:10px;
+			line-height:10px;
+			 
+		}*/
+	
 	</style>
 </head>
 <body>
@@ -58,10 +74,10 @@
 		</div>
 	<!-- 跳转弹出框结束 -->
 	<!-- 跳转按钮结束 -->
-	<div id="btnBox" style='margin-left:10px;'>{$show}</div>
+	<div id="btnBox" style='margin-left:50px;'>{$show}</div>
 	
-	 <table class='table' border='0'>
-	 	<tr class='warning'>
+	 <table class='table' border='0' style="word-break:break-all">
+		<tr class='warning'>
 	 		<td width='220'>
 	 			<div><div><b>{$userList['nickname']}</b>&nbsp;&nbsp;&nbsp;<span class="badge">{$userList['username']}</span></div><br>
 	 				<div><span class="label label-danger"><small>发言人</small></span></div>
@@ -77,11 +93,46 @@
 	 			</div>
 	 		</td>
 	 		<td class='td'>
-	 			<div><b>{$list['name']}</b></div>
+	 			<div>
+	 				<div class="row">
+	 					<div class="col-sm-8">
+		 					<b>{$list['name']}</b>
+		 				</div>
+						<div class="col-sm-4">
+		 					<small><b>{$list['addtime']}</b></small>
+		 				</div>
+		 			</div>
+	 			</div>
 	 			<hr>
 	 			<div><small>{$list['content']}</small></div>
 	 			<hr>
 	 			<div><b><small>附件</small></b></div>
+	 			<hr>
+	 			<div>
+	 				<div><small>回帖数： <span class="badge">{$totalRow}</span>&nbsp;&nbsp;&nbsp;<b onclick='sendfun()' id='send'>回复</b></small></div><br>
+	 				<!-- 文本编辑器 -->
+	 				<div>
+	 					<div class="btn-group btn-group-xs" role="group" aria-label="...">
+						  <button type="button" class="btn btn-default" id='h2'><small><b>H2</b></small></button>
+						  <button type="button" class="btn btn-default">H4</button>
+						  <button type="button" class="btn btn-default">H6</button>
+						  <button type="button" class="btn btn-default">粗</button>
+						  <button type="button" class="btn btn-default">斜</button>
+						  <button type="button" class="btn btn-default">划</button>
+						  <button type="button" class="btn btn-default">左</button>
+						  <button type="button" class="btn btn-default">中</button>
+						  <button type="button" class="btn btn-default">右</button>
+						  <button type="button" class="btn btn-default">红</button>
+						  <button type="button" class="btn btn-default">绿</button>
+						  <button type="button" class="btn btn-default">蓝</button>
+						</div><br><br>
+						<textarea class="form-control" rows="3" id='text'></textarea><br>
+						<div class="btn-group btn-group-sm" role="group" aria-label="...">
+							<input class="btn btn-default" type="submit" value="发布">
+						</div>
+					</div>	
+	 				<!-- 文本编辑器 -->
+				</div>
 	 		</td>
 	 		<td width='200'>广告</td>
 	 	</tr>
@@ -116,7 +167,14 @@
 		 	</tr>
 	 	</foreach>
 	 </table>
-	<div id="btnBox2">{$show}</div>
+	<div id="btnBox2" style='margin-left:50px;'>{$show}</div>
+
+	<!-- 快速发布回复框 -->
+	<hr width='90%'>
+	
+	
+	
+	<!-- 快速发布回复 -->
 
 </body>
 <script>
@@ -149,9 +207,13 @@
 		}
 	}
 	//=========================================锚点跳转楼层===========================================
-	//============================回到顶部特效=============================================
-		
-	//============================回到顶部特效=============================================
-	
+	//============================w文本编辑器特效=============================================
+	var h2=document.getElementById('h2');
+	var text=document.getElementById('text');
+	var a=text.value;
+	text.value='<b>'+a+'</b>';
+	console.log(a);
+	//============================文本编辑器特效=============================================
 </script>
+
 </html>
