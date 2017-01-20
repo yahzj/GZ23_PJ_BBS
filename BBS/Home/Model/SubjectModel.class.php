@@ -3,6 +3,8 @@ namespace Home\Model;//代码编辑:刘欣;
 use Think\Model;
 
 class SubjectModel extends Model{
+	
+
 	//前台显示帖子数据	
 	public function pro_index(){
 		$id=I('get.cid');//这是我的帖子ID;
@@ -52,28 +54,38 @@ class SubjectModel extends Model{
 			'totalRow'=>$totalRow,
 		];
 	}
-	//处理新回复信息。需要用户Id,session里面的Id
-	//如果session里面不存在Id,那么请登录
+	//处理回复信息
 	public function pre_dofollow(){
 		$data=I('post.');
-		//dump($data);
+		dump($data);
 		//echo $data['content'];
 		$data['content']=str_replace(['&lt;','&gt;'],['<','>'],$data['content']);
 		//echo $data['content'];
-		//dump($data);
+		dump($data);
 		//echo "我在数据处理层";
 		//die();
-		$follow=D('follow');
+		$follow=D('follow');//实例化follow类
 		$newdata=$follow->create($data);
 		//dump($newdata);
 		if($newdata){
 				$follow->add($newdata);//如果验证正确则添加到数据库
+				//=============实例化subjiect类 将最回复人id 回复时间 楼层进行修改===========================================
+				$subject=D('subject');
+				$subdata['floor']=$data['floor'];
+				$subdata['fid']=$data['uid'];
+				$subdata['followtime']=date('Y-m-d,H:i:s');
+				dump($subdata);
+				$map=[];
+				$map['id']=['eq',$data['cardid']];
+				$subject->where($map)->save($subdata);
+				//=============实例化subjiect类 将最回复人id 回复时间 楼层进行修改===========================================
+
 				return '回复成功';
 				}else{
 				return false;//验证错误，返回错误信息;
 
 		}
-
+		
 	}	
 
 }

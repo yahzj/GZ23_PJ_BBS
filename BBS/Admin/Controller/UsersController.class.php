@@ -23,7 +23,7 @@ class UsersController extends EmptyController{
 		}
 		$res=$user->pro_add();//执行数据处理	
 		if($res){        
- 	  		return $this->success('新增成功',U('index'),5);   
+ 	  		return $this->success('新增成功',U('index'),3);   
 		}else{
             // 如果验证失败，则显示错误提示
 	   			return $this->Error($user->getError());
@@ -42,7 +42,7 @@ class UsersController extends EmptyController{
 		$user=D('users');//实例化MODEL类
 		$res=$user->pro_del();//执行数据处理
 		if($res){        
- 	  		return $this->success('删除成功',U('index'),5);   
+ 	  		return $this->success('删除成功',U('index'),3);   
 		}else{
             // 如果验证失败，则显示错误提示
 	   			return $this->Error($user->getError());
@@ -68,7 +68,7 @@ class UsersController extends EmptyController{
 		}
 		$res=$user->pro_updata();//执行数据处理
 		if($res){        
- 	  		return $this->success('修改成功',U('index'),5);   
+ 	  		return $this->success('修改成功',U('index'),3);   
 		}else{
             // 如果验证失败，则显示错误提示
 	   			return $this->Error($user->getError());

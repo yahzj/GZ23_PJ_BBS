@@ -82,11 +82,16 @@
 		<tr class='warning'>
 	 		<td width='220'>
 	 			<div><div><b>{$userList['nickname']}</b>&nbsp;&nbsp;&nbsp;<span class="badge">{$userList['username']}</span></div><br>
-	 				<div><span class="label label-danger"><small>发言人</small></span></div>
+	 				<div>
+	 					<span class="label label-danger"><small>发言人</small></span>
+	 					
+	 				</div>
 	 			</div>
 	 			<hr>
 	 			<div align='center'>
-	 				<img src="__ROOT__/Uploads/images/new{$userList['image']}" alt="图片不存在" width='120' class="img-circle">
+	 				<div><img src="__ROOT__/Uploads/images/new{$userList['image']}" alt="图片不存在" width='120' class="img-circle"><div><br>
+	 				<a href="{:U('Home/Message/requestadd',['id'=>$userList['id']])}" class="btn btn-default btn-lg  btn-xs" role="button">加好友</a>
+	 				<a href="{:U('Home/Message/index',['type'=>'post','id'=>$userList['id']])}" class="btn btn-default btn-lg  btn-xs" role="button">发短信</a>
 	 			</div>
 	 			<hr>
 	 			<div>
@@ -114,7 +119,7 @@
 	 				<div><small>回帖数： <span class="badge">{$totalRow}</span>&nbsp;&nbsp;&nbsp;<b onclick='sendfun()' id='send'>回复</b></small></div><br>
 	 				<!-- 文本编辑器 -->
 	 				<form action="{:U('dofollow')}" method="post">
-	 				<div id='send_show'>
+	 				<div id='send_show' style="word-break:break-all">
 	 					<div class="btn-group btn-group-xs" role="group" aria-label="...">
 						  <button type="button" class="btn btn-default" id='font_36'><small><b>36</b></small></button>
 						  <button type="button" class="btn btn-default" id='font_24'><small><b>24</b></small></button>
@@ -129,14 +134,15 @@
 
 						</div><br><br>
 						<div>
-							<textarea class="form-control" rows="3" id='text' style='resize:none;'></textarea><br>
+							<textarea class="form-control" rows="3" id='text'></textarea><br>
 		 					<textarea class="form-control" rows="3" id='text_show' style='display:none;' name='content'></textarea>
 				 		</div>
 				 			<input type="hidden" name='cardid' value="{$list['id']}">
 				 			<input type="hidden" name='floor' value="{$totalRow+1}">
 				 			<input type="hidden" name='authorid' value="{$userList['id']}">
+				 			<input type="hidden" name='uid' value="{$followsid}">
 						<div class="btn-group btn-group-sm" role="group" aria-label="...">
-							<input class="btn btn-default" type="submit" value="发布" id='sub'>
+							<input class="btn btn-default" type="submit" value="发布" id='sub' disabled />
 						</div>
 					</div>
 					</form>	
@@ -157,7 +163,9 @@
 		 			<div><span class="label label-success"><small><a id="{$v['L']+$k+1}L">{$v['L']+$k+1}L</a></small></span></div>
 		 			<hr>
 		 			<div align='center'>
-		 				<img src="__ROOT__/Uploads/images/new{$v['uidData']['image']}" alt="图片不存在" width='120' class="img-circle">
+		 				<div><img src="__ROOT__/Uploads/images/new{$v['uidData']['image']}" alt="图片不存在" width='120' class="img-circle"></div><br>
+			 			<a href="{:U('Home/Message/requestadd',['id'=>$v['uidData']['id']])}" class="btn btn-default btn-lg  btn-xs" role="button">加好友</a>
+		 				<a href="{:U('Home/Message/index',['type'=>'post','id'=>$v['uidData']['id']])}" class="btn btn-default btn-lg  btn-xs" role="button">发短信</a>
 		 			</div>
 		 			<hr>
 		 			<div>
@@ -168,7 +176,7 @@
 		 		<td class='td' colspan='2'>
 		 			<div><b><small>{$v['addtime']}</small></b></div>
 		 			<hr>
-		 			<div><small><?php echo $v['content'];?></small></div>
+		 			<div><small>{$v['content']}</small></div>
 		 			<hr>
 		 			<div><b><small>附件</small></b></div>
 		 		</td>
@@ -180,7 +188,9 @@
 
 	<!-- 快速发布回复框 -->
 	<hr width='90%'>
-	
+			<!-- 文本编辑器 -->
+	 				
+	 		<!-- 文本编辑器 -->
 	
 	
 	<!-- 快速发布回复 -->
@@ -354,6 +364,16 @@
 	}
 	//================点击显示编辑器隐藏=====================================================
 	//============================文本编辑器特效=============================================
+	//=========================启动输入事件。触发发布按钮开启================================
+
+	text.oninput=function(){
+		if(!text.value){
+			sub.disabled=true;
+		}else{
+			sub.disabled=false;
+		}
+	}
+	//=========================启动输入事件。触发发布按钮开启================================
 </script>
 
 </html>
