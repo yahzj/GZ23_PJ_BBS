@@ -18,16 +18,23 @@ class MessageModel extends Model{
 		//统计系统通知的条数。
 		$noticenum=$objnotice->count();
 		
+		//统计未添加好友的条数。
 		$friend=D('friend');
 		$friendmap['uid']=['eq',$nameid];
 		$friendlist=$friend->where($friendmap)->select();
+		//该用户在friend数据表是否有数据。
 		if($friendlist){
+			//该用户是否有未添加的好友
 			if($friendlist[0]['waitfriend']){
+				//去除两边的逗号
 				$friendstr=trim($friendlist[0]['waitfriend'],",");
+				//分解成数组形式
 				$friendarr=explode(",",$friendstr);
+				//得到未添加好友的人数。
 				$friendcount=count($friendarr);
 			}
 		}else{
+			//如果没有数据就是0
 			$friendcount=0;
 		}
 
@@ -56,6 +63,7 @@ class MessageModel extends Model{
 			foreach($list as $key=>&$val){
 				$val['receivername']=$userslist[$val['receiverid']];
 			}
+		//------------------------------------------------------------------------------------------
 		}elseif($_GET['action']=="receive"){//参数action为receive时。是收件箱，具体和send一样。
 			$map['receiverid']=['eq',$nameid];
 			$map['status']=['neq',3];
@@ -66,6 +74,7 @@ class MessageModel extends Model{
 			foreach($list as $key=>&$val){
 				$val['sendername']=$userslist[$val['senderid']];
 			}
+		//------------------------------------------------------------------------------------------
 		}elseif(empty($_GET)){//完全没有type和action参数时。是收件箱，具体和send一样。
 			$map['receiverid']=['eq',$nameid];
 			$map['status']=['neq',3];
@@ -76,6 +85,7 @@ class MessageModel extends Model{
 			foreach($list as $key=>&$val){
 				$val['sendername']=$userslist[$val['senderid']];
 			}
+		//------------------------------------------------------------------------------------------
 		}elseif(I('get.type')=='sms' && count(I('get.'))==1){//只有sms参数没有action参数时。是收件箱。具体和send一样。
 			$map['receiverid']=['eq',$nameid];
 			$map['status']=['neq',3];
@@ -86,6 +96,7 @@ class MessageModel extends Model{
 			foreach($list as $key=>&$val){
 				$val['sendername']=$userslist[$val['senderid']];
 			}
+		//------------------------------------------------------------------------------------------
 		}elseif(!empty(I('get.p')) && count(I('get.'))==1){//只有p参数时。是收件箱。具体和send一样。
 			$map['receiverid']=$nameid;
 			$map['status']=['neq',3];
@@ -97,6 +108,7 @@ class MessageModel extends Model{
 			foreach($list as $key=>&$val){
 				$val['sendername']=$userslist[$val['senderid']];
 			}
+		//------------------------------------------------------------------------------------------
 		}elseif(I('get.action')=='info'){//短信息具体页面。
 			//用户点击了某条短消息时，立刻将该短消息状态改为1已读，0为未读，1为已读，3为删除。
 			$titleid=I('get.titleid');
@@ -173,6 +185,7 @@ class MessageModel extends Model{
 			//将$list作为二维数组传过去显示。
 			$list=[];
 			$list[]=$arr;
+		//------------------------------------------------------------------------------------------
 		//通知页面
 		}elseif(I('get.type')=='notice'){
 			$row=10;
@@ -180,9 +193,10 @@ class MessageModel extends Model{
 			$count=$notice->count();
 			$page=new \Think\Page($count,$row);
 			$list=$notice->limit($page->firstRow.",".$page->listRows)->select();
-			
+		//------------------------------------------------------------------------------------------
 		}elseif(I('get.type')=='post'){
 			//这里没什么用，就是用来给新消息页面返回未读消息和系统通知条数才设的这里。
+		//------------------------------------------------------------------------------------------
 		}elseif(I('get.type')=='request'){
 			if($friendlist){
 				if($friendlist[0]['waitfriend']){
@@ -195,7 +209,7 @@ class MessageModel extends Model{
 					}
 				}
 			}
-			
+		//------------------------------------------------------------------------------------------
 		}else{//其它情况就是乱来的。
 			$this->error("没有你要找的网页");
 		}
@@ -258,20 +272,10 @@ class MessageModel extends Model{
 	}
 
 	public function pro_post(){
-		//该用户是否有昵称，有才能发，没有就返回！
-		function check(){
-			$users=D('users');
-			$id=$_SESSION['mybbs_home'][0]['id'];
-			$checkarr['id']=['eq',$id];
-			$checkarr['nickname']=['neq','null'];
-			$checklist=$users->where('id='.$id.' and nickname is not null')->select();
-			if(!empty($checklist[0])){
-				
-			}else{
-				return 9;
-			}
-		}
+		
+		//得到数字9
 		$num=check();
+		//返回到控制器。
 		if($num==9){
 			return 9;
 		}
@@ -298,7 +302,7 @@ class MessageModel extends Model{
 	//好友处理
 	public function pro_friend(){
 		header("Content-Type: text/html;charset=utf-8");
-		//获得当前用户的id。
+		
 		//获得当前用户的id
 		$nameid=$_SESSION['mybbs_home'][0]['id'];
 		//获得当前用户的用户名
@@ -418,4 +422,72 @@ class MessageModel extends Model{
 			return 0;//用户在地址栏乱搞的id
 		}
 	}
+
+	//处理好友申请
+	public function pro_requestadd(){
+		header("Content-Type: text/html;charset=utf-8");
+		//获得用户希望添加的id
+		$id=I('get.id');
+		//获得当前用户的id
+		$nameid=$_SESSION['mybbs_home'][0]['id'];
+		//获得当前用户的用户名
+		$users=$_SESSION['mybbs_home'][0]['nickname'];
+		$friend=D('friend');
+		$friendmap['uid']=['eq',$id];
+		//遍历出所有待添加的好友
+		$friendlist=$friend->where($friendmap)->select();
+		//在friend表有这个id的数据就要判断这个当前用户之前是否已经申请添加了好友或者两人已经是这个好友了
+		if($friendlist){
+			//已经是好友了，不能再申请。
+			if($friendlist[0]['friend']){
+				trim($friendlist[0]['friend'],",");
+				$friendarr=explode(',',$friendlist[0]['friend']);
+				if(in_array($id,$friendarr)){
+					return 1;//1为已经是好友
+				}
+			}
+			
+			//已经申请过好友但对方还没有同意也没有拒绝，不能再申请。没有申请过就将,$id,加进去waitfriend字段就可以了。
+			$map['id']=['eq',$friendlist[0]['id']];
+			if($friendlist[0]['waitfriend']){
+				trim($friendlist[0]['waitfriend'],",");
+				$friendarr=explode(',',$friendlist[0]['waitfriend']);
+				if(in_array($id,$friendarr)){
+					return 2;//2为已经申请好友
+
+				}else{
+					//对方已经有待添加好友，但待添加好友列表中并没有当前用户
+					array_push($friendarr,$id);				
+					$maps['waitfriend']=",".implode(',',$friendarr).",";
+					$res=$friend->where($map)->save($maps);
+					if($res){
+						return 3;//添加成功
+					}else{
+						return 0;//添加失败
+					}
+				}
+			}else{
+				//没有申请过好友就走这里。
+				$maps['waitfriend']=",".$id.",";
+				$res=$friend->where($map)->save($maps);
+
+				if($res){
+					return 3;//添加成功
+				}else{
+					return 0;//添加失败
+				}
+			}
+		}else{
+			$map['uid']=$id;
+			$map['friend']='';
+			$map['waitfriend']=",".$nameid.",";
+			$map['num']=0;
+			$res=$friend->add($map);
+			if($res){
+				return 3;//添加成功
+			}else{
+				return 0;//添加失败
+			}
+		}
+	}	
 }

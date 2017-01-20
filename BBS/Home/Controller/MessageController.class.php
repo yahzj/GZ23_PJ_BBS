@@ -114,7 +114,7 @@ class MessageController extends EmptyController{
 	    // $verify->useNoise = false;  // 关闭验证码干扰杂点
 	     $verify->entry();
 	}
-
+	//用户同意和拒绝好友请求的走这里
 	public function friend(){
 		$message=D('message');
 		$res=$message->pro_friend();
@@ -128,6 +128,22 @@ class MessageController extends EmptyController{
 			$this->success('拒绝成功！','http://localhost/obj2/GZ23_PJ_BBS/Home/Message/index/type/request.html');
 		}else{
 			$this->success('添加好友成功！','http://localhost/obj2/GZ23_PJ_BBS/Home/Message/index/type/request.html');
+			
+		}
+	}
+	//用户请求别人为好友的走这里
+	public function requestadd(){
+		$message=D('message');
+		$res=$message->pro_requestadd();
+
+		if($res==0){
+			$this->error('添加失败！');
+		}elseif($res==1){
+			$this->error('已经是好友！不能再申请！');
+		}elseif($res==2){
+			$this->error('你已经申请过该好友！');
+		}else{
+			$this->success('申请好友成功！');
 			
 		}
 	}

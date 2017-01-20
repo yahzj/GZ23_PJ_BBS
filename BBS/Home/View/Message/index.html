@@ -16,6 +16,7 @@
 	<div class="container">
 			<div class="row">
 					<div class="left" class="col-sm-3">
+						<a href="{:U('Home/Message/requestadd',['id'=>27])}">添加好友</a><br>
 						<a href="{:U('Home/Message/index',['type'=>post])}">发新消息</a><br>
 						<a href="{:U('Home/Message/index',['type'=>sms,'action'=>'receive'])}">站内信</a>
 						<if condition="count($unread) gt 0">
@@ -153,7 +154,7 @@
 					收件人：<span><input type="text" name="receivername" id="receivername"></span><br><br>
 
 					标题：<input type="text" name="title"><br><br>
-					内容：<textarea name="content"></textarea><br><br>
+					内容：<textarea name="content" style="resize: none;"></textarea><br><br>
 					 <div class="control-group">
                  		<label class="laber_from">验证码</label>
                 		<input type="text" name="verify"/>     
@@ -204,7 +205,7 @@
 							<form action="{:U('Home/Message/add')}" method="post">
 									<input hidden name="senderid" value=1>									
 									<input hidden name="title" value={$val['title']}>
-									<textarea name="content">请输入内容</textarea>
+									<textarea name="content" style="resize: none;">请输入内容</textarea>
 									<if condition="$val['senderid'] eq 1">
 										<input hidden name="receiverid" value={$val['receiverid']}>
 									<else/>

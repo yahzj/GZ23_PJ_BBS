@@ -12,17 +12,33 @@ function myHash($val){
 }
 
 function land_user(){
-	    $list=I('session.mybbs_home');
-		if(empty(session('mybbs_home'))){
-	    return false;
-	    }elseif (time()-$list['landtime']>1800) {
-	    	session(null);
-	    return false;
-	    }elseif ($list['login']!='home') {
-	    	session(null);
-	    return false;
-	    }
-	    $list['landtime']=time();
-	     session('mybbs_home', $list); 
-	    return true;
+    $list=I('session.mybbs_home');
+	if(empty(session('mybbs_home'))){
+    return false;
+    }elseif (time()-$list['landtime']>1800) {
+    	session(null);
+    return false;
+    }elseif ($list['login']!='home') {
+    	session(null);
+    return false;
+    }
+    $list['landtime']=time();
+     session('mybbs_home', $list); 
+    return true;
+}
+
+//该用户是否有昵称，有才能发，没有就返回告知用户！适用于发帖，回帖，发消息等输入操作
+function check(){
+	$users=D('users');
+	$id=$_SESSION['mybbs_home'][0]['id'];
+	$checkarr['id']=['eq',$id];
+	$checkarr['nickname']=['neq','null'];
+	//找到该用户昵称不为空的数据，昵称为空就没有数据。
+	$checklist=$users->where('id='.$id.' and nickname is not null')->select();
+	if(!empty($checklist[0])){
+		
+	}else{
+		//返回9到控制器，然后告诉用户没有昵称，不能发。
+		return 9;
+	}
 }
