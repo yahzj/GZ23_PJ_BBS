@@ -1,0 +1,31 @@
+ <extend name='./public/index/Template.html'/>
+<block name='path'>
+	<foreach name='link' item='val'>
+		<li><a href="{$val['path']}">{$val['pname']}</a></li>
+	</foreach>
+</block>
+<block name='css'>
+		<link rel="stylesheet" href="__PUBLIC__/css/session.css" />
+		<style>
+			input.checkbox{float:left;margin-top:25px;}
+			button{margin-top:5px;margin-left:5px;}
+		</style>
+</block>
+<block name='main'>
+	<div id="title">当前板块搜索结果</div>
+
+<ul id="subject">
+	<foreach name='list' item='val'>
+		<li class="form-control">
+			<div class="floor">{$val.floor}</div>
+			<div class="title"><a href="{$val.link}" style="color:{$val['color']};">
+			{$val.name}
+			<if condition='$val["status"] eq 0'>[已锁定]</if>
+			<if condition='$val["status"] gt 10'>[精品]</if>
+			</a></div>
+			<div class="uid"><a href="">{$val.uid}</a>{$val.addtime}</div>
+			<div class="fid"><a href="">{$val.fid}</a>{$val.followtime}</div>
+		</li>
+	</foreach>
+</ul>
+</block>
