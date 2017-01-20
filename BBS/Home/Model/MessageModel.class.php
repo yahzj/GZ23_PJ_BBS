@@ -194,6 +194,12 @@ class MessageModel extends Model{
 			$page=new \Think\Page($count,$row);
 			$list=$notice->limit($page->firstRow.",".$page->listRows)->select();
 		//------------------------------------------------------------------------------------------
+		}elseif(I('get.type')=='post' && !empty(I('get.id'))){
+			$id=I('get.id');
+			$users=D('users');
+			$map['id']=['eq',$id];
+			$list=$users->where($map)->select();
+		//------------------------------------------------------------------------------------------
 		}elseif(I('get.type')=='post'){
 			//这里没什么用，就是用来给新消息页面返回未读消息和系统通知条数才设的这里。
 		//------------------------------------------------------------------------------------------
@@ -227,6 +233,7 @@ class MessageModel extends Model{
 		//如果没有分页，并且是新消息页面，则只返回未读消息和系统通知条数和好友申请就好了。
 		}elseif(I('get.type')=='post'){
 			return [
+				'list'=>$list,
 				'unread'=>$unread,
 				'noticenum'=>$noticenum,
 				'friendcount'=>$friendcount,
@@ -425,6 +432,10 @@ class MessageModel extends Model{
 
 	//处理好友申请
 	public function pro_requestadd(){
+		$num=check();
+		if($num==9){
+			return 9;
+		}
 		header("Content-Type: text/html;charset=utf-8");
 		//获得用户希望添加的id
 		$id=I('get.id');
@@ -442,7 +453,7 @@ class MessageModel extends Model{
 			if($friendlist[0]['friend']){
 				trim($friendlist[0]['friend'],",");
 				$friendarr=explode(',',$friendlist[0]['friend']);
-				if(in_array($id,$friendarr)){
+				if(in_array($nameid,$friendarr)){
 					return 1;//1为已经是好友
 				}
 			}
@@ -450,15 +461,16 @@ class MessageModel extends Model{
 			//已经申请过好友但对方还没有同意也没有拒绝，不能再申请。没有申请过就将,$id,加进去waitfriend字段就可以了。
 			$map['id']=['eq',$friendlist[0]['id']];
 			if($friendlist[0]['waitfriend']){
-				trim($friendlist[0]['waitfriend'],",");
-				$friendarr=explode(',',$friendlist[0]['waitfriend']);
-				if(in_array($id,$friendarr)){
+				$trimstr=trim($friendlist[0]['waitfriend'],",");
+				$friendarr=explode(',',$trimstr);
+				if(in_array($nameid,$friendarr)){
 					return 2;//2为已经申请好友
 
 				}else{
 					//对方已经有待添加好友，但待添加好友列表中并没有当前用户
-					array_push($friendarr,$id);				
-					$maps['waitfriend']=",".implode(',',$friendarr).",";
+					array_push($friendarr,$nameid);	
+					$str=implode(',',$friendarr);	
+					$maps['waitfriend']=",".$str.",";
 					$res=$friend->where($map)->save($maps);
 					if($res){
 						return 3;//添加成功
@@ -467,8 +479,8 @@ class MessageModel extends Model{
 					}
 				}
 			}else{
-				//没有申请过好友就走这里。
-				$maps['waitfriend']=",".$id.",";
+				//对方暂没有待添加好友就走这里
+				$maps['waitfriend']=",".$nameid.",";
 				$res=$friend->where($map)->save($maps);
 
 				if($res){

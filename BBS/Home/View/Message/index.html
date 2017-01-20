@@ -16,17 +16,17 @@
 	<div class="container">
 			<div class="row">
 					<div class="left" class="col-sm-3">
-						<a href="{:U('Home/Message/requestadd',['id'=>27])}">添加好友</a><br>
+						<a href="{:U('Home/Message/index',['type'=>'post','id'=>3])}">发消息</a><br>
 						<a href="{:U('Home/Message/index',['type'=>post])}">发新消息</a><br>
 						<a href="{:U('Home/Message/index',['type'=>sms,'action'=>'receive'])}">站内信</a>
-						<if condition="count($unread) gt 0">
+						<if condition="$unread gt 0">
 							<span style="color:red;">({$unread})</span>
 						<esle/>
 
 						</if>
 						<br>
 						<a href="{:U('Home/Message/index',['type'=>notice])}">通知</a>
-						<if condition="count($noticenum) gt 0">
+						<if condition="$noticenum gt 0">
 							<span>({$noticenum})</span>
 						<esle/>
 
@@ -151,7 +151,14 @@
 					<elseif condition="($_GET['type'] eq 'post')" />
 					<h2>写新消息</h2>
 					<form action="{:U('Home/Message/post')}" method="post">
-					收件人：<span><input type="text" name="receivername" id="receivername"></span><br><br>
+					收件人：
+						<if condition="$list[0]['id'] lt 1">
+						{//是其他页面时点击某人头像发信息的时候就走这里}
+							<span><input type="text" name="receivername" id="receivername"></span><br><br>
+						<else/>
+						{//不指定发新消息给某人的就走这里}
+							<span><input type="text" name="receivername" id="receivername" value="{$list[0]['nickname']}" readonly></span><br><br>
+						</if>
 
 					标题：<input type="text" name="title"><br><br>
 					内容：<textarea name="content" style="resize: none;"></textarea><br><br>
@@ -170,7 +177,7 @@
 
 						
 
-							<if condition="$list[0]['senderid'] neq 1">
+							<if condition="$list[0]['senderid'] neq $list[0]['id']">
 								<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'receive'])}">返回</a>
 							<else/>
 								<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'send'])}">返回</a>

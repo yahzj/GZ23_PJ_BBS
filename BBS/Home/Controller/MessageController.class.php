@@ -142,6 +142,8 @@ class MessageController extends EmptyController{
 			$this->error('已经是好友！不能再申请！');
 		}elseif($res==2){
 			$this->error('你已经申请过该好友！');
+		}elseif($res==9){
+			$this->error('你的昵称未完善！');
 		}else{
 			$this->success('申请好友成功！');
 			
