@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <load href="__PUBLIC__/css/bootstrap.min.css"/>
+    <load href="__PUBLIC__/js/jquery.js"/>
+    <load href="__PUBLIC__/js/bootstrap.min.js"/>
+</head>
+<body>
+    <h1>好友系统</h1>
+    
+    <form action="{:U('Admin/Friend/del')}" method="post" id="form">
+    <table class="table table-hover">
+        <tr>
+            <th></th>
+            <th>id</th>
+            <th>uid</th>
+            <th>昵称</th>
+            <th>好友</th>
+            <th>待添加好友</th>
+            <th>数量</th>
+            <th>操作</th>
+        </tr>
+        <foreach name="list" key="key" item="val">
+            <tr>
+                <td><input type='checkbox' name="name_{$val['id']}" value="{$val['id']}"></td>
+                <td>{$val['id']}</td>
+                <td>{$val['uid']}</td>
+                <td>{$val['nickname']}</td>
+                <td>{$val['friend']}</td>
+                <td>{$val['waitfriend']}</td>
+                <td>{$val['num']}</td>
+                <td>
+                    <a class="btn btn-danger" href="{:U('Admin/Friend/del',['id'=>$val['id']])}">删除</a>
+                </td>
+            </tr>
+        </foreach>
+    </table>
+    <input class="btn btn-danger" type="submit" value="删除">
+    </form>
+    {//js的全选，清空和反选等操作}
+    <button class="btn btn-info" onclick="choose()">全选</button>
+    <button class="btn btn-info" onclick="clear_all()">清空</button>
+    <button class="btn btn-info" onclick="fx()">反选</button>
+</body>
+<script>
+    var form=document.getElementById("form");
+    function choose(){
+        // each 就是循环
+        $('input').each(function(i){
+            // 转换为dom对象
+            var ziji = $(this)[0];
+            // 当前状态全部取true
+            ziji.checked = true;
+        });
+    }
+    function clear_all(){
+        // each 就是循环
+        $('td input').each(function(i){
+            // 转换为dom对象
+            var ziji = $(this)[0];
+            // 当前状态全部取false
+            ziji.checked = false;
+        });
+    }
+    function fx(){
+        // each 就是循环
+        $('td input').each(function(i){
+            // 转换为dom对象
+            var ziji = $(this)[0];
+            // 当前状态取反
+            ziji.checked = !ziji.checked;
+        });
+    }
+
+    
+</script>
+</html>

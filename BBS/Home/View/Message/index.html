@@ -17,7 +17,7 @@
 			<div class="row">
 					<div class="left" class="col-sm-3">
 						<a href="{:U('Home/Message/index',['type'=>post])}">发新消息</a><br>
-						<a href="{:U('Home/Message/index',['type'=>sms])}">站内信</a>
+						<a href="{:U('Home/Message/index',['type'=>sms,'action'=>'receive'])}">站内信</a>
 						<if condition="count($unread) gt 0">
 							<span style="color:red;">({$unread})</span>
 						<esle/>
@@ -30,12 +30,18 @@
 						<esle/>
 
 						</if><br>
-						<a href="{:U('Home/Message/index',['type'=>request])}">请求</a><br>
+						<a href="{:U('Home/Message/index',['type'=>request])}">请求</a>
+						<if condition="count($friendcount) gt 0">
+							<span style="color:red;">({$friendcount})</span>
+						<esle/>
+
+						</if>
+						<br>
 					</div>
 				<div class="right"  class="col-sm-6">
 					{//第一种可能：只输入了type参数和值为sms，没有action的值，就默认是收件箱}
-					<if condition="($_GET['type'] eq 'sms' AND (count($_GET) eq 1)) or ((count($_GET)) lt 1) or (($_GET['type'] eq 'sms') AND ($_GET['action'] eq 'receive'))">
-					站内信(共{:count($list)}条)1<br>
+					<if condition="($_GET['type'] eq 'sms' AND (count($_GET) eq 1)) or ((count($_GET)) lt 1) or (($_GET['type'] eq 'sms') AND ($_GET['action'] eq 'receive')) or ($_GET['p'] AND count($_GET) eq 1)">
+					站内信(共{$count}条)1<br>
 					<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'receive'])}">收件箱</a> <a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'send'])}">发件箱</a>
 					
 					<a id="tag" class="btn btn-info" onclick="tag()">标记已读</a>
@@ -133,9 +139,12 @@
 					</table>
 					{$show}
 					
-					{//第四种可能：只输入了type参数和值为request，就是请求页面}
+					{//第四种可能：只输入了type参数和值为request，就是好友请求页面}
 					<elseif condition="($_GET['type'] eq 'request')" />
-					站内信(共{$count}条)5
+					
+					<foreach name="list" key="key" item="val">
+						<span style="width:100px;border:1px solid gray;">{$val['nickname']}<a class="btn btn-info" href="{:U('Home/Message/friend',[id=>$val['id'],'status'=>1])}">接受</a><a class="btn btn-danger" href="{:U('Home/Message/friend',[id=>$val['id'],'status'=>0])}">拒绝</a></span>
+					</foreach>
 
 					{//第五种可能：只输入了type参数和值为post，就是写新信息页面}
 					<elseif condition="($_GET['type'] eq 'post')" />
@@ -201,6 +210,11 @@
 									<else/>
 										<input hidden name="receiverid" value={$val['senderid']}>
 									</if>
+									<div class="control-group">
+				                 		<label class="laber_from">验证码</label>
+				                		<input type="text" name="verify"/>     
+				                        <img class="verify" src="{:U(verify)}" alt="验证码" onClick="this.src=this.src+'?'+Math.random()" />
+				           			</div>
 									<input type="submit" value="提交">
 								</form>
 							
