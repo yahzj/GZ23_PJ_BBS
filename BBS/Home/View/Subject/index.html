@@ -46,13 +46,15 @@
 		#send{
 			cursor:pointer;
 		}
-		/*.t{
-			width:25px;
-			height:25px;
-			font-size:10px;
-			line-height:10px;
-			 
-		}*/
+		#text{
+			font-size:12px;
+		}
+		#cou{
+
+		}
+		#send_show{
+			display:none;
+		}
 	
 	</style>
 </head>
@@ -92,7 +94,7 @@
 					<span class="label label-warning">积分</span>&nbsp;&nbsp;&nbsp;<span class="badge"><b>8888</b></span>
 	 			</div>
 	 		</td>
-	 		<td class='td'>
+	 		<td class='td'style="word-break:break-all">
 	 			<div>
 	 				<div class="row">
 	 					<div class="col-sm-8">
@@ -111,30 +113,37 @@
 	 			<div>
 	 				<div><small>回帖数： <span class="badge">{$totalRow}</span>&nbsp;&nbsp;&nbsp;<b onclick='sendfun()' id='send'>回复</b></small></div><br>
 	 				<!-- 文本编辑器 -->
-	 				<div>
+	 				<form action="{:U('dofollow')}" method="post">
+	 				<div id='send_show'>
 	 					<div class="btn-group btn-group-xs" role="group" aria-label="...">
-						  <button type="button" class="btn btn-default" id='h2'><small><b>H2</b></small></button>
-						  <button type="button" class="btn btn-default">H4</button>
-						  <button type="button" class="btn btn-default">H6</button>
-						  <button type="button" class="btn btn-default">粗</button>
-						  <button type="button" class="btn btn-default">斜</button>
-						  <button type="button" class="btn btn-default">划</button>
-						  <button type="button" class="btn btn-default">左</button>
-						  <button type="button" class="btn btn-default">中</button>
-						  <button type="button" class="btn btn-default">右</button>
-						  <button type="button" class="btn btn-default">红</button>
-						  <button type="button" class="btn btn-default">绿</button>
-						  <button type="button" class="btn btn-default">蓝</button>
+						  <button type="button" class="btn btn-default" id='font_36'><small><b>36</b></small></button>
+						  <button type="button" class="btn btn-default" id='font_24'><small><b>24</b></small></button>
+						  <button type="button" class="btn btn-default" id='font_12'><small><b>12</b></small></button>
+						  <button type="button" class="btn btn-default" id='cou'><small><b>粗</b></small></button>
+						  <button type="button" class="btn btn-default" id='xie'><small><b>斜</b></small></button>
+						  <button type="button" class="btn btn-default" id='hua'><small><b>划</b></small></button>
+						  <button type="button" class="btn btn-default" id='red'><small><b>红</b></small></button>
+						  <button type="button" class="btn btn-default" id='green'><small><b>绿</b></small></button>
+						  <button type="button" class="btn btn-default" id='blue'><small><b>蓝</b></small></button>
+						  <button type="button" class="btn btn-default" id='black'><small><b>黑</b></small></button>
+
 						</div><br><br>
-						<textarea class="form-control" rows="3" id='text'></textarea><br>
+						<div>
+							<textarea class="form-control" rows="3" id='text' style='resize:none;'></textarea><br>
+		 					<textarea class="form-control" rows="3" id='text_show' style='display:none;' name='content'></textarea>
+				 		</div>
+				 			<input type="hidden" name='cardid' value="{$list['id']}">
+				 			<input type="hidden" name='floor' value="{$totalRow+1}">
+				 			<input type="hidden" name='authorid' value="{$userList['id']}">
 						<div class="btn-group btn-group-sm" role="group" aria-label="...">
-							<input class="btn btn-default" type="submit" value="发布">
+							<input class="btn btn-default" type="submit" value="发布" id='sub'>
 						</div>
-					</div>	
+					</div>
+					</form>	
 	 				<!-- 文本编辑器 -->
 				</div>
 	 		</td>
-	 		<td width='200'>广告</td>
+	 		<td width='200' style="word-break:break-all">广告</td>
 	 	</tr>
 	 	
 	 	<foreach name='followList' key='k' item='v'>	
@@ -159,7 +168,7 @@
 		 		<td class='td' colspan='2'>
 		 			<div><b><small>{$v['addtime']}</small></b></div>
 		 			<hr>
-		 			<div><small>{$v['content']}</small></div>
+		 			<div><small><?php echo $v['content'];?></small></div>
 		 			<hr>
 		 			<div><b><small>附件</small></b></div>
 		 		</td>
@@ -193,12 +202,14 @@
 	var start=true;
 	function shows(){
 		if(start){
+			//淡入效果
 			$("#show").fadeIn("show",function(){
 			  	show.style.display='block';
 			  	start=false;
 				jia.style.transform='rotate('+45+'deg)';
 			 });
 		}else{
+			//淡出效果
 			$("#show").fadeOut("show",function(){
 			  	show.style.display='none';
 			  	start=true;
@@ -208,11 +219,140 @@
 	}
 	//=========================================锚点跳转楼层===========================================
 	//============================w文本编辑器特效=============================================
-	var h2=document.getElementById('h2');
+
+	var font_36=document.getElementById('font_36');
 	var text=document.getElementById('text');
-	var a=text.value;
-	text.value='<b>'+a+'</b>';
-	console.log(a);
+	var text_show=document.getElementById('text_show');
+	var cc=document.getElementById('cc');
+	var size=null;
+	var cous=true;
+	var xies=true;
+	var huas=true;
+	var a=null;
+	//点击设置36号字体
+	font_36.onclick=function(){
+		font_36.style.background='green';
+		font_24.style.background='#fff';
+		font_12.style.background='#fff';
+		text.style.fontSize='36px';
+	};
+	//点击设置24号字体
+	font_24.onclick=function(){
+		font_36.style.background='#fff';
+		font_24.style.background='green';
+		font_12.style.background='#fff';
+		text.style.fontSize='24px';
+	};
+	//点击设置12号字体
+	font_12.onclick=function(){
+		font_36.style.background='#fff';
+		font_24.style.background='#fff';
+		font_12.style.background='green';
+		text.style.fontSize='12px';
+		
+	};
+	//点击设置粗体
+	cou.onclick=function(){
+		if(cous){
+			cou.style.background='green';
+			text.style.fontWeight='bold';
+			cous=false;
+		}else{
+			cou.style.background='#fff';
+			text.style.fontWeight='normal';
+			cous=true;
+		}
+	};
+	//点击设置斜体
+	xie.onclick=function(){
+		if(xies){
+			xie.style.background='green';
+			text.style.fontStyle='italic';
+			xies=false;
+		}else{
+			xie.style.background='#fff';
+			text.style.fontStyle='normal';
+			xies=true;
+		}
+		
+		
+	};
+	//点击设置下划线
+	hua.onclick=function(){
+		if(huas){
+			hua.style.background='green';
+			text.style.textDecoration='underline';
+			huas=false;
+		}else{
+			hua.style.background='#fff';
+			text.style.textDecoration='none';
+			huas=true;
+		}
+		
+		
+	};
+	//点击设置红色
+	red.onclick=function(){
+		
+			red.style.background='green';
+			green.style.background='#fff';
+			blue.style.background='#fff';
+			black.style.background='#fff';
+			text.style.color='red';
+	};
+	//点击设置绿色
+	green.onclick=function(){
+		
+			green.style.background='green';
+			blue.style.background='#fff';
+			red.style.background='#fff';
+			black.style.background='#fff';
+			text.style.color='green';
+	};
+	//点击设置蓝色
+	blue.onclick=function(){
+		
+			blue.style.background='green';
+			green.style.background='#fff';
+			red.style.background='#fff';
+			black.style.background='#fff';
+			text.style.color='blue';
+	};
+	//点击设置黑色
+	black.onclick=function(){
+			black.style.background='green';
+			blue.style.background='#fff';
+			green.style.background='#fff';
+			red.style.background='#fff';
+			text.style.color='black';
+	};
+	//获取css样式拼接上text里面的值，再放到text_show用于写入数据库
+	var stlcss='';
+	sub.onclick=function(){
+		a=text.value;
+		var stl=text.style.cssText;
+		stlcss="<span style='"+stl+"'>"+a+"</span>";
+		text_show.innerHTML=stlcss;
+	}
+	//================点击显示编辑器隐藏=====================================================
+	var sends=true;
+	function sendfun(){
+		if(sends){
+			$("#send_show").fadeIn("show",function(){
+			  	send_show.style.display='block';
+			  	sends=false;
+				
+			 });
+		}else{
+			$("#send_show").fadeOut("show",function(){
+			  	send_show.style.display='none';
+			  	sends=true;
+				
+			 });
+		}
+		
+	}
+	//================点击显示编辑器隐藏=====================================================
 	//============================文本编辑器特效=============================================
 </script>
 

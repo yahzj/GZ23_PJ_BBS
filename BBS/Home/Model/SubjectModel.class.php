@@ -54,7 +54,25 @@ class SubjectModel extends Model{
 	}
 	//处理新回复信息。需要用户Id,session里面的Id
 	//如果session里面不存在Id,那么请登录
-	public function dofollow(){
+	public function pre_dofollow(){
+		$data=I('post.');
+		//dump($data);
+		//echo $data['content'];
+		$data['content']=str_replace(['&lt;','&gt;'],['<','>'],$data['content']);
+		//echo $data['content'];
+		//dump($data);
+		//echo "我在数据处理层";
+		//die();
+		$follow=D('follow');
+		$newdata=$follow->create($data);
+		//dump($newdata);
+		if($newdata){
+				$follow->add($newdata);//如果验证正确则添加到数据库
+				return '回复成功';
+				}else{
+				return false;//验证错误，返回错误信息;
+
+		}
 
 	}	
 
