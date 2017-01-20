@@ -57,11 +57,11 @@ class SubjectModel extends Model{
 	//处理回复信息
 	public function pre_dofollow(){
 		$data=I('post.');
-		dump($data);
+		//dump($data);
 		//echo $data['content'];
 		$data['content']=str_replace(['&lt;','&gt;'],['<','>'],$data['content']);
 		//echo $data['content'];
-		dump($data);
+		//dump($data);
 		//echo "我在数据处理层";
 		//die();
 		$follow=D('follow');//实例化follow类
@@ -74,7 +74,7 @@ class SubjectModel extends Model{
 				$subdata['floor']=$data['floor'];
 				$subdata['fid']=$data['uid'];
 				$subdata['followtime']=date('Y-m-d,H:i:s');
-				dump($subdata);
+				//dump($subdata);
 				$map=[];
 				$map['id']=['eq',$data['cardid']];
 				$subject->where($map)->save($subdata);

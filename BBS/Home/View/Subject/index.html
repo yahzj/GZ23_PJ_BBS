@@ -7,10 +7,6 @@
 	<load href="__PUBLIC__/js/jquery.js"/>
 	<load href="__PUBLIC__/js/bootstrap.min.js"/>
 	<!-- 文本编辑器 -->
-	
-	 
-	
-
 	<style>
 		.table{
 			width:90%;
@@ -90,8 +86,11 @@
 	 			<hr>
 	 			<div align='center'>
 	 				<div><img src="__ROOT__/Uploads/images/new{$userList['image']}" alt="图片不存在" width='120' class="img-circle"><div><br>
-	 				<a href="{:U('Home/Message/requestadd',['id'=>$userList['id']])}" class="btn btn-default btn-lg  btn-xs" role="button">加好友</a>
-	 				<a href="{:U('Home/Message/index',['type'=>'post','id'=>$userList['id']])}" class="btn btn-default btn-lg  btn-xs" role="button">发短信</a>
+	 				<if condition="$userList['id'] eq $_SESSION['mybbs_home']['0']['id']">
+		 			<else/>
+		 				<a href="{:U('Home/Message/requestadd',['id'=>$userList['id']])}" class="btn btn-default btn-lg  btn-xs" role="button">加好友</a>
+		 				<a href="{:U('Home/Message/index',['type'=>'post','id'=>$userList['id']])}" class="btn btn-default btn-lg  btn-xs" role="button">发短信</a>
+	 				</if>
 	 			</div>
 	 			<hr>
 	 			<div>
@@ -164,8 +163,11 @@
 		 			<hr>
 		 			<div align='center'>
 		 				<div><img src="__ROOT__/Uploads/images/new{$v['uidData']['image']}" alt="图片不存在" width='120' class="img-circle"></div><br>
-			 			<a href="{:U('Home/Message/requestadd',['id'=>$v['uidData']['id']])}" class="btn btn-default btn-lg  btn-xs" role="button">加好友</a>
-		 				<a href="{:U('Home/Message/index',['type'=>'post','id'=>$v['uidData']['id']])}" class="btn btn-default btn-lg  btn-xs" role="button">发短信</a>
+		 				<if condition="$v['uidData']['id'] eq $_SESSION['mybbs_home']['0']['id']">
+		 				<else/>
+				 			<a href="{:U('Home/Message/requestadd',['id'=>$v['uidData']['id']])}" class="btn btn-default btn-lg  btn-xs" role="button">加好友</a>
+			 				<a href="{:U('Home/Message/index',['type'=>'post','id'=>$v['uidData']['id']])}" class="btn btn-default btn-lg  btn-xs" role="button">发短信</a>
+			 			</if>
 		 			</div>
 		 			<hr>
 		 			<div>

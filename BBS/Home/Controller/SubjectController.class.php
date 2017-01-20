@@ -20,13 +20,13 @@ class SubjectController extends EmptyController{
 			$subfollow=D('subject');
 			$res=$subfollow->pre_dofollow();
 			if($res){        
-	 	  		return $this->success('回复成功',U('index'),3);   
+	 	  		return $this->success('回复成功','',2);   
 			}else{
 	            // 如果验证失败，则显示错误提示
 		   			return $this->Error($user->getError());
 	     	}
 	     }else{
-	     	$this->success('亲,你还没有登录,请登录!',U('Home/login/login'),3);  
+	     	$this->success('亲,你还没有登录,请登录!',U('Home/login/login'),2);  
 	     }
 		
 	}
