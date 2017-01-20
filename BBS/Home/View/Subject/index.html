@@ -99,7 +99,7 @@
 	 			</div>
 	 		</td>
 	 		<td class='td'style="word-break:break-all">
-	 			<div>
+	 			<div id='one'>
 	 				<div class="row">
 	 					<div class="col-sm-8">
 		 					<b>{$list['name']}</b>
@@ -191,7 +191,9 @@
 	<!-- 快速发布回复框 -->
 	<hr width='90%'>
 			<!-- 文本编辑器 -->
-	 				
+	<div style='width:90%;margin:0 auto;'>
+	 		<a href="#one" class="btn btn-primary btn-lg active btn-block" role="button" id='edit' onclick='sendfun()'>编辑回复</a>
+	</div><br>	
 	 		<!-- 文本编辑器 -->
 	
 	
@@ -353,13 +355,13 @@
 			$("#send_show").fadeIn("show",function(){
 			  	send_show.style.display='block';
 			  	sends=false;
-				
+				send.innerHTML='关闭';
 			 });
 		}else{
 			$("#send_show").fadeOut("show",function(){
 			  	send_show.style.display='none';
 			  	sends=true;
-				
+				send.innerHTML='回复';
 			 });
 		}
 		
@@ -371,6 +373,7 @@
 	text.oninput=function(){
 		if(!text.value){
 			sub.disabled=true;
+
 		}else{
 			sub.disabled=false;
 		}
