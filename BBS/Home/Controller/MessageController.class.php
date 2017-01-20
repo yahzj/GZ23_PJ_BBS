@@ -144,6 +144,8 @@ class MessageController extends EmptyController{
 			$this->error('你已经申请过该好友！');
 		}elseif($res==9){
 			$this->error('你的昵称未完善！');
+		}elseif($res==10){
+			$this->error('你还没登录！正在跳转回登录页','http://localhost/obj2/GZ23_PJ_BBS/Home/login/login/');
 		}else{
 			$this->success('申请好友成功！');
 			

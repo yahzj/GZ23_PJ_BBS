@@ -432,10 +432,14 @@ class MessageModel extends Model{
 
 	//处理好友申请
 	public function pro_requestadd(){
+		if(empty($_SESSION['mybbs_home'][0]['id'])){
+			return 10;
+		}
 		$num=check();
 		if($num==9){
 			return 9;
 		}
+
 		header("Content-Type: text/html;charset=utf-8");
 		//获得用户希望添加的id
 		$id=I('get.id');
