@@ -8,6 +8,7 @@
 		<link rel="stylesheet" href="__PUBLIC__/css/session.css" />
 		<style>
 			input.checkbox{float:left;margin-top:25px;}
+			button{margin-top:5px;margin-left:5px;}
 		</style>
 </block>
 <block name='main'>
@@ -30,10 +31,10 @@
 				<if condition="$Section['admin']==1"><input class="checkbox" name="{$val['id']}" type="checkbox"></if>
 				<li class="form-control">
 					<div class="floor">{$val.floor}</div>
-					<div class="title"><a href="{$val.link}">
+					<div class="title"><a href="{$val.link}" style="color:{$val['color']};">
 					{$val.name}
 					<if condition='$val["status"] eq 0'>[已锁定]</if>
-					<if condition='$val["status"] eq 2'>[高亮]</if>
+					<if condition='$val["status"] gt 10'>[精品]</if>
 					</a></div>
 					<div class="uid"><a href="">{$val.uid}</a>{$val.addtime}</div>
 					<div class="fid"><a href="">{$val.fid}</a>{$val.followtime}</div>
@@ -45,8 +46,15 @@
 		<a class="btn btn-info" onclick="choose()">全选</a>
 	    <a class="btn btn-info" onclick="clear_all()">清空</a>
 	    <a class="btn btn-info" onclick="fx()">反选</a>
-	    <button class="btn btn-success" onclick='Highlight()'>高亮</button>
 	    <button class="btn btn-danger" onclick='lock()'>锁定</button>
+	    <button class="btn btn-danger" onclick='B_add()'>加精</button>
+	    <button class="btn btn-danger" onclick='B_del()'>默认主题样式</button>
+	    <br>
+	    <button class="btn btn-info" onclick='Highlight("2")'>高亮</button>
+	    <button class="btn btn-success" onclick='Highlight("3")'>高亮</button>
+	    <button class="btn btn-primary" onclick='Highlight("4")'>高亮</button>
+	    <button class="btn btn-warning" onclick='Highlight("5")'>高亮</button>
+	    <button class="btn btn-danger" onclick='Highlight("6")'>高亮</button>
 	    </if>
 		<div id="btnBox">{$show}</div>
 	</form>
@@ -119,13 +127,21 @@
             ziji.checked = !ziji.checked;
         });
     }
-    function Highlight()
+    function Highlight($color)
     {
-    	$('#option').attr('value','Highlight');
+    	$('#option').attr('value',$color);
     }
     function lock()
     {
     	$('#option').attr('value','lock');
+    }
+    function B_add()
+    {
+    	$('#option').attr('value','B_add');
+    }
+    function B_del()
+    {
+    	$('#option').attr('value','B_del');
     }
 
 

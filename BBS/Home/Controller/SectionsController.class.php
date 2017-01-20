@@ -18,7 +18,7 @@ class SectionsController extends EmptyController {
         $mybbs_home=I('session.mybbs_home')[0];
         // dump($mybbs_home);
         // dump($admin);
-        if (in_array($mybbs_home['id'], $admin)&&$mybbs_home['id']!=null&&land_user()) {
+        if (in_array($mybbs_home['id'], $admin)&&land_user()) {
             $Section['admin']=1;
         }
     	// 拼接成导航路径
@@ -69,12 +69,15 @@ class SectionsController extends EmptyController {
 			foreach ($userlist as $key => $val) {
 				$user[$val['id']]=$val['nickname'];
 			}
-			
+			$status=["rgb(199, 199, 199)",'',"rgb(66, 139, 202)","rgb(60, 118, 61)","rgb(49, 112, 143)","rgb(138, 109, 59)","rgb(169, 68, 66)"];
 			// 进行昵称替换
 			foreach($list as $k=>&$v){
 				$v['uid']=$user[$v['uid']];
 				$v['fid']=$user[$v['fid']];
 				$v['link']=U('subject/index',"cid=$v[id]");
+                if (in_array($v['status']%10, [0,1,2,3,4,5,6])) {
+                $v['color']=$status[$v['status']%10];
+                }
 			}
 		}else{
 
@@ -167,10 +170,14 @@ class SectionsController extends EmptyController {
         $post=I('post.');
         foreach ($post as $key => $val) {
             if ($key=='option') {
-                if ($val=='Highlight') {
-                    $data['status']=2;
+                if (in_array($val, [2,3,4,5,6])) {
+                    $data['status']=$val;
                 }elseif ($val=='lock') {
                     $data['status']=0;
+                }elseif ($val=='B_add') {
+                    $data['status']=14;
+                }elseif ($val=='B_del') {
+                    $data['status']=1;
                 }
             }else{
                 $idlist[]=$key;
