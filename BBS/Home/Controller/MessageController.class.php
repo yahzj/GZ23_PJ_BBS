@@ -1,7 +1,7 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-class MessageController extends EmptyController{
+class MessageController extends CommonController{
 	//显示所有数据和搜索后的数据
 	public function index(){
 		$message = D("message");
@@ -142,6 +142,8 @@ class MessageController extends EmptyController{
 			$this->error('已经是好友！不能再申请！');
 		}elseif($res==2){
 			$this->error('你已经申请过该好友！');
+		}elseif($res==3){
+			$this->error('对方好友数量已超过50人,不能再添加，你可以给他发短信说明！');
 		}elseif($res==9){
 			$this->error('你的昵称未完善！');
 		}elseif($res==10){

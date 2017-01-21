@@ -439,7 +439,7 @@ class MessageModel extends Model{
 		if($num==9){
 			return 9;
 		}
-
+		
 		header("Content-Type: text/html;charset=utf-8");
 		//获得用户希望添加的id
 		$id=I('get.id');
@@ -452,6 +452,9 @@ class MessageModel extends Model{
 		//遍历出所有待添加的好友
 		$friendlist=$friend->where($friendmap)->select();
 		//在friend表有这个id的数据就要判断这个当前用户之前是否已经申请添加了好友或者两人已经是这个好友了
+		if($friendlist[0]['num']>=50){
+			return 3;//返回超过50人的提示
+		}
 		if($friendlist){
 			//已经是好友了，不能再申请。
 			if($friendlist[0]['friend']){
