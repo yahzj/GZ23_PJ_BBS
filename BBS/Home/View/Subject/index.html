@@ -85,7 +85,7 @@
 	 			</div>
 	 			<hr>
 	 			<div align='center'>
-	 				<div><img src="__ROOT__/Uploads/images/new{$userList['image']}" alt="图片不存在" width='120' class="img-circle"><div><br>
+	 				<div><a href='{:U('Home/Users/index',['id'=>$userList['id']])}'><img src="__ROOT__/Uploads/images/new{$userList['image']}" alt="图片不存在" width='120' class="img-circle" title='点击进入个人中心'></a><div><br>
 	 				<if condition="$userList['id'] eq $_SESSION['mybbs_home']['0']['id']">
 		 			<else/>
 		 				<a href="{:U('Home/Message/requestadd',['id'=>$userList['id']])}" class="btn btn-default btn-lg  btn-xs" role="button">加好友</a>
@@ -162,7 +162,7 @@
 		 			<div><span class="label label-success"><small><a id="{$v['L']+$k+1}L">{$v['L']+$k+1}L</a></small></span></div>
 		 			<hr>
 		 			<div align='center'>
-		 				<div><img src="__ROOT__/Uploads/images/new{$v['uidData']['image']}" alt="图片不存在" width='120' class="img-circle"></div><br>
+		 				<div><a href='{:U('Home/Users/index',['id'=>$v['uidData']['id']])}'><img src="__ROOT__/Uploads/images/new{$v['uidData']['image']}" alt="图片不存在" width='120' class="img-circle"></a></div><br>
 		 				<if condition="$v['uidData']['id'] eq $_SESSION['mybbs_home']['0']['id']">
 		 				<else/>
 				 			<a href="{:U('Home/Message/requestadd',['id'=>$v['uidData']['id']])}" class="btn btn-default btn-lg  btn-xs" role="button">加好友</a>
@@ -356,12 +356,14 @@
 			  	send_show.style.display='block';
 			  	sends=false;
 				send.innerHTML='关闭';
+				edit.innerHTML='关闭编辑';
 			 });
 		}else{
 			$("#send_show").fadeOut("show",function(){
 			  	send_show.style.display='none';
 			  	sends=true;
 				send.innerHTML='回复';
+				edit.innerHTML='编辑回复';
 			 });
 		}
 		

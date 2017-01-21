@@ -74,8 +74,17 @@
 		<!-- 中间内容 -->
 			<div class="col-sm-6">
 				<nav class="navbar navbar-default list-group-item-warning">
+				<if condition="I('get.id') eq true">
+					<a class="navbar-brand" href="{:U('index',['id'=>I('get.id')])}">主页</a>
+				<else/>
 				 	<a class="navbar-brand" href="{:U('index')}">主页</a>
-					<a class="navbar-brand" href='{:U('upload')}'>个人档</a>
+				</if>
+				<if condition="I('get.id') eq true">
+					<a class="navbar-brand" href="{:U('upload',['id'=>I('get.id')])}">个人档</a>
+				<else/>
+				 	<a class="navbar-brand" href='{:U('upload')}'>个人档</a>
+				</if>
+					
 				 	
 				</nav>
 				<block name='center-content'>

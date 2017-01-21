@@ -11,7 +11,7 @@ class UsersController extends EmptyController{
 		//dump($_SESSION);
 		$data=[];
 		$data['list']=$list;
-		$this->assign($data);//分配数局
+		$this->assign($data);//分配数据
 		$this->display();//显示模板
 	}
 	//个人档资料信息显示
@@ -45,7 +45,7 @@ class UsersController extends EmptyController{
 		}
 		$res=$user->pro_add();//执行数据处理	
 		if($res){        
- 	  		return $this->success('新增成功',U('Home/login/login'),3);   
+ 	  		return $this->success('新增成功',U('Home/login/login'),1);   
 		}else{
             // 如果验证失败，则显示错误提示
 	   			return $this->Error($user->getError());
@@ -62,13 +62,14 @@ class UsersController extends EmptyController{
 		}
 		$res=$user->pro_updata();//执行数据处理
 		if($res){        
- 	  		return $this->success('修改成功',U('upload'),3);   
+ 	  		return $this->success('修改成功',U('upload'),1);   
 		}else{
             // 如果验证失败，则显示错误提示
 	   			return $this->Error($user->getError());
      	}
 
 	}
+	
 	//========================图片上传的方法=============================================
 	public function imgUpload(){
 		$upload=new \Think\Upload();// 实例化上传类

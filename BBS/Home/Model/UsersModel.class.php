@@ -49,7 +49,13 @@ class UsersModel extends Model{
 	//用户数据处理	
 	public function pro_index(){
 		//dump($_SESSION);
-		$id=$_SESSION['mybbs_home']['0']['id'];//这是我的ID;
+		//dump(I('get.id'));
+		if(I('get.id')){
+			$id=I('get.id');//存在get.id说明是看非本人的空间。要在个人档页面去掉修改的按钮
+			//echo '你咩';
+		}else{
+			$id=$_SESSION['mybbs_home']['0']['id'];//这是我的ID;	
+		}
 		//dump($id);
 		$list=$this->find($id);//通过id找到一条数据。。find方法不管你有米有参数都会出来一条数据！
 		//dump($list);
@@ -98,10 +104,7 @@ class UsersModel extends Model{
 		@unlink($a);//删除裁剪后图片
 		@unlink($b);//删除裁剪前图片
 	}
-	//======================================================================
-
-	//======================================================================
-
+	
 }
 
 	

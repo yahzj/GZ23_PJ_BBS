@@ -14,7 +14,14 @@
 				</div>
 				<div class='col-sm-10'>
 					<ul class="list-group">
-					  <li class="list-group-item" style='border:none;'>基本资料<a class="btn btn-default" href="{:U('doUpload')}" role="button" style='margin-left:250px;'>修改</a></li>
+					
+					  <li class="list-group-item" style='border:none;'>基本资料
+					  	<if condition="I('get.id') eq true">
+									
+					  	<else/>
+					  		<a class="btn btn-default" href="{:U('doUpload')}" role="button" style='margin-left:250px;'>修改</a>
+					  	</if>
+					  </li>
 					  <li class="list-group-item list-group-item-warning" style='border:none;'>账号:{$list['username']}</li>
 					  <li class="list-group-item " style='border:none;'>昵称:{$list['nickname']}</li>
 					  <li class="list-group-item list-group-item-warning" style='border:none;'>性别:{$list['sex']}</li>
