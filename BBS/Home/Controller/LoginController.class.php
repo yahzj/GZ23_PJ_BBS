@@ -14,7 +14,7 @@ class LoginController extends Controller {
 
             }else{
             //如果不是从这两个页面过来的，全部跳到首页。
-                session('url','http://localhost/obj2/GZ23_PJ_BBS/home/index/index');    
+                session('url',U("/home/index/index"));
             }
             
 	         $this->display();
