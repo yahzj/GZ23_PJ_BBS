@@ -6,29 +6,24 @@ class UsersController extends EmptyController{
 	//个人中心信息显示
 	public function index(){
 		$user=D('users');//实例化类
-		$list=$user->pro_index();//接收数据处理
+		$data=$user->pro_index();//接收数据处理
 		//dump($list);
 		//dump($_SESSION);
-		$data=[];
-		$data['list']=$list;
+		dump($data);
 		$this->assign($data);//分配数据
 		$this->display();//显示模板
 	}
 	//个人档资料信息显示
 	public function upload(){
 		$user=D('users');//实例化类
-		$list=$user->pro_index();//接收数据处理
-		$data=[];
-		$data['list']=$list;
+		$data=$user->pro_index();//接收数据处理
 		$this->assign($data);//分配数据
 		$this->display();//显示模板
 	}
 	//个人档资料修改
 	public function doUpload(){
 		$user=D('users');//实例化类
-		$list=$user->pro_index();//接收数据处理
-		$data=[];
-		$data['list']=$list;
+		$data=$user->pro_index();//接收数据处理
 		$this->assign($data);//分配数局
 		$this->display();//显示模板
 	}

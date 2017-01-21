@@ -2,6 +2,26 @@
 <block name='center-content'>
 	<div class="panel panel-default">
 		<div class="panel-body">
-				  全部帖子
+				<div>我的帖子</div><br>
+				<ul class="nav nav-tabs">
+				  <li role="presentation" class="active"><a href="{:U('index',['search'=>'new'])}">新帖</a></li>
+				  <li role="presentation"><a href="{:U('index',['search'=>'good'])}">最牛逼</a></li>
+				  <li role="presentation"><a href="{:U('index',['search'=>'all'])}">全部</a></li>
+				</ul>
+				<table class="table">
+					<tr>
+						<th width='60%'><small>主题</small></th>
+						<th width='20%'><small>时间</small></th>
+						<th width='20%'><small>回帖数</small></th>
+						
+					</tr>
+					<foreach name='subjectList' key='k' item='v'>
+						<tr>
+							<td><small>{$v['content']}</small></td>
+							<td><small>{$v['addtime']}</small></td>
+							<td><small>{$v['floor']}</small></td>
+						</tr>
+					</foreach>
+				</table>				
 		</div>
 </block>

@@ -65,10 +65,31 @@ class UsersModel extends Model{
 		$list['sex']=$sex[$list['sex']];
 		$list['status']=$status[$list['status']];
 		//dump($list);
-		return $list;//返回数据	
+		$subjectList=$this->findsub($id);//通过id找到该用户发的所有帖子
+		$data=['list'=>$list,
+			'subjectList'=>$subjectList,
+		];
+		return $data;//返回数据	
 
 	}
-
+	//查询改用户发布的所有帖子
+	public function findsub($uid){
+			//$subjectList=[];
+		$sub=D('subject');
+		$map=[];
+		$map['uid']=['eq',$uid];
+		switch (I('get.search')) {
+			case 'new':
+				$subjectList=$sub->where($map)->order('addtime desc')->limit(10)->select();
+				return $subjectList;
+				break;
+			default:
+				
+				break;
+		}
+		
+	}
+	
 	//个人档资料修改处理
 	public function pro_updata(){
 		$data=I('post.');//获取post传的值

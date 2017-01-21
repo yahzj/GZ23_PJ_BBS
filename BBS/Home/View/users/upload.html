@@ -16,7 +16,7 @@
 					<ul class="list-group">
 					
 					  <li class="list-group-item" style='border:none;'>基本资料
-					  	<if condition="I('get.id') eq true">
+					  	<if condition="I('get.id') eq true and $_SESSION['mybbs_home']['0']['id'] neq $list['id']">
 									
 					  	<else/>
 					  		<a class="btn btn-default" href="{:U('doUpload')}" role="button" style='margin-left:250px;'>修改</a>
