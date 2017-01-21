@@ -63,6 +63,7 @@ div#textarea{
 	background:#fff;
 	padding:15px;
 	border-radius:8px;
+	margin-top:5px;
 }
 div#textarea div{
 	margin-top:5px;
@@ -70,6 +71,7 @@ div#textarea div{
 }
 div.addbtn {
 	margin-left:20px;
+	padding-bottom:5px;
 }
 div.addbtn a{
 	background:#ccc;

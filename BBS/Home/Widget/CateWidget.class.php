@@ -9,6 +9,12 @@ class CateWidget extends Controller {
 		$this->assign($data);
 		$this->display('Cate:user_data');
 	}
+	public function linklist(){
+		$link=D('Admin/Links');
+		$data['link']=$link->select();
+		$this->assign($data);
+		$this->display('Cate:linklist');
+	}
 }
 
 
