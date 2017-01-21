@@ -6,11 +6,11 @@ class LoginController extends Controller {
 	   public function login(){
 
             //如果是从主题页面或主题详细回复点击了登录，那么就将跳转过来的主题页面地址或主题详细回复地址赋给session的url。
-            if(substr_count( $_SERVER["HTTP_REFERER"],'localhost/obj2/GZ23_PJ_BBS/subject')>0 || substr_count( $_SERVER["HTTP_REFERER"],'localhost/obj2/GZ23_PJ_BBS/sections/index/s/')>0){
+            if(substr_count( $_SERVER["HTTP_REFERER"],'GZ23_PJ_BBS/subject')>0 || substr_count( $_SERVER["HTTP_REFERER"],'GZ23_PJ_BBS/sections/index/s/')>0){
                 session('url',$_SERVER["HTTP_REFERER"]);
 
             //如果你原来是从主题页面或主题详细回复跳过来的，但是这个登录中发生了输入用户名，密码，验证码错误等，那么就session的url就保持原样不变。
-            }elseif(substr_count( $_SESSION["url"],'localhost/obj2/GZ23_PJ_BBS/subject')>0 || substr_count(  $_SESSION["url"],'localhost/obj2/GZ23_PJ_BBS/sections/index/s/')>0){
+            }elseif(substr_count( $_SESSION["url"],'GZ23_PJ_BBS/subject')>0 || substr_count(  $_SESSION["url"],'GZ23_PJ_BBS/sections/index/s/')>0){
 
             }else{
             //如果不是从这两个页面过来的，全部跳到首页。
