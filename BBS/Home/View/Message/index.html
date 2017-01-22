@@ -16,7 +16,6 @@
 	<div class="container">
 			<div class="row">
 					<div class="left" class="col-sm-3">
-						<a href="{:U('Home/Message/index',['type'=>'post','id'=>3])}">发消息</a><br>
 						<a href="{:U('Home/Message/index',['type'=>post])}">发新消息</a><br>
 						<a href="{:U('Home/Message/index',['type'=>sms,'action'=>'receive'])}">站内信</a>
 						<if condition="$unread gt 0">
@@ -44,7 +43,7 @@
 					<if condition="($_GET['type'] eq 'sms' AND (count($_GET) eq 1)) or ((count($_GET)) lt 1) or (($_GET['type'] eq 'sms') AND ($_GET['action'] eq 'receive')) or ($_GET['p'] AND count($_GET) eq 1)">
 					站内信(共{$count}条)1<br>
 					<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'receive'])}">收件箱</a> <a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'send'])}">发件箱</a>
-					
+					<a href="{:U('index.php/Home/Message/index/',['type'=>'search'])}">消息搜索</a>
 					<a id="tag" class="btn btn-info" onclick="tag()">标记已读</a>
  					<a id="del" class="btn btn-danger" onclick="return del()">删除</a>
 					<a onclick="choose()" class="btn btn-info">全选</a>
@@ -83,7 +82,7 @@
 					<elseif condition="($_GET['type'] eq 'sms') AND ($_GET['action'] eq 'send')" />
 					站内信(共{$count}条)2<br>
 					<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'receive'])}">收件箱</a> <a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'send'])}">发件箱</a>
-					
+					<a href="{:U('index.php/Home/Message/index/',['type'=>'search'])}">消息搜索</a>
  					<a id="del" class="btn btn-danger" onclick="return del()">删除</a>
 					<a onclick="choose()" class="btn btn-info">全选</a>
  					<a onclick="clear_all()" class="btn btn-info">清空</a>
@@ -147,16 +146,71 @@
 						<span style="width:100px;border:1px solid gray;">{$val['nickname']}<a class="btn btn-info" href="{:U('Home/Message/friend',[id=>$val['id'],'status'=>1])}">接受</a><a class="btn btn-danger" href="{:U('Home/Message/friend',[id=>$val['id'],'status'=>0])}">拒绝</a></span>
 					</foreach>
 
+					{//第五种可能：只输入了type参数和值为search，就是信息搜索页面}
+					<elseif condition="($_GET['type'] eq 'search')" />
+					<form action="{:U('Home/Message/index/',['type'=>'search'])}" method="post">
+					<div id="friends" style="display:none;color:red;">
+						
+						<php> $i=0;</php>
+						<table border=1 id="table">
+						<foreach name="list" key="key" item="val">
+							<if condition="$i % 5 eq 0">
+								<tr>
+							</if>
+									<td style="border:1px solid gray;display:inline;color:red;" id="{$key}">{$val}</td>
+							<if condition="$i % 5 eq 4 or $i eq (count($list)-1)">
+								</tr>
+							</if>
+						<php>$i++;</php>
+							
+						</foreach>
+						</table>
+					</div>
+					<input type="hidden" name="id" value="" id="postid">
+					<input type="text" name="search" id="text">
+					<a class="btn btn-info" id="myfriend" onclick="display()">我的好友</a>
+					<input type="submit" value="搜索">
+					</form>
+					<if condition="$searchlist[0]['names'] eq 1">
+						<span style="color:red;">没有搜索到结果</span>
+					<elseif condition="empty($searchlist[0]['names'])"/>
+					<else/>
+						<table border=1>
+							<tr>
+								<th>标题</th>
+								<th>内容</th>
+								<th>时间</th>
+								<th>发送人</th>
+							</tr>
+
+							<foreach name="searchlist" key="key" item="val">
+								<tr>
+									<td><a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'info','titleid'=>$val['id']])}">{$val['title']}</a></td>
+									<td>{$val['content']}</td>
+									<td>{$val['sendtime']}</td>
+									<if condition="$val['senderid'] eq $_SESSION['mybbs_home'][0]['id']">
+										<td style="color:red;">我</td>
+									<else/>
+										<td style="color:red;">{$val['name']}</td>
+									</if>
+								</tr>
+							</foreach>
+						</table>
+						{$show}
+					</if>
+					
+
 					{//第五种可能：只输入了type参数和值为post，就是写新信息页面}
 					<elseif condition="($_GET['type'] eq 'post')" />
 					<h2>写新消息</h2>
 					<form action="{:U('Home/Message/post')}" method="post">
 					收件人：
 						<if condition="$list[0]['id'] lt 1">
-						{//是其他页面时点击某人头像发信息的时候就走这里}
+						{//不指定发新消息给某人的就走这里}
 							<span><input type="text" name="receivername" id="receivername"></span><br><br>
 						<else/>
-						{//不指定发新消息给某人的就走这里}
+						
+						{//是其他页面时点击某人头像发信息的时候就走这里}
 							<span><input type="text" name="receivername" id="receivername" value="{$list[0]['nickname']}" readonly></span><br><br>
 						</if>
 
@@ -173,14 +227,14 @@
 					
 					{//第六种可能：参数为type值为info,就是回信页面，也是具体消息内容页面}
 					<elseif condition="($_GET['type'] eq 'sms') AND ($_GET['action'] eq 'info')" />
-					站内信(共{$count}条)7
+					站内信(共{$count}条)
 
 						
 
-							<if condition="$list[0]['senderid'] neq $list[0]['id']">
-								<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'receive'])}">返回</a>
+							<if condition="$list[0]['senderid'] neq $_SESSION['mybbs_home'][0]['id']">
+								<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'receive'])}">返回收件箱</a>
 							<else/>
-								<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'send'])}">返回</a>
+								<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'send'])}">返回发件箱</a>
 							</if>
 					
 						<foreach name="list" key="key" item="val">
@@ -213,7 +267,7 @@
 									<input hidden name="senderid" value=1>									
 									<input hidden name="title" value={$val['title']}>
 									<textarea name="content" style="resize: none;">请输入内容</textarea>
-									<if condition="$val['senderid'] eq 1">
+									<if condition="$val['senderid'] eq $_SESSION['mybbs_home'][0]['id']">
 										<input hidden name="receiverid" value={$val['receiverid']}>
 									<else/>
 										<input hidden name="receiverid" value={$val['senderid']}>
@@ -301,7 +355,6 @@
 			
 		});
 		
-		console.dir(arr);
 		if(arr.length>0){
 			if(confirm("确定标注已读吗？")){
           		location.href="http://localhost/obj2/GZ23_PJ_BBS/Home/Message/tag/data/"+arr;
@@ -312,6 +365,36 @@
 		}
 		
 	}
+
+	function display(){
+		if($('#friends').css('display')=='none'){
+			$('#friends').css('display','block');
+		}else{
+			$('#friends').css('display','none');
+		}
+		
+	}
+
+	var box = document.getElementById('text');
+	console.log(box);
+	$('#table td').each(function(i){	
+/*
+		this.onclick=function(){
+			
+			var str=this.innerHTML;
+			box.setAttribute('value',str);
+			console.log(1);
+
+		}*/
+		$(this).click(function () {
+			var id=$(this).prop('id');
+			$('#text').prop('value', $(this).html() );
+			$('#postid').prop('value',id);
+
+		});
+
+	});
+	
 
 </script>
 </html>

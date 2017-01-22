@@ -26,11 +26,16 @@ class MessageController extends CommonController{
 			case 'post'://发新消息
 				$list=$message->sms();
 				break;
+			case 'search'://发新消息
+
+				$list=$message->sms();
+				break;
 			default:
 				$this->error("没有你要找的网页");
 				break;
 		}
 		}
+
 		if($list===false){
 			$this->error("没有你要找的网页");
 		}
@@ -73,6 +78,10 @@ class MessageController extends CommonController{
 		//收信人不能为空
 		if(empty(I('post.receivername'))){
        		$this->error("收信人不能为空！");
+       	}
+       	//不能给自己写信
+		if($_SESSION['mybbs_home'][0]['nickname']==I('post.receivername')){
+       		$this->error("不能给自己写信！");
        	}
        	//标题不能为空
 		if(empty(I('post.title'))){
@@ -153,5 +162,7 @@ class MessageController extends CommonController{
 			
 		}
 	}
+
+
 }
 

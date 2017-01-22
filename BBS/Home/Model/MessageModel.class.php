@@ -2,7 +2,7 @@
 namespace Home\Model;
 use Think\Model;
 class MessageModel extends Model{
-	//type为sms时走这里,与发信箱和收信箱有关的。
+	//type为sms时走这里。
 	public function sms(){
 		//获得当前用户的id。
 		$nameid=$_SESSION['mybbs_home'][0]['id'];
@@ -194,11 +194,48 @@ class MessageModel extends Model{
 			$page=new \Think\Page($count,$row);
 			$list=$notice->limit($page->firstRow.",".$page->listRows)->select();
 		//------------------------------------------------------------------------------------------
+		//其它页面点击写信跳转过来的处理。
 		}elseif(I('get.type')=='post' && !empty(I('get.id'))){
 			$id=I('get.id');
 			$users=D('users');
 			$map['id']=['eq',$id];
 			$list=$users->where($map)->select();
+		//------------------------------------------------------------------------------------------
+		//搜索消息处理
+		}elseif(I('get.type')=='search'){
+			$id=I('post.id');
+			$search=I('post.search');
+			$friend=D('friend');
+
+			$usersarr=$friend->where('`uid`='.$nameid)->select();
+			if($usersarr){
+				if($usersarr[0]['friend']){
+					$str=trim($usersarr[0]['friend'],',');
+					$arr=explode(",",$str);
+					$list=[];
+					foreach($arr as $key=>$val){
+						$list[$val]=$userslist[$val];
+					}
+				}
+			}
+			if(!empty($search)){
+				$key=array_search($search,$userslist);
+				if($key){
+					$count=$this->where("((`senderid` = {$key} and `receiverid` = {$nameid}) or (`receiverid` = {$key}) and `senderid` = {$nameid}) and `status` != 3")->count();
+					$page=new \Think\Page($count,$row);
+					$searchlist=$this->where("((`senderid` = {$key} and `receiverid` = {$nameid}) or (`receiverid` = {$key}) and `senderid` = {$nameid}) and `status` != 3")->limit($page->firstRow.','.$page->listRows)->select();
+					foreach($searchlist as $key=>&$val){
+						$val['name']=$search;
+					}
+					if($searchlist){
+						$searchlist[0]['names']=2;
+					}else{
+						$searchlist[0]['names']=1;
+					}
+					
+				}
+				
+			}
 		//------------------------------------------------------------------------------------------
 		}elseif(I('get.type')=='post'){
 			//这里没什么用，就是用来给新消息页面返回未读消息和系统通知条数才设的这里。
@@ -229,6 +266,7 @@ class MessageModel extends Model{
 				'unread'=>$unread,
 				'noticenum'=>$noticenum,
 				'friendcount'=>$friendcount,
+				'searchlist'=>$searchlist,
 			];
 		//如果没有分页，并且是新消息页面，则只返回未读消息和系统通知条数和好友申请就好了。
 		}elseif(I('get.type')=='post'){
@@ -509,4 +547,8 @@ class MessageModel extends Model{
 			}
 		}
 	}	
+
+	public function pro_search(){
+
+	}
 }
