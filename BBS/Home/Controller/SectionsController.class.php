@@ -114,14 +114,17 @@ class SectionsController extends EmptyController {
     	$post[fid]=$session[0]['id'];
     	// 写入数据库
     	$sub=D('admin/subject');
-    	
     	// dump($res);
     	if ($sub->validate($rules)->create($post)) {
     			$res=$sub->add();
 
-                Everyday();
+                $data=Everyday();
+                // dump($data);
+                $data['subject_num']+=1;
                 $Everyday=D('admin/Everyday');
-                
+                $where['to_date']=date('Y-m-d');
+                $Everyday->where($where)->save($data);
+
 
     			$this->success('发表新主题成功，正在跳转...',U('index',"s={$post['section_id']}"),5);
     		}else

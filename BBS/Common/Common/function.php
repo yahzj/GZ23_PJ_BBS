@@ -48,9 +48,11 @@ function Everyday(){
     $Everyday=D('admin/Everyday');
     $map['to_date']=date('Y-m-d');
     $data=$Everyday->where($map)->select();
-    dump($data);
     if (empty($data)) {
         $to_date['to_date']=date('Y-m-d');
         $Everyday->add($to_date);
+        return ['daily_visitors'=>'0','member_num'=>'0','subject_num'=>'0','follow_num'=>'0','registered_users'=>'0'];
+    }else{
+    	return $data;
     }
 }
