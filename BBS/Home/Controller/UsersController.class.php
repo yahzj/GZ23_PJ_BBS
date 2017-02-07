@@ -9,7 +9,7 @@ class UsersController extends EmptyController{
 		$data=$user->pro_index();//接收数据处理
 		//dump($list);
 		//dump($_SESSION);
-		dump($data);
+		//dump($data);
 		$this->assign($data);//分配数据
 		$this->display();//显示模板
 	}

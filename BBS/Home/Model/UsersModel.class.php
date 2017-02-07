@@ -75,12 +75,22 @@ class UsersModel extends Model{
 	//查询改用户发布的所有帖子
 	public function findsub($uid){
 			//$subjectList=[];
+		
 		$sub=D('subject');
 		$map=[];
 		$map['uid']=['eq',$uid];
+	
 		switch (I('get.search')) {
 			case 'new':
 				$subjectList=$sub->where($map)->order('addtime desc')->limit(10)->select();
+				return $subjectList;
+				break;
+			case 'good':
+				$subjectList=$sub->where($map)->order('floor desc')->limit(10)->select();
+				return $subjectList;
+				break;
+			case 'all':
+				$subjectList=$sub->where($map)->limit(10)->select();
 				return $subjectList;
 				break;
 			default:
