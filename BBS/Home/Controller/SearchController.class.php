@@ -23,7 +23,11 @@ class SearchController extends EmptyController{
 		$sub=D('admin/subject');
 		$searchName=I('post.search');
 		$map['name']=array('like','%'.$searchName.'%');
-		$map['section_id']=$s_id;
+		if (!empty($s_id)) {
+			$map['section_id']=$s_id;
+		}else{
+			$map=null;
+		}
 		// dump($map);
 	    $rows=25;
 	    //统计总数量

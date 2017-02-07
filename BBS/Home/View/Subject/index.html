@@ -1,10 +1,11 @@
 ﻿<extend name='./public/index/Template.html'/>
 <block name='path'>
+		<li><a href="{:U('index/index')}">首页</a></li>
 </block>
 <block name='css'>
 
 	<!-- <load href="__PUBLIC__/css/bootstrap.min.css"/> -->
-	<!-- <load href="__PUBLIC__/js/jquery.js"/> -->
+	<load href="__PUBLIC__/js/jquery.js"/>
 	<!-- <load href="__PUBLIC__/js/bootstrap.min.js"/> -->
 	<!-- 文本编辑器 -->
 	<style>
@@ -94,8 +95,8 @@
 	 			</div>
 	 			<hr>
 	 			<div>
-	 				<span class="label label-info">等级</span>&nbsp;&nbsp;&nbsp;<span class="badge"><b>{$userList['integral']/10}</b></span>&nbsp;&nbsp;&nbsp;
-					<span class="label label-warning">积分</span>&nbsp;&nbsp;&nbsp;<span class="badge"><b>{$userList['integral']}</b></span>
+	 				<span class="label label-info">等级</span>&nbsp;&nbsp;&nbsp;<span class="badge">{$userList['integral']/10}</span>&nbsp;&nbsp;&nbsp;
+					<span class="label label-warning">积分</span>&nbsp;&nbsp;&nbsp;<span class="badge">{$userList['integral']}</span>
 	 			</div>
 	 		</td>
 	 		<td class='td'style="word-break:break-all">
@@ -170,8 +171,8 @@
 		 			</div>
 		 			<hr>
 		 			<div>
-		 				<span class="label label-info">等级</span>&nbsp;&nbsp;&nbsp;<span class="badge"><b>8</b></span>&nbsp;&nbsp;&nbsp;
-						<span class="label label-warning">积分</span>&nbsp;&nbsp;&nbsp;<span class="badge"><b>8888</b></span>
+		 				<span class="label label-info">等级</span>&nbsp;&nbsp;&nbsp;<span class="badge">{$v['uidData']['integral']/10}</span>&nbsp;&nbsp;&nbsp;
+						<span class="label label-warning">积分</span>&nbsp;&nbsp;&nbsp;<span class="badge">{$v['uidData']['integral']}</span>
 		 			</div>
 		 		</td>
 		 		<td class='td' colspan='2'>

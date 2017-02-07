@@ -47,7 +47,7 @@ class SubjectModel extends Model{
 			$v['uidData']=$this->find_users($v['uid']);
 			$v['L']=$page->firstRow;
 		}
-		//dump($followList);
+		// dump($followList);
 		return [
 			'followList'=>$followList,
 			'show'=>$page->show(),

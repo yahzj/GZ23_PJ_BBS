@@ -1,9 +1,18 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>个人中心</title>
-	<load href="__PUBLIC__/css/bootstrap.min.css"/>
+<!DOCTYPE HTML>
+<!--
+	Stellar by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>个人中心</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="__PUBLIC__/assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="__PUBLIC__/assets/css/main.css" />
+		<link rel="stylesheet" href="__PUBLIC__/css/Template.css" />
 	<load href="__PUBLIC__/js/jquery.js"/>
 	<load href="__PUBLIC__/js/bootstrap.min.js"/>
 	<style>
@@ -18,6 +27,28 @@
 </head>
 
 <body>
+					<div id="wrapper">
+
+						<!-- Header -->
+							<div id="logo">
+								<img src="__PUBLIC__/images/logo.png" alt="">
+							</div>
+							<block name='user_data'>{:W('Cate/user_data')}</block>
+							<nav id="nav">
+									<div id="path">
+									<ul class="breadcrumb">
+										<li><a href="{:U('index/index')}">首页</a></li>
+										<li><a href="{:U('Message/index')}">消息中心</a></li>
+										<li><a href="{:U('/Users/index')}">个人中心</a></li>
+									</ul></div>
+									<form action="{:U('Search/search_end','s='.I('get.s'))}" method="post">
+										<input type="text" class="form-control" placeholder="输入你要搜索的帖子标题" name="search">
+										<input type="submit" class="form-control" value="搜索">
+									</form>
+							</nav>
+						<!-- Main -->
+							<div id="main">
+
 	<div class="container">
 		<div class="row">
 		<!-- 左边内容 -->
@@ -97,21 +128,54 @@
 		<!-- 中间内容结束 -->		
 		<!-- 右边内容 -->		
 			<div class="col-sm-3">
-				<div class="panel panel-default">
-				  <div class="panel-body">
-				    来一波广告
-				  </div>
-
-				</div>
 			</div>
 		<!-- 右边内容结束 -->
 		</div>
 	</div>
-</body>
+					</div>
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<h2>友情链接</h2>
+							{:W('Cate/linklist')}
+						</section>
+						<section>
+							<h2>联系我们</h2>
+							<dl class="alt">
+								<dt>Address</dt>
+								<dd>1234 Somewhere Road &bull; Nashville, TN 00000 &bull; USA</dd>
+								<dt>Phone</dt>
+								<dd>(000) 000-0000 x 0000</dd>
+								<dt>Email</dt>
+								<dd><a href="#">information@untitled.tld</a></dd>
+							</dl>
+							<ul class="icons">
+								<li><a href="#" class="icon fa-twitter alt"><span class="label">Twitter</span></a></li>
+								<li><a href="#" class="icon fa-facebook alt"><span class="label">Facebook</span></a></li>
+								<li><a href="#" class="icon fa-instagram alt"><span class="label">Instagram</span></a></li>
+								<li><a href="#" class="icon fa-github alt"><span class="label">GitHub</span></a></li>
+								<li><a href="#" class="icon fa-dribbble alt"><span class="label">Dribbble</span></a></li>
+							</ul>
+						</section>
+						<p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="__PUBLIC__/assets/js/jquery.min.js"></script>
+			<script src="__PUBLIC__/assets/js/jquery.scrollex.min.js"></script>
+			<script src="__PUBLIC__/assets/js/jquery.scrolly.min.js"></script>
+			<script src="__PUBLIC__/assets/js/skel.min.js"></script>
+			<script src="__PUBLIC__/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="__PUBLIC__/assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="__PUBLIC__/assets/js/main.js"></script>
+			<script src="__PUBLIC__/js/bootstrap.min.js"></script>
 <script>
 	// 将数字按钮进行包裹
 	$('#btnBox').children().children().unwrap().wrap('<li></li>').parent().wrapAll('<ul class="pagination pagination-sm"></ul>');
 	// 给当前页码高亮显示
 	$('#btnBox span').parent().addClass('active');
 </script>
+	</body>
 </html>
