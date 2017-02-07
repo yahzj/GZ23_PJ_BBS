@@ -518,7 +518,7 @@ class MessageModel extends Model{
 					$maps['waitfriend']=",".$str.",";
 					$res=$friend->where($map)->save($maps);
 					if($res){
-						return 3;//添加成功
+						return 4;//添加成功
 					}else{
 						return 0;//添加失败
 					}
@@ -529,7 +529,7 @@ class MessageModel extends Model{
 				$res=$friend->where($map)->save($maps);
 
 				if($res){
-					return 3;//添加成功
+					return 4;//添加成功
 				}else{
 					return 0;//添加失败
 				}
@@ -541,7 +541,7 @@ class MessageModel extends Model{
 			$map['num']=0;
 			$res=$friend->add($map);
 			if($res){
-				return 3;//添加成功
+				return 4;//添加成功
 			}else{
 				return 0;//添加失败
 			}

@@ -7,49 +7,69 @@
  	<load href="__PUBLIC__/js/jquery.js"/>
 	<load href="__PUBLIC__/js/bootstrap.min.js"/>
 	<style>
-		
+		.container{
+			width:1000px;
+		}
 	</style>
 	
 </head>
 <body>
-	<b><a href="{:U('Home/Message/index')}">消息中心</a></b> <b><a href="{:U('Home/Users/index')}">个人中心</a></b><br><br><br>
 	<div class="container">
+		<div class="row">
+			<div class="col-sm-1">
+			</div>
+			<b><a href="{:U('Home/Message/index')}">消息中心</a></b> <b><a href="{:U('Home/Users/index')}">个人中心</a></b><br><br><br>
+		</div>
 			<div class="row">
-					<div class="left" class="col-sm-3">
-						<a href="{:U('Home/Message/index',['type'=>post])}">发新消息</a><br>
-						<a href="{:U('Home/Message/index',['type'=>sms,'action'=>'receive'])}">站内信</a>
+				<div class="col-sm-2" style="background:#F0F6F9;">
+					<ul class="nav nav-pills nav-stacked">
+						<li role="presentation"><a href="{:U('Home/Message/index',['type'=>post])}">发新消息</a></li>
+						<li role="presentation"><a href="{:U('Home/Message/index',['type'=>sms,'action'=>'receive'])}">站内信</a></li>
 						<if condition="$unread gt 0">
 							<span style="color:red;">({$unread})</span>
 						<esle/>
 
 						</if>
-						<br>
-						<a href="{:U('Home/Message/index',['type'=>notice])}">通知</a>
+						<li role="presentation"><a href="{:U('Home/Message/index',['type'=>notice])}">通知
 						<if condition="$noticenum gt 0">
 							<span>({$noticenum})</span>
 						<esle/>
 
-						</if><br>
-						<a href="{:U('Home/Message/index',['type'=>request])}">请求</a>
+						</if>
+						</a>
+						</li>
+						<li role="presentation"><a href="{:U('Home/Message/index',['type'=>request])}">请求
 						<if condition="count($friendcount) gt 0">
 							<span style="color:red;">({$friendcount})</span>
 						<esle/>
 
 						</if>
-						<br>
-					</div>
-				<div class="right"  class="col-sm-6">
+						</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-sm-1">
+				</div>
+				<div class="col-sm-6">
 					{//第一种可能：只输入了type参数和值为sms，没有action的值，就默认是收件箱}
 					<if condition="($_GET['type'] eq 'sms' AND (count($_GET) eq 1)) or ((count($_GET)) lt 1) or (($_GET['type'] eq 'sms') AND ($_GET['action'] eq 'receive')) or ($_GET['p'] AND count($_GET) eq 1)">
-					站内信(共{$count}条)1<br>
+					<b style="font-size:18px;">站内信(共{$count}条)</b><br>
 					<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'receive'])}">收件箱</a> <a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'send'])}">发件箱</a>
-					<a href="{:U('index.php/Home/Message/index/',['type'=>'search'])}">消息搜索</a>
+
+					<span style="float:right;"><a href="{:U('index.php/Home/Message/index/',['type'=>'search'])}">消息搜索</a></span>
+					<div>
 					<a id="tag" class="btn btn-info" onclick="tag()">标记已读</a>
  					<a id="del" class="btn btn-danger" onclick="return del()">删除</a>
 					<a onclick="choose()" class="btn btn-info">全选</a>
  					<a onclick="clear_all()" class="btn btn-info">清空</a>
  					<a onclick="fx()" class="btn btn-info">反选</a>
-
+ 					</div>
+					<if condition="$count eq 0">
+					<br>
+					<span style="font-size:18px;font-weight:bold;">
+					你的收件箱空空如也！
+					</span>
+					<else/>
 					<table border=1>
 						<tr>
 							<th></th>
@@ -77,10 +97,11 @@
 						</foreach>
 					</table>
 					{$show}
+					</if>
 
 					{//第二种可能：输入了type参数和值，action的值为send，就是发件箱}
 					<elseif condition="($_GET['type'] eq 'sms') AND ($_GET['action'] eq 'send')" />
-					站内信(共{$count}条)2<br>
+					站内信(共{$count}条)<br>
 					<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'receive'])}">收件箱</a> <a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'send'])}">发件箱</a>
 					<a href="{:U('index.php/Home/Message/index/',['type'=>'search'])}">消息搜索</a>
  					<a id="del" class="btn btn-danger" onclick="return del()">删除</a>
@@ -289,7 +310,7 @@
 				</div>
 				
 
-					<div class="col-sm-3">
+					<div class="col-sm-2">
 					</div>
 			</div>
 	</div>
