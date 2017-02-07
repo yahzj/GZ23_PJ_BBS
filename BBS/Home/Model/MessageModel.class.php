@@ -369,6 +369,7 @@ class MessageModel extends Model{
 			return 0;//用户在地址栏乱搞的id
 		}
 		$id=I('get.id');
+		
 		//用户传上来了id，就要判断这个id是否在待添加好友中
 		if(in_array($id,$friendarr)){
 			//status等于1就是接受添加，等于0是拒绝添加。
@@ -396,7 +397,9 @@ class MessageModel extends Model{
 						//如果该用户之前没有好友，那么就要在前面加多一个逗号。再放回去，前面有逗号是规定好了的。
 						$strs=','.$friendlist[0]['friend'].$id.',';
 					}
-					
+					$checkid['uid']=['eq',$id];
+					$checklist=$friend->where($checkid)->select();
+					dump($checklist);
 					//准备好添加成功后要发送的系统文字消息
 					$addstr="添加好友成功";
 					$agreestr="已同意你的好友请求";
@@ -418,14 +421,33 @@ class MessageModel extends Model{
 						//将好友数量+1
 						$sql = "update `mybbs_friend` set `num` = `num`+1 where uid = {$nameid}";
 						$res += $pdo->exec($sql);
-						//0表示系统，在用户列表是没有的，
+						//0表示系统，在用户列表是没有的，是系统发送给申请者添加好友成功消息的。
 						$sql = "insert into `mybbs_message`(`senderid`,`receiverid`,`title`,`content`) values('0','".$id."','".$addstr."','".$users." ".$agreestr."')";
 						$res += $pdo->exec($sql);
+						//处理申请者这边的结果
+						if($checklist[0]['uid']){
+							if($checklist[0]['friend']){
+								dump($checklist);
+								$addid=$checklist[0]['friend'].$nameid.",";
+								$sql = "update `mybbs_friend` set `friend` = '".$addid."',`num`=`num`+1 where uid = {$id}";
+								$res += $pdo->exec($sql);
+							}else{
+								$addid=",".$nameid.",";
+								$sql = "update `mybbs_friend` set `friend` = '".$addid."',`num`=`num`+1 where uid = {$id}";
+								$res += $pdo->exec($sql);
+							}
+							
+
+						}else{
+							$addid=",".$nameid.",";
+							$sql = "insert into `mybbs_friend`(`uid`,`friend`,`num`) values('$id','$addid','1')";
+							$res += $pdo->exec($sql);
+						}
 						//将更新后的待添加好友数据库更新。
 						$sql = "update `mybbs_friend` set `waitfriend` = '".$str."' where uid = {$nameid}";
 						$res += $pdo->exec($sql);
 						//判断上面的是不是都执行成功了，是的话就确定，否则就回滚恢复原样。
-						if( $res > 3 ){
+						if( $res > 4 ){
 							//确认
 							$pdo->commit();
 							return 3;//添加好友成功，删除等待添加好友也成功。
