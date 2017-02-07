@@ -94,8 +94,8 @@
 	 			</div>
 	 			<hr>
 	 			<div>
-	 				<span class="label label-info">等级</span>&nbsp;&nbsp;&nbsp;<span class="badge"><b>8</b></span>&nbsp;&nbsp;&nbsp;
-					<span class="label label-warning">积分</span>&nbsp;&nbsp;&nbsp;<span class="badge"><b>8888</b></span>
+	 				<span class="label label-info">等级</span>&nbsp;&nbsp;&nbsp;<span class="badge"><b>{$userList['integral']/10}</b></span>&nbsp;&nbsp;&nbsp;
+					<span class="label label-warning">积分</span>&nbsp;&nbsp;&nbsp;<span class="badge"><b>{$userList['integral']}</b></span>
 	 			</div>
 	 		</td>
 	 		<td class='td'style="word-break:break-all">
@@ -112,8 +112,7 @@
 	 			<hr>
 	 			<div><small>{$list['content']}</small></div>
 	 			<hr>
-	 			<div><b><small>附件</small></b></div>
-	 			<hr>
+	 			
 	 			<div>
 	 				<div><small>回帖数： <span class="badge">{$totalRow}</span>&nbsp;&nbsp;&nbsp;<b onclick='sendfun()' id='send'>回复</b></small></div><br>
 	 				<!-- 文本编辑器 -->
