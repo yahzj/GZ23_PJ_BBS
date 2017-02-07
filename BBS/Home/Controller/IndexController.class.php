@@ -3,6 +3,7 @@ namespace Home\Controller;
 use Think\Controller;
 class IndexController extends EmptyController {
     public function index(){
+    	Everyday('daily_visitors');
     	$sections=D('Admin/sections');
     	// 输出所有顶级版块
     	$map['parent_id']=0;

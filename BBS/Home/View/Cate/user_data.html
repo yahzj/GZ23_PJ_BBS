@@ -1,7 +1,7 @@
 <if  condition="land_user()">
 	<div id="um">
 		<div class="avt">
-			<a href="#"><img src="__ROOT__/Uploads/images/new{$mybbs_home[0]['image']}" ></a>
+			<a href="#"><img src="__ROOT__/Uploads/images/new{$mybbs_home[0]['image']}" alt="暂无头像"></a>
 		</div>
 		<p>
 			<strong class="vwmy"><a href="{:U('users/index')}" target="_blank" title="访问我的空间">{$mybbs_home[0]['username']}</a></strong>
@@ -11,7 +11,7 @@
 		</p>
 		<p>
 			<a href="{:U('users/index')}" id="extcreditmenu" class="showmenu">积分:{$mybbs_home[0]['integral']}</a>
-			<span class="pipe">|</span><a href="{:U('users/index')}" id="g_upmine" class="showmenu" initialized="true">用户组: 现在不是Lv2</a>
+			<span class="pipe">|</span><a href="{:U('users/index')}" id="g_upmine" class="showmenu" initialized="true">用户组: 正常用户</a>
 		</p>
 	</div>
 <else />

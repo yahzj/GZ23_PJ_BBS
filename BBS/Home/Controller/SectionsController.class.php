@@ -119,11 +119,7 @@ class SectionsController extends EmptyController {
     			$res=$sub->add();
 
                 $data=Everyday('subject_num');
-                dump($data);
-                // $data['subject_num']+=1;
-                // $Everyday=D('admin/Everyday');
-                // $where['to_date']=date('Y-m-d');
-                // $Everyday->where($where)->save($data);
+                // dump($data);
 
 
     			$this->success('发表新主题成功，正在跳转...',U('index',"s={$post['section_id']}"),5);

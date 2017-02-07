@@ -39,7 +39,8 @@ class UsersController extends EmptyController{
 			$this->imgUpload();//执行文件上传
 		}
 		$res=$user->pro_add();//执行数据处理	
-		if($res){        
+		if($res){ 
+			Everyday('registered_users');       
  	  		return $this->success('新增成功',U('Home/login/login'),1);   
 		}else{
             // 如果验证失败，则显示错误提示

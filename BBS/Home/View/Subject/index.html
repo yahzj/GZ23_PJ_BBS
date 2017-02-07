@@ -1,11 +1,11 @@
-﻿<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>帖子</title>
-	<load href="__PUBLIC__/css/bootstrap.min.css"/>
-	<load href="__PUBLIC__/js/jquery.js"/>
-	<load href="__PUBLIC__/js/bootstrap.min.js"/>
+﻿<extend name='./public/index/Template.html'/>
+<block name='path'>
+</block>
+<block name='css'>
+
+	<!-- <load href="__PUBLIC__/css/bootstrap.min.css"/> -->
+	<!-- <load href="__PUBLIC__/js/jquery.js"/> -->
+	<!-- <load href="__PUBLIC__/js/bootstrap.min.js"/> -->
 	<!-- 文本编辑器 -->
 	<style>
 		.table{
@@ -15,11 +15,10 @@
 			
 		}
 		.td{
-			
 			border-left:1px solid #fff;
 			border-right:1px solid #fff;
 		}
-		#btn{
+		#btn1{
 			width:40px;
 			height:40px;
 			border-radius:50%;
@@ -53,10 +52,11 @@
 		}
 	
 	</style>
-</head>
-<body>
+</block>
+<block name='main'>
 	<!-- 跳转按钮开始 -->
-	<button type="button" class="btn btn-success" id='btn' onclick='shows()'><span class="glyphicon glyphicon-plus" aria-hidden="true" id='jia'></span></button>
+	<a class="btn btn-success" id='btn1' onclick='shows()'>
+	<span class="glyphicon glyphicon-plus" aria-hidden="true" id='jia'></span></a>
 	<!-- 跳转弹出框开始 -->
 		<div id='show'>
 			<div class="panel panel-default">
@@ -198,7 +198,6 @@
 	
 	<!-- 快速发布回复 -->
 
-</body>
 <script>
 	// 将数字按钮进行包裹
 	$('#btnBox').children().children().unwrap().wrap('<li></li>').parent().wrapAll('<ul class="pagination pagination-sm"></ul>');
@@ -382,4 +381,4 @@
 	//=========================启动输入事件。触发发布按钮开启================================
 </script>
 
-</html>
+</block>

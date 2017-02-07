@@ -1,9 +1,11 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<load href="__PUBLIC__/css/bootstrap.min.css"/>
+<extend name='./public/index/Template.html'/>
+<block name='path'>
+		<li><a href="{:U('index/index')}">首页</a></li>
+		<li><a href="{:U('Message/index')}">消息中心</a></li>
+		<li><a href="{:U('/Users/index')}">个人中心</a></li>
+</block>
+<block name='css'>
+	<!-- <load href="__PUBLIC__/css/bootstrap.min.css"/> -->
  	<load href="__PUBLIC__/js/jquery.js"/>
 	<load href="__PUBLIC__/js/bootstrap.min.js"/>
 	<style>
@@ -15,19 +17,15 @@
 		}
 	</style>
 	
-</head>
-<body>
+</block>
+<block name='main'>
 	<div class="container">
-		<div class="row">
-			<div class="col-sm-1">
-			</div>
-			<b><a href="{:U('Home/Message/index')}">消息中心</a></b> <b><a href="{:U('Home/Users/index')}">个人中心</a></b><br><br><br>
-		</div>
+
 			<div class="row">
 				<div class="col-sm-2" style="background:#F0F6F9;">
 					<ul class="nav nav-pills nav-stacked">
-						<li role="presentation"><a href="{:U('Home/Message/index',['type'=>post])}">发新消息</a></li>
-						<li role="presentation"><a href="{:U('Home/Message/index',['type'=>sms,'action'=>'receive'])}">站内信
+						<li role="presentation"><a href="{:U('/Message/index',['type'=>post])}">发新消息</a></li>
+						<li role="presentation"><a href="{:U('/Message/index',['type'=>sms,'action'=>'receive'])}">站内信
 						<if condition="$unread gt 0">
 							<span style="color:red;">({$unread})</span>
 						<esle/>
@@ -35,7 +33,7 @@
 						</if>
 						</a>
 						</li>
-						<li role="presentation"><a href="{:U('Home/Message/index',['type'=>notice])}">通知
+						<li role="presentation"><a href="{:U('/Message/index',['type'=>notice])}">通知
 						<if condition="$noticenum gt 0">
 							<span>({$noticenum})</span>
 						<esle/>
@@ -43,7 +41,7 @@
 						</if>
 						</a>
 						</li>
-						<li role="presentation"><a href="{:U('Home/Message/index',['type'=>request])}">请求
+						<li role="presentation"><a href="{:U('/Message/index',['type'=>request])}">请求
 						<if condition="count($friendcount) gt 0">
 							<span style="color:red;">({$friendcount})</span>
 						<esle/>
@@ -58,7 +56,7 @@
 				<div class="col-sm-6">
 					{//第一种可能：只输入了type参数和值为sms，没有action的值，就默认是收件箱}
 					<if condition="($_GET['type'] eq 'sms' AND (count($_GET) eq 1)) or ((count($_GET)) lt 1) or (($_GET['type'] eq 'sms') AND ($_GET['action'] eq 'receive')) or ($_GET['p'] AND count($_GET) eq 1)">
-					<b style="font-size:18px;">站内信(共{$count}条)</b><br>
+					<h2>站内信(共{$count}条)</h2>
 					<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'receive'])}">收件箱</a> <a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'send'])}">发件箱</a>
 
 					<span style="float:right;"><a href="{:U('index.php/Home/Message/index/',['type'=>'search'])}">消息搜索</a></span>
@@ -155,7 +153,7 @@
 
 					{//第三种可能：只输入了type参数和值为notice，就是通知页面}
 					<elseif condition="($_GET['type'] eq 'notice')" />
-					通知(共{$count}条)
+					<h2>通知(共{$count}条)</h2>
 					<table border=1>
 						<tr style="text-align:center;">
 							<th>标题</th>
@@ -330,7 +328,6 @@
 					</div>
 			</div>
 	</div>
-</body>
 <script>
 	function choose(){
 		// each 就是循环
@@ -434,4 +431,4 @@
 	
 
 </script>
-</html>
+</block>
