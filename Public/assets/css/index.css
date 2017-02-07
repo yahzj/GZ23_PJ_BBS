@@ -174,3 +174,8 @@
 		margin:10px;
 	}
 	.tab-content .tab-pane ul li{margin-right:25px;}
+
+	ul.linklist li{
+    display:block;
+    float:left;
+}

@@ -106,6 +106,7 @@ class SectionsController extends EmptyController {
 	];
     	// 获取post，并放入用户信息
     	$post=I('post.');
+        $post['content']=str_replace(['&lt;','&gt;'],['<','>'],$post['content']);
     	// dump($post);
     	$session=I('session.mybbs_home');
     	// dump($session);

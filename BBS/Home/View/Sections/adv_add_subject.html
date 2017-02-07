@@ -10,7 +10,7 @@
 		<script charset="utf-8" src="__PUBLIC__/edit/lang/zh-CN.js"></script>
 		<script>
 		        KindEditor.ready(function(K) {
-		                window.editor = K.create('#editor_id');
+		                // window.editor = K.create('#editor_id');
 		        });
 		</script>
 		<style>
@@ -36,11 +36,167 @@
 			<div class="col-md-11">
 				<input type="text" class="form-control" name="name" placeholder="输入标题">
 			</div>
-			<div class="col-md-12">
+			<!-- 文本编辑器 -->
+	 				<div id='send_show' style="word-break:break-all">
+	 					<div class="btn-group btn-group-xs" role="group" aria-label="...">
+						  <button type="button" class="btn btn-default" id='font_36'><small><b>36</b></small></button>
+						  <button type="button" class="btn btn-default" id='font_24'><small><b>24</b></small></button>
+						  <button type="button" class="btn btn-default" id='font_12'><small><b>12</b></small></button>
+						  <button type="button" class="btn btn-default" id='cou'><small><b>粗</b></small></button>
+						  <button type="button" class="btn btn-default" id='xie'><small><b>斜</b></small></button>
+						  <button type="button" class="btn btn-default" id='hua'><small><b>划</b></small></button>
+						  <button type="button" class="btn btn-default" id='red'><small><b>红</b></small></button>
+						  <button type="button" class="btn btn-default" id='green'><small><b>绿</b></small></button>
+						  <button type="button" class="btn btn-default" id='blue'><small><b>蓝</b></small></button>
+						  <button type="button" class="btn btn-default" id='black'><small><b>黑</b></small></button>
+
+						</div><br><br>
+						<div>
+		 					<textarea class="form-control" rows="3" id='text_show' style='display:none;' name="content"></textarea>
+							<textarea class="form-control" rows="3" id='text'  placeholder="输入内容"></textarea><br>
+				 		</div>
+				 			<input type="hidden" name='cardid' value="{$list['id']}">
+				 			<input type="hidden" name='floor' value="{$totalRow+1}">
+				 			<input type="hidden" name='authorid' value="{$userList['id']}">
+				 			<input type="hidden" name='uid' value="{$followsid}">
+						<div class="btn-group btn-group-sm" role="group" aria-label="...">
+						</div>
+					</div>
+	 				<!-- 文本编辑器 -->
+<!-- 			<div class="col-md-12">
 				<textarea rows="3" name="content" placeholder="输入内容" id="editor_id"></textarea>
-			</div>
+			</div> -->
 			<center>
-			<input type="submit" value="发布新主题" class="btn btn-default">
+			<input type="submit" value="发布新主题" class="btn btn-default" id='sub' disabled >
 		</div>
 	</form>
+	<script>
+			//============================w文本编辑器特效=============================================
+
+	var font_36=document.getElementById('font_36');
+	var text=document.getElementById('text');
+	var text_show=document.getElementById('text_show');
+	var cc=document.getElementById('cc');
+	var size=null;
+	var cous=true;
+	var xies=true;
+	var huas=true;
+	var a=null;
+	//点击设置36号字体
+	font_36.onclick=function(){
+		font_36.style.background='#ddd';
+		font_24.style.background='#fff';
+		font_12.style.background='#fff';
+		text.style.fontSize='36px';
+	};
+	//点击设置24号字体
+	font_24.onclick=function(){
+		font_36.style.background='#fff';
+		font_24.style.background='#ddd';
+		font_12.style.background='#fff';
+		text.style.fontSize='24px';
+	};
+	//点击设置12号字体
+	font_12.onclick=function(){
+		font_36.style.background='#fff';
+		font_24.style.background='#fff';
+		font_12.style.background='#ddd';
+		text.style.fontSize='12px';
+		
+	};
+	//点击设置粗体
+	cou.onclick=function(){
+		if(cous){
+			cou.style.background='#ddd';
+			text.style.fontWeight='bold';
+			cous=false;
+		}else{
+			cou.style.background='#fff';
+			text.style.fontWeight='normal';
+			cous=true;
+		}
+	};
+	//点击设置斜体
+	xie.onclick=function(){
+		if(xies){
+			xie.style.background='#ddd';
+			text.style.fontStyle='italic';
+			xies=false;
+		}else{
+			xie.style.background='#fff';
+			text.style.fontStyle='normal';
+			xies=true;
+		}
+		
+		
+	};
+	//点击设置下划线
+	hua.onclick=function(){
+		if(huas){
+			hua.style.background='#ddd';
+			text.style.textDecoration='underline';
+			huas=false;
+		}else{
+			hua.style.background='#fff';
+			text.style.textDecoration='none';
+			huas=true;
+		}
+		
+		
+	};
+	//点击设置红色
+	red.onclick=function(){
+		
+			red.style.background='#ddd';
+			green.style.background='#fff';
+			blue.style.background='#fff';
+			black.style.background='#fff';
+			text.style.color='red';
+	};
+	//点击设置绿色
+	green.onclick=function(){
+		
+			green.style.background='#ddd';
+			blue.style.background='#fff';
+			red.style.background='#fff';
+			black.style.background='#fff';
+			text.style.color='green';
+	};
+	//点击设置蓝色
+	blue.onclick=function(){
+		
+			blue.style.background='#ddd';
+			green.style.background='#fff';
+			red.style.background='#fff';
+			black.style.background='#fff';
+			text.style.color='blue';
+	};
+	//点击设置黑色
+	black.onclick=function(){
+			black.style.background='#ddd';
+			blue.style.background='#fff';
+			green.style.background='#fff';
+			red.style.background='#fff';
+			text.style.color='black';
+	};
+	//获取css样式拼接上text里面的值，再放到text_show用于写入数据库
+	var stlcss='';
+	sub.onclick=function(){
+		a=text.value;
+		var stl=text.style.cssText;
+		stlcss="<span style='"+stl+"'>"+a+"</span>";
+		text_show.value=stlcss;
+	}
+	//=========================启动输入事件。触发发布按钮开启================================
+
+	text.oninput=function(){
+		if(!text.value){
+			sub.disabled=true;
+
+		}else{
+			sub.disabled=false;
+		}
+	}
+
+	</script>
 </block>

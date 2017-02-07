@@ -41,4 +41,9 @@ return array(
     'DATA_CACHE_KEY'        =>  '', // 缓存文件KEY (仅对File方式缓存有效)    
     'DATA_CACHE_SUBDIR'     =>  false,    // 使用子目录缓存 (自动根据缓存标识的哈希创建子目录)
     'DATA_PATH_LEVEL'       =>  1,        // 子目录缓存级别
+
+    /* 模板引擎设置 */
+    'TMPL_ACTION_ERROR'     =>  'Public/Tpl/dispatch_jump.tpl', // 默认错误跳转对应的模板文件
+    'TMPL_ACTION_SUCCESS'   =>  'Public/Tpl/dispatch_jump.tpl', // 默认成功跳转对应的模板文件
+    'TMPL_EXCEPTION_FILE'   =>  THINK_PATH.'Tpl/think_exception.tpl',// 异常页面的模板文件
     );
