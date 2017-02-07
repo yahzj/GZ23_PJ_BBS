@@ -7,7 +7,7 @@
 				<if condition="I('get.id') eq true">
 					<li role="presentation"><a href="{:U('index',['id'=>I('get.id'),'search'=>'new'])}" id='anew'>新帖</a><div class='new' id='new'></div></li>
 				<else/>
-				  <li role="presentation" class='active'><a href="{:U('index',['search'=>'new'])}">新帖</a><div class='new' id='new'></div></li>
+				  <li role="presentation"><a href="{:U('index',['search'=>'new'])}">新帖</a><div class='new' id='new'></div></li>
 				</if>
 				<if condition="I('get.id') eq true">
 				<li role="presentation"><a href="{:U('index',['id'=>I('get.id'),'search'=>'good'])}">最牛逼</a><div class='new' id='good'></div></li>
@@ -32,7 +32,11 @@
 						<if condition="$k lt 3">
 							<td><small><a href="{:U('Home/subject/index',['cid'=>$v['id']])}">{$v['name']}</a></small></td>
 							<td><small>{$v['addtime']}</small></td>
-							<td><small>{$v['floor']}<b><span style='color:red;font-size:20px;margin-left:10px;'>{$k+1}</span></b></small></td>
+							<if condition='empty($top)'>
+							<td><small>{$v['floor']}</small><b><span style='color:red;font-size:20px;margin-left:10px;'>{$k+1}</span></b></td>
+							<else/>
+							<td><small>{$v['floor']}</small></td>
+							</if>
 						<else/>
 							<td><small><a href="{:U('Home/subject/index',['cid'=>$v['id']])}">{$v['name']}</a></small></td>
 							<td><small>{$v['addtime']}</small></td>
@@ -40,6 +44,7 @@
 						</if>
 						</tr>
 					</foreach>
-				</table>				
+				</table>
+				<div id="btnBox" style='margin-left:50px;'>{$show}</div>				
 		</div>
 </block>

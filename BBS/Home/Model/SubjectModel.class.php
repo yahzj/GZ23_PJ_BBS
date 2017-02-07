@@ -79,7 +79,10 @@ class SubjectModel extends Model{
 				$map['id']=['eq',$data['cardid']];
 				$subject->where($map)->save($subdata);
 				//=============实例化subjiect类 将最回复人id 回复时间 楼层进行修改===========================================
+				//=============调用everyday函数 将当天的回复数量进行修改===========================================
+				Everyday('follow_num');
 
+				//=============调用everyday函数 将当天的回复数量进行修改===========================================
 				return '回复成功';
 				}else{
 				return false;//验证错误，返回错误信息;

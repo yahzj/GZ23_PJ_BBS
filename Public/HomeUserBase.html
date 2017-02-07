@@ -32,12 +32,12 @@
 								<div class="col-sm-6">
 							  		<ul class="list-group">
 		  								<li class="list-group-item">
-		  								等级
-		    							<span class="badge">14</span>
+		  								<small>等级</small>
+		    							<span class="badge"><small>青铜</small></span>
 		  								</li>
 		  								<li class="list-group-item">
-		  								积分
-		    							<span class="badge">14</span>
+		  								<small>积分</small>
+		    							<span class="badge"><small>{$list['integral']}</small></span>
 		  								</li>
 									</ul>
 							  	
@@ -85,8 +85,6 @@
 				<else/>
 				 	<a class="navbar-brand" href='{:U('upload')}'>个人档</a>
 				</if>
-					
-				 	
 				</nav>
 				<block name='center-content'>
 				<div class="panel panel-default">
@@ -111,6 +109,9 @@
 	</div>
 </body>
 <script>
-
+	// 将数字按钮进行包裹
+	$('#btnBox').children().children().unwrap().wrap('<li></li>').parent().wrapAll('<ul class="pagination pagination-sm"></ul>');
+	// 给当前页码高亮显示
+	$('#btnBox span').parent().addClass('active');
 </script>
 </html>

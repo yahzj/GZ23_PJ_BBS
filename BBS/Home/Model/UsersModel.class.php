@@ -67,7 +67,9 @@ class UsersModel extends Model{
 		//dump($list);
 		$subjectList=$this->findsub($id);//通过id找到该用户发的所有帖子
 		$data=['list'=>$list,
-			'subjectList'=>$subjectList,
+			'subjectList'=>$subjectList['subjectList'],//数据
+			'show'=>$subjectList['show'],//分页
+			'top'=>$subjectList['top'],//传參用来做判断。
 		];
 		return $data;//返回数据	
 
@@ -82,16 +84,27 @@ class UsersModel extends Model{
 	
 		switch (I('get.search')) {
 			case 'new':
-				$subjectList=$sub->where($map)->order('addtime desc')->limit(10)->select();
+				$subjectList['subjectList']=$sub->where($map)->order('addtime desc')->limit(10)->select();
 				return $subjectList;
 				break;
 			case 'good':
-				$subjectList=$sub->where($map)->order('floor desc')->limit(10)->select();
+				$subjectList['subjectList']=$sub->where($map)->order('floor desc')->limit(10)->select();
 				return $subjectList;
 				break;
 			case 'all':
 				$subjectList=$sub->where($map)->limit(10)->select();
-				return $subjectList;
+				//==============================分页===============================================
+				$totalRow=$sub->where($map)->count();//计算数据总行数
+				//echo "总行数".$totalRow;
+				$rows=10;//每页显示行数
+				$page=new \Think\Page($totalRow,$rows);//实例化分页类
+				$subjectList=$sub->where($map)->order('`addtime`')->limit($page->firstRow.",".$page->listRows)->select();//执行查询数据
+		//==============================分页===============================================
+				return [
+					'subjectList'=>$subjectList,
+					'show'=>$page->show(),
+					'top'=>'nothave',//传一个参数到前台用来做判断，让所有帖子那一栏不出现排名
+				];
 				break;
 			default:
 				
