@@ -134,9 +134,9 @@ class MessageController extends CommonController{
 		}elseif($res==2){
 			$this->error('暂无法添加，请稍后再试');
 		}elseif($res==4){
-			$this->success('拒绝成功！','http://localhost/obj2/GZ23_PJ_BBS/Home/Message/index/type/request.html');
+			$this->success('拒绝成功！',U('Home/Message/index',['type'=>'request']));
 		}else{
-			$this->success('添加好友成功！','http://localhost/obj2/GZ23_PJ_BBS/Home/Message/index/type/request.html');
+			$this->success('添加好友成功！',U('Home/Message/index',['type'=>'request']));
 			
 		}
 	}
@@ -156,7 +156,7 @@ class MessageController extends CommonController{
 		}elseif($res==9){
 			$this->error('你的昵称未完善！');
 		}elseif($res==10){
-			$this->error('你还没登录！正在跳转回登录页','http://localhost/obj2/GZ23_PJ_BBS/Home/login/login/');
+			$this->error('你还没登录！正在跳转回登录页',U('Home/login/login'));
 		}else{
 			$this->success('申请好友成功！');
 			
