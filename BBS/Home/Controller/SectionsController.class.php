@@ -118,7 +118,12 @@ class SectionsController extends EmptyController {
     	// dump($res);
     	if ($sub->validate($rules)->create($post)) {
     			$res=$sub->add();
-    			$this->success('发表新主题成功，正在跳转...',U('index',"s={$post['section_id']}"),5);   
+
+                Everyday();
+                $Everyday=D('admin/Everyday');
+                
+
+    			$this->success('发表新主题成功，正在跳转...',U('index',"s={$post['section_id']}"),5);
     		}else
     		{
     			$this->Error($sub->getError());

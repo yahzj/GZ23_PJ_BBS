@@ -42,3 +42,15 @@ function check(){
 		return 9;
 	}
 }
+
+//自动验证每日统计的日期
+function Everyday(){
+    $Everyday=D('admin/Everyday');
+    $map['to_date']=date('Y-m-d');
+    $data=$Everyday->where($map)->select();
+    dump($data);
+    if (empty($data)) {
+        $to_date['to_date']=date('Y-m-d');
+        $Everyday->add($to_date);
+    }
+}
