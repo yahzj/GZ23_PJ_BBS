@@ -39,11 +39,14 @@ class LoginController extends Controller {
          }
          $res=password_verify($post_userpass,$list[0]['userpass']);
          if($res){
-
          $list['landtime']=time();
          $list['login']='home';                     
-          session('mybbs_home', $list); 
-         	      return $this->success("登录成功！",$_SESSION['url']);
+         session('mybbs_home', $list); 
+
+        Everyday('member_num');
+
+            
+         return $this->success("登录成功！",$_SESSION['url']);
          }else{
                 return $this->Error('密码不正确',U('Login/login'));//验证错误，返回错误信息
          }

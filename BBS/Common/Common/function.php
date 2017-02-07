@@ -44,15 +44,16 @@ function check(){
 }
 
 //自动验证每日统计的日期
-function Everyday(){
+function Everyday($str){
     $Everyday=D('admin/Everyday');
     $map['to_date']=date('Y-m-d');
-    $data=$Everyday->where($map)->select();
+    $data=$Everyday->where($map)->find();
     if (empty($data)) {
         $to_date['to_date']=date('Y-m-d');
         $Everyday->add($to_date);
-        return ['daily_visitors'=>'0','member_num'=>'0','subject_num'=>'0','follow_num'=>'0','registered_users'=>'0'];
-    }else{
-    	return $data;
+        $data=['daily_visitors'=>'0','member_num'=>'0','subject_num'=>'0','follow_num'=>'0','registered_users'=>'0'];
     }
+    $data[$str]+=1;
+    $Everyday->where($map)->save($data);
+    return $data;
 }
