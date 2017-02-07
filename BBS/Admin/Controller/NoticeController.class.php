@@ -56,7 +56,6 @@ class NoticeController extends EmptyController
 	}
 	//用来跳转到add.html页面的。
 	public function add(){
-		dump($_SESSION);
 		$notice=D("notice");
 		//直接跳转到添加页面进行添加
 		$this->display();

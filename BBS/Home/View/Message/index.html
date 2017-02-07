@@ -10,6 +10,9 @@
 		.container{
 			width:1000px;
 		}
+		th{
+			text-align: center;
+		}
 	</style>
 	
 </head>
@@ -24,12 +27,14 @@
 				<div class="col-sm-2" style="background:#F0F6F9;">
 					<ul class="nav nav-pills nav-stacked">
 						<li role="presentation"><a href="{:U('Home/Message/index',['type'=>post])}">发新消息</a></li>
-						<li role="presentation"><a href="{:U('Home/Message/index',['type'=>sms,'action'=>'receive'])}">站内信</a></li>
+						<li role="presentation"><a href="{:U('Home/Message/index',['type'=>sms,'action'=>'receive'])}">站内信
 						<if condition="$unread gt 0">
 							<span style="color:red;">({$unread})</span>
 						<esle/>
 
 						</if>
+						</a>
+						</li>
 						<li role="presentation"><a href="{:U('Home/Message/index',['type'=>notice])}">通知
 						<if condition="$noticenum gt 0">
 							<span>({$noticenum})</span>
@@ -101,13 +106,23 @@
 
 					{//第二种可能：输入了type参数和值，action的值为send，就是发件箱}
 					<elseif condition="($_GET['type'] eq 'sms') AND ($_GET['action'] eq 'send')" />
-					站内信(共{$count}条)<br>
+					<b style="font-size:18px;">站内信(共{$count}条)</b><br>
 					<a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'receive'])}">收件箱</a> <a href="{:U('index.php/Home/Message/index',['type'=>'sms','action'=>'send'])}">发件箱</a>
-					<a href="{:U('index.php/Home/Message/index/',['type'=>'search'])}">消息搜索</a>
+
+					<span style="float:right;"><a href="{:U('index.php/Home/Message/index/',['type'=>'search'])}">消息搜索</a></span>
+					<div>
+					<a id="tag" class="btn btn-info" onclick="tag()">标记已读</a>
  					<a id="del" class="btn btn-danger" onclick="return del()">删除</a>
 					<a onclick="choose()" class="btn btn-info">全选</a>
  					<a onclick="clear_all()" class="btn btn-info">清空</a>
  					<a onclick="fx()" class="btn btn-info">反选</a>
+ 					</div>
+					<if condition="$count eq 0">
+					<br>
+					<span style="font-size:18px;font-weight:bold;">
+					你的发件箱空空如也！
+					</span>
+					<else/>
 
 					<table border=1>
 						<tr>
@@ -136,12 +151,13 @@
 					</foreach>
 					</table>
 					{$show}
+					</if>
 
 					{//第三种可能：只输入了type参数和值为notice，就是通知页面}
 					<elseif condition="($_GET['type'] eq 'notice')" />
 					通知(共{$count}条)
 					<table border=1>
-						<tr>
+						<tr style="text-align:center;">
 							<th>标题</th>
 							<th>内容</th>
 							<th>时间</th>
@@ -149,7 +165,7 @@
 						</tr>
 						<foreach name="list" key="key" item="val">
 								<tr>
-									<td><a href="{:U('index.php/Home/Message/index',['type'=>'notice','action'=>'info','titleid'=>$val['id']])}">{$val['title']}</a></td>
+									<td style="font-weight:bold;font-size:18px;">{$val['title']}</td>
 									<td>{$val['content']}</td>
 									<td>{$val['addtime']}</td>
 									<td style="color:red;">系统</td>
@@ -246,7 +262,7 @@
 					</form>
 
 					
-					{//第六种可能：参数为type值为info,就是回信页面，也是具体消息内容页面}
+					{//第六种可能：参数为type、值为info,就是回信页面，也是具体消息内容页面}
 					<elseif condition="($_GET['type'] eq 'sms') AND ($_GET['action'] eq 'info')" />
 					站内信(共{$count}条)
 

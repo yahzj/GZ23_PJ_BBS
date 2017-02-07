@@ -29,7 +29,6 @@ class MessageModel extends Model{
 			//没有搜索走这里。得到所有条数。
 			$totalRow=$this->count();
 		}
-		dump($totalRow);
 		//实例化空模型
 		$obj=D();
 		//联合查询users和message表。得到数据。$contentstr和$str是搜索的消息内容和消息状态条件。
